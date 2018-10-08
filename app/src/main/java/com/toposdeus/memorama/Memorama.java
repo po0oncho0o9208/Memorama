@@ -16,10 +16,22 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.util.Collections;
+
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
+    int imagenes[] = new int[]{R.drawable.avernom, R.drawable.brozom, R.drawable.camilasodim, R.drawable.cantinflasm,
+            R.drawable.capulinam, R.drawable.cardenasm, R.drawable.carmensalinasm, R.drawable.cepillinm, R.drawable.chabelom,
+            R.drawable.chapom, R.drawable.cuahutemocm, R.drawable.chicharitom, R.drawable.compayitom, R.drawable.derbezm,
+            R.drawable.danielbosognom, R.drawable.diegolunam, R.drawable.diegoriveram, R.drawable.donramonm, R.drawable.btnagregarback,
+            R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,
+            R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,
+            R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,
+            R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,
+            R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,};
     int mlargo, mancho;
     LinearLayout layout;
     Button botontemp;
+    int[] botones;
     String carta1 = null, carta2 = null;
     String cartas[] = new String[]{"hola", "adios", "viernes", "jueves", "helado", "topo", "hola", "adios", "viernes", "jueves", "helado", "topo"};
 
@@ -35,7 +47,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
         mlargo = 3;
         mancho = 4;
+        botones = new int[mancho * mlargo];
+        mostrarimagenes(mancho * mlargo);
         crearbotones();
+
 
     }
 
@@ -72,7 +87,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                     btnTag.setId(j + (i * mancho));
                     StateListDrawable states = new StateListDrawable();
                     //  int o = j + (i * 3);
-                    states.addState(new int[]{android.R.attr.state_enabled}, drawbg(getResources().getDrawable(R.drawable.ic_launcher_background), 60));
+                    states.addState(new int[]{android.R.attr.state_enabled}, drawbg(getResources().getDrawable(botones[j + (i * mancho)]), 0));
                     // states.addState(new int[]{android.R.attr.state_enabled}, drawbg(getResources().obtainTypedArray(
                     //      imagenes[nivel]).getDrawable(j + (i * 3)), j + (i * 3), 0));
                     //states.addState(new int[]{android.R.attr.state_enabled}, drawbg(resizeImagen(this, getResources().obtainTypedArray(
@@ -90,16 +105,19 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                             //   Metodos.preferenciavibrar(Nivel.this, 50);
                             // Metodos.Guardarint(Nivel.this, definirpregunta, getString(R.string.quiz));
                             if (carta1 == null) {
-                                btnTag.setBackground(getResources().getDrawable(R.drawable.ic_launcher_foreground));
+                                btnTag.setBackground(getResources().getDrawable(R.drawable.btnagregarunenabled
+                                ));
                                 // btnTag.setText("" + (finalJ + (finalI * mancho) + 1));
                                 btnTag.setText(cartas[finalJ + (finalI * mancho)]);
                                 carta1 = cartas[finalJ + (finalI * mancho)];
                                 botontemp = btnTag;
+                                btnTag.setEnabled(false);
                             } else {
-                                btnTag.setBackground(getResources().getDrawable(R.drawable.ic_launcher_foreground));
+                                btnTag.setBackground(getResources().getDrawable(R.drawable.btnagregarunenabled));
                                 // btnTag.setText("" + (finalJ + (finalI * mancho) + 1));
                                 btnTag.setText(cartas[finalJ + (finalI * mancho)]);
                                 carta2 = cartas[finalJ + (finalI * mancho)];
+
 
                                 if (carta1 == carta2) {
                                     Toast.makeText(Memorama.this, "exito", Toast.LENGTH_LONG).show();
@@ -110,10 +128,11 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                 } else {
                                     Toast.makeText(Memorama.this, "fracaso", Toast.LENGTH_LONG).show();
                                     carta1 = null;
-                                    botontemp.setBackground(getResources().getDrawable(R.drawable.ic_launcher_background));
+                                    botontemp.setBackground(getResources().getDrawable(R.drawable.btnagregarback));
                                     botontemp.setText("");
+                                    botontemp.setEnabled(true);
                                     carta2 = null;
-                                    btnTag.setBackground(getResources().getDrawable(R.drawable.ic_launcher_background));
+                                    btnTag.setBackground(getResources().getDrawable(R.drawable.btnagregarback));
                                     btnTag.setText("");
                                 }
                             }
@@ -155,4 +174,19 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void mostrarimagenes(int total) {
+
+        for (int i = 0; i < total / 2; ) {
+            botones[i] = imagenes[i];
+            i++;
+
+        }
+        for (int i = (total / 2); i < total; ) {
+            botones[i] = imagenes[i - (total / 2)];
+            i++;
+        }
+    }
+
+
 }
