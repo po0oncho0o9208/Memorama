@@ -4,22 +4,29 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Collections;
 
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
-    int imagenes[] = new int[]{R.drawable.avernom, R.drawable.brozom, R.drawable.camilasodim, R.drawable.cantinflasm,
+    int imagenest[] = new int[]{R.drawable.avernom, R.drawable.brozom, R.drawable.camilasodim, R.drawable.cantinflasm,
             R.drawable.capulinam, R.drawable.cardenasm, R.drawable.carmensalinasm, R.drawable.cepillinm, R.drawable.chabelom,
             R.drawable.chapom, R.drawable.cuahutemocm, R.drawable.chicharitom, R.drawable.compayitom, R.drawable.derbezm,
             R.drawable.danielbosognom, R.drawable.diegolunam, R.drawable.diegoriveram, R.drawable.donramonm, R.drawable.btnagregarback,
@@ -30,9 +37,14 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,};
     int mlargo, mancho;
     LinearLayout layout;
-    Button botontemp;
-    int[] botones;
-    String carta1 = null, carta2 = null;
+    ImageView botontemp;
+    int[] botonesimg;
+    int ganador = 0;
+    ImageView[] botones;
+    TextView txtpunt, txtintent;
+    int intentos = 0;
+    int carta1 = 0;
+    int carta2 = 0;
     String cartas[] = new String[]{"hola", "adios", "viernes", "jueves", "helado", "topo", "hola", "adios", "viernes", "jueves", "helado", "topo"};
 
     @Override
@@ -43,14 +55,32 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         setContentView(R.layout.activity_memorama);
+        txtpunt = findViewById(R.id.txtpunt);
+        txtintent = findViewById(R.id.txtintent);
         layout = findViewById(R.id.layoutmemo);
-
-        mlargo = 3;
-        mancho = 4;
-        botones = new int[mancho * mlargo];
+        String cadena = getIntent().getExtras().getString("cadena");
+        txtpunt.setText("Puntuacion 0");
+        txtintent.setText("Intentos 0");
+        mlargo = Integer.parseInt(String.valueOf(cadena.charAt(0)));
+        mancho = Integer.parseInt(String.valueOf(cadena.charAt(2)));
+        botonesimg = new int[mancho * mlargo];
+        botones = new ImageView[mancho * mlargo];
         mostrarimagenes(mancho * mlargo);
         crearbotones();
+        for (int i = 0; i < botones.length; i++) {
+            botones[i].setEnabled(false);
+            botones[i].setBackground(getResources().getDrawable(botonesimg[i]));
+        }
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < botones.length; i++) {
+                    botones[i].setEnabled(true);
+                    botones[i].setBackground(getResources().getDrawable(R.drawable.fondomemo));
+                }
+            }
+        }, 3000);
 
     }
 
@@ -64,7 +94,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         // int ancho = metrics.widthPixels / (100) * 20;
 
-        int anchobtn = ((metrics.widthPixels / (mancho)) / 100) * 90;
+        int anchobtn = ((metrics.widthPixels / (mancho)) / 100) * 99;
 
         for (int i = 0; i <= (mlargo); i++) {
             LinearLayout row = new LinearLayout(this);
@@ -72,27 +102,29 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                     LinearLayout.LayoutParams.MATCH_PARENT));
             LinearLayout.LayoutParams lll = (LinearLayout.LayoutParams) row.getLayoutParams();
             lll.gravity = Gravity.CENTER;
-            lll.setMargins(0, anchobtn / 5, 0, 0);
+            lll.setMargins(0, (metrics.widthPixels / mancho) / 5, 0, 0);
             row.setLayoutParams(lll);
 
             for (int j = 0; j < mancho; j++) {
 
                 if ((j + (i * mancho)) <= (mancho * mlargo) - 1) {
-                    final Button btnTag = new Button(this);
+                    final ImageView btnTag = new ImageView(this);
                     btnTag.setLayoutParams(new LinearLayout.LayoutParams(anchobtn, anchobtn));
                     LinearLayout.LayoutParams lllp = (LinearLayout.LayoutParams) btnTag.getLayoutParams();
                     lllp.gravity = Gravity.CENTER;
-                    lllp.setMargins((metrics.widthPixels / (100) * mancho), 0, (metrics.widthPixels / (100) * mancho), 0);
+                    lllp.setMargins((metrics.widthPixels / mancho) / 10, 0, (metrics.widthPixels / mancho) / 10, 0);
                     btnTag.setLayoutParams(lllp);
                     btnTag.setId(j + (i * mancho));
-                    StateListDrawable states = new StateListDrawable();
+                    botones[j + (i * mancho)] = btnTag;
+                    // StateListDrawable states = new StateListDrawable();
                     //  int o = j + (i * 3);
-                    states.addState(new int[]{android.R.attr.state_enabled}, drawbg(getResources().getDrawable(botones[j + (i * mancho)]), 0));
+                    //  states.addState(new int[]{android.R.attr.state_enabled}, drawbg(getResources().getDrawable(R.drawable.fondomemo), 0));
+                    //  states.addState(new int[]{android.R.attr.state_pressed}, drawbg(getResources().getDrawable(botonesimg[j + (i * mancho)]), 0));
                     // states.addState(new int[]{android.R.attr.state_enabled}, drawbg(getResources().obtainTypedArray(
                     //      imagenes[nivel]).getDrawable(j + (i * 3)), j + (i * 3), 0));
                     //states.addState(new int[]{android.R.attr.state_enabled}, drawbg(resizeImagen(this, getResources().obtainTypedArray(
                     //  imagenes[nivel]).getResourceId(j + (i * 3), 1), ancho, ancho), j + (i * 3), 0));
-                    btnTag.setBackground(states);
+                    //btnTag.setBackground(states);
                     final int finalJ = j;
                     final int finalI = i;
                     btnTag.setOnClickListener(new View.OnClickListener() {
@@ -104,36 +136,49 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                             //   Metodos.preferenciasonido(Nivel.this, R.raw.click);
                             //   Metodos.preferenciavibrar(Nivel.this, 50);
                             // Metodos.Guardarint(Nivel.this, definirpregunta, getString(R.string.quiz));
-                            if (carta1 == null) {
-                                btnTag.setBackground(getResources().getDrawable(R.drawable.btnagregarunenabled
+                            if (carta1 == 0) {
+                                btnTag.setBackground(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]
                                 ));
                                 // btnTag.setText("" + (finalJ + (finalI * mancho) + 1));
-                                btnTag.setText(cartas[finalJ + (finalI * mancho)]);
-                                carta1 = cartas[finalJ + (finalI * mancho)];
+                                carta1 = botonesimg[finalJ + (finalI * mancho)];
                                 botontemp = btnTag;
                                 btnTag.setEnabled(false);
                             } else {
-                                btnTag.setBackground(getResources().getDrawable(R.drawable.btnagregarunenabled));
+                                btnTag.setEnabled(false);
+                                new Hilo().execute();
+                                btnTag.setBackground(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]));
                                 // btnTag.setText("" + (finalJ + (finalI * mancho) + 1));
-                                btnTag.setText(cartas[finalJ + (finalI * mancho)]);
-                                carta2 = cartas[finalJ + (finalI * mancho)];
-
-
+                                // btnTag.setText(cartas[finalJ + (finalI * mancho)]);
+                                carta2 = botonesimg[finalJ + (finalI * mancho)];
+                                intentos++;
+                                txtintent.setText("Intentos " + intentos);
                                 if (carta1 == carta2) {
-                                    Toast.makeText(Memorama.this, "exito", Toast.LENGTH_LONG).show();
-                                    btnTag.setEnabled(false);
+                                    Animation mover = AnimationUtils
+                                            .loadAnimation(Memorama.this, R.anim.agrandar);
+                                    botontemp.startAnimation(mover);
+                                    btnTag.startAnimation(mover);
+                                    ganador++;
+                                    txtpunt.setText("Puntuacion " + ganador);
                                     botontemp.setEnabled(false);
-                                    carta1 = null;
-                                    carta2 = null;
+                                    carta1 = 0;
+                                    carta2 = 0;
                                 } else {
-                                    Toast.makeText(Memorama.this, "fracaso", Toast.LENGTH_LONG).show();
-                                    carta1 = null;
-                                    botontemp.setBackground(getResources().getDrawable(R.drawable.btnagregarback));
-                                    botontemp.setText("");
-                                    botontemp.setEnabled(true);
-                                    carta2 = null;
-                                    btnTag.setBackground(getResources().getDrawable(R.drawable.btnagregarback));
-                                    btnTag.setText("");
+                                    Animation mover = AnimationUtils
+                                            .loadAnimation(Memorama.this, R.anim.vibrarbotones);
+                                    botontemp.startAnimation(mover);
+                                    btnTag.startAnimation(mover);
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            botontemp.setBackground(getResources().getDrawable(R.drawable.fondomemo));
+                                            btnTag.setBackground(getResources().getDrawable(R.drawable.fondomemo));
+                                            botontemp.setEnabled(true);
+                                            btnTag.setEnabled(true);
+                                        }
+                                    }, 700);
+                                    carta1 = 0;
+                                    carta2 = 0;
+                                    // btnTag.setBackground(getResources().getDrawable(R.drawable.btnagregarback));
                                 }
                             }
                         }
@@ -176,17 +221,62 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void mostrarimagenes(int total) {
-
         for (int i = 0; i < total / 2; ) {
-            botones[i] = imagenes[i];
+            botonesimg[i] = imagenest[i];
             i++;
 
         }
         for (int i = (total / 2); i < total; ) {
-            botones[i] = imagenes[i - (total / 2)];
+            botonesimg[i] = imagenest[i - (total / 2)];
             i++;
         }
+        for (int i = 0; i < total; i++) {
+            int index = (int) (Math.random() * total);
+            int btntemp = botonesimg[i];
+            botonesimg[i] = botonesimg[index];
+            botonesimg[index] = btntemp;
+        }
+
     }
 
 
+    class Hilo extends AsyncTask<Void, Integer, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                Thread.sleep(300);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+
+            if (ganador == botones.length / 2) {
+
+                Toast.makeText(Memorama.this, "ganaste", Toast.LENGTH_LONG).show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(Memorama.this, Menu.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }, 2500);
+            }
+        }
+    }
 }
