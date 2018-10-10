@@ -1,5 +1,6 @@
 package com.toposdeus.memorama;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -300,18 +301,43 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 int minutos = tiempo / 60;
                 int segundos = tiempo - (minutos * 60);
 
+                final AlertDialog.Builder builder = new AlertDialog.Builder(Memorama.this);
+                LayoutInflater inflater = getLayoutInflater();
+                View vi = inflater.inflate(R.layout.layout_victoria, null);
+                builder.setView(vi);
+                final AlertDialog dialog = builder.create();
+                dialog.setCancelable(false);
+                TextView texto = vi.findViewById(R.id.txtvictoria);
+                String ssegundos;
+                String sminutos;
+                if (segundos < 10) {
+                    ssegundos = "0" + segundos;
+                } else {
+                    ssegundos = "" + segundos;
+                }
+                if (minutos < 10) {
+                    sminutos = "0" + minutos;
+                } else {
+                    sminutos = "" + minutos;
+                }
+                texto.setText("Tiempo: " + sminutos + ":" + ssegundos);
 
-                Toast.makeText(Memorama.this, "Tiempo: " + minutos + ":" + segundos,
-                        Toast.LENGTH_SHORT).show();
+                Button botonsi = vi.findViewById(R.id.botonok);
+                botonsi.setTextSize(10);
+                botonsi.setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(Memorama.this, Menu.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+                );
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(Memorama.this, Menu.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                }, 2500);
+                dialog.show();
+
+
             }
         }
     }
