@@ -4,11 +4,11 @@
         <item>Selecciona...</item>
         <item>2x2</item>
         <item>2x3</item>
-        <item>4x2</item>
         <item>4x3</item>
         <item>4x4</item>
         <item>5x4</item>
-        <item>6x5</item>
-        <item>7x6</item>
+        <item>6x6</item>
+        <item>7x7</item>
+        <item>8x8</item>
     </string-array>
 </resources>

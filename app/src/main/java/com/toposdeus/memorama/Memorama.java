@@ -7,6 +7,7 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,15 +39,18 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,};
     int mlargo, mancho;
     LinearLayout layout;
+    Chronometer crono;
     ImageView botontemp;
     int[] botonesimg;
+    boolean[] contestados;
     int ganador = 0;
     ImageView[] botones;
     TextView txtpunt, txtintent;
     int intentos = 0;
     int carta1 = 0;
     int carta2 = 0;
-    String cartas[] = new String[]{"hola", "adios", "viernes", "jueves", "helado", "topo", "hola", "adios", "viernes", "jueves", "helado", "topo"};
+    Animation vibrar, presentacion, mover;
+    // String cartas[] = new String[]{"hola", "adios", "viernes", "jueves", "helado", "topo", "hola", "adios", "viernes", "jueves", "helado", "topo"};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,13 +63,18 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         txtpunt = findViewById(R.id.txtpunt);
         txtintent = findViewById(R.id.txtintent);
         layout = findViewById(R.id.layoutmemo);
+        crono = findViewById(R.id.crono);
         String cadena = getIntent().getExtras().getString("cadena");
+        vibrar = AnimationUtils.loadAnimation(Memorama.this, R.anim.vibrarbotones);
+        presentacion = AnimationUtils.loadAnimation(Memorama.this, R.anim.entradaquiz);
+        mover = AnimationUtils.loadAnimation(Memorama.this, R.anim.agrandar);
         txtpunt.setText("Puntuacion 0");
         txtintent.setText("Intentos 0");
         mlargo = Integer.parseInt(String.valueOf(cadena.charAt(0)));
         mancho = Integer.parseInt(String.valueOf(cadena.charAt(2)));
         botonesimg = new int[mancho * mlargo];
         botones = new ImageView[mancho * mlargo];
+        contestados = new boolean[mancho * mlargo];
         mostrarimagenes(mancho * mlargo);
         crearbotones();
         for (int i = 0; i < botones.length; i++) {
@@ -77,10 +87,13 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             public void run() {
                 for (int i = 0; i < botones.length; i++) {
                     botones[i].setEnabled(true);
+                    botones[i].startAnimation(presentacion);
                     botones[i].setBackground(getResources().getDrawable(R.drawable.fondomemo));
+                    crono.setBase(SystemClock.elapsedRealtime());
+                    crono.start();
                 }
             }
-        }, 3000);
+        }, mancho * 500);
 
     }
 
@@ -137,6 +150,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                             //   Metodos.preferenciavibrar(Nivel.this, 50);
                             // Metodos.Guardarint(Nivel.this, definirpregunta, getString(R.string.quiz));
                             if (carta1 == 0) {
+
                                 btnTag.setBackground(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]
                                 ));
                                 // btnTag.setText("" + (finalJ + (finalI * mancho) + 1));
@@ -144,7 +158,9 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                 botontemp = btnTag;
                                 btnTag.setEnabled(false);
                             } else {
-                                btnTag.setEnabled(false);
+                                for (int i = 0; i < botones.length; i++) {
+                                    botones[i].setEnabled(false);
+                                }
                                 new Hilo().execute();
                                 btnTag.setBackground(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]));
                                 // btnTag.setText("" + (finalJ + (finalI * mancho) + 1));
@@ -153,27 +169,33 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                 intentos++;
                                 txtintent.setText("Intentos " + intentos);
                                 if (carta1 == carta2) {
-                                    Animation mover = AnimationUtils
-                                            .loadAnimation(Memorama.this, R.anim.agrandar);
+                                    contestados[btnTag.getId()] = true;
+                                    contestados[botontemp.getId()] = true;
+                                    for (int i = 0; i < botones.length; i++) {
+                                        if (!contestados[i]) {
+                                            botones[i].setEnabled(true);
+                                        }
+                                    }
                                     botontemp.startAnimation(mover);
                                     btnTag.startAnimation(mover);
                                     ganador++;
                                     txtpunt.setText("Puntuacion " + ganador);
-                                    botontemp.setEnabled(false);
                                     carta1 = 0;
                                     carta2 = 0;
+
                                 } else {
-                                    Animation mover = AnimationUtils
-                                            .loadAnimation(Memorama.this, R.anim.vibrarbotones);
-                                    botontemp.startAnimation(mover);
-                                    btnTag.startAnimation(mover);
+                                    botontemp.startAnimation(vibrar);
+                                    btnTag.startAnimation(vibrar);
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
                                             botontemp.setBackground(getResources().getDrawable(R.drawable.fondomemo));
                                             btnTag.setBackground(getResources().getDrawable(R.drawable.fondomemo));
-                                            botontemp.setEnabled(true);
-                                            btnTag.setEnabled(true);
+                                            for (int i = 0; i < botones.length; i++) {
+                                                if (!contestados[i]) {
+                                                    botones[i].setEnabled(true);
+                                                }
+                                            }
                                         }
                                     }, 700);
                                     carta1 = 0;
@@ -239,6 +261,12 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_memo, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
 
     class Hilo extends AsyncTask<Void, Integer, Void> {
 
@@ -265,8 +293,16 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
 
             if (ganador == botones.length / 2) {
+                crono.stop();
 
-                Toast.makeText(Memorama.this, "ganaste", Toast.LENGTH_LONG).show();
+                int tiempo = ((int) (SystemClock.elapsedRealtime() - crono.getBase())) / 1000;
+
+                int minutos = tiempo / 60;
+                int segundos = tiempo - (minutos * 60);
+
+
+                Toast.makeText(Memorama.this, "Tiempo: " + minutos + ":" + segundos,
+                        Toast.LENGTH_SHORT).show();
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
