@@ -2,9 +2,10 @@ package com.toposdeus.memorama;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.StateListDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,9 +25,6 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Collections;
 
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
     int imagenest[] = new int[]{R.drawable.avernom, R.drawable.brozom, R.drawable.camilasodim, R.drawable.cantinflasm,
@@ -42,6 +40,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     LinearLayout layout;
     Chronometer crono;
     ImageView botontemp;
+    String cadena;
     int[] botonesimg;
     boolean[] contestados;
     int ganador = 0;
@@ -50,7 +49,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     int intentos = 0;
     int carta1 = 0;
     int carta2 = 0;
-    Animation vibrar, presentacion, mover;
+    Animation vibrar, presentacion, mover, animstar, animstarnull, animmarco;
     // String cartas[] = new String[]{"hola", "adios", "viernes", "jueves", "helado", "topo", "hola", "adios", "viernes", "jueves", "helado", "topo"};
 
     @Override
@@ -65,10 +64,13 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         txtintent = findViewById(R.id.txtintent);
         layout = findViewById(R.id.layoutmemo);
         crono = findViewById(R.id.crono);
-        String cadena = getIntent().getExtras().getString("cadena");
+        cadena = getIntent().getExtras().getString("cadena");
         vibrar = AnimationUtils.loadAnimation(Memorama.this, R.anim.vibrarbotones);
         presentacion = AnimationUtils.loadAnimation(Memorama.this, R.anim.entradaquiz);
         mover = AnimationUtils.loadAnimation(Memorama.this, R.anim.agrandar);
+        animstar = AnimationUtils.loadAnimation(Memorama.this, R.anim.agrandarstar);
+        animstarnull = AnimationUtils.loadAnimation(Memorama.this, R.anim.agrandarstarnull);
+        animmarco = AnimationUtils.loadAnimation(Memorama.this, R.anim.animacionmarco);
         txtpunt.setText("Puntuacion 0");
         txtintent.setText("Intentos 0");
         mlargo = Integer.parseInt(String.valueOf(cadena.charAt(0)));
@@ -295,19 +297,46 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
             if (ganador == botones.length / 2) {
                 crono.stop();
-
                 int tiempo = ((int) (SystemClock.elapsedRealtime() - crono.getBase())) / 1000;
-
                 int minutos = tiempo / 60;
                 int segundos = tiempo - (minutos * 60);
-
+                ColorDrawable dialogColor = new ColorDrawable(Color.GRAY);
+                dialogColor.setAlpha(0);
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Memorama.this);
                 LayoutInflater inflater = getLayoutInflater();
                 View vi = inflater.inflate(R.layout.layout_victoria, null);
                 builder.setView(vi);
                 final AlertDialog dialog = builder.create();
                 dialog.setCancelable(false);
-                TextView texto = vi.findViewById(R.id.txtvictoria);
+                dialog.getWindow().setBackgroundDrawable(dialogColor);
+                TextView txttiempo = vi.findViewById(R.id.txttimepo);
+                TextView txtintentos = vi.findViewById(R.id.txtintentos);
+                txtintentos.setText("Intentos: " + intentos);
+                ImageView titulo = vi.findViewById(R.id.imagentitulo);
+                ImageView star1 = vi.findViewById(R.id.star1);
+                ImageView star2 = vi.findViewById(R.id.star2);
+                ImageView star3 = vi.findViewById(R.id.star3);
+                star1.startAnimation(animstar);
+                Button botonretry = vi.findViewById(R.id.botonretry);
+                titulo.setBackground(getResources().getDrawable(R.drawable.titulovic1));
+                LinearLayout marco = vi.findViewById(R.id.layoutmarco);
+                marco.startAnimation(animmarco);
+                if (intentos <= ((mlargo * mancho) / 2) + 3) {
+                    star2.startAnimation(animstar);
+                    titulo.setBackground(getResources().getDrawable(R.drawable.titulovic2));
+                } else {
+                    star2.setBackground(getResources().getDrawable(R.drawable.starnull));
+                    star2.startAnimation(animstarnull);
+                }
+                if (intentos <= (mlargo * mancho) / 2) {
+                    botonretry.setVisibility(View.GONE);
+                    star3.startAnimation(animstar);
+                    titulo.setBackground(getResources().getDrawable(R.drawable.titulovic3));
+                } else {
+                    star3.setBackground(getResources().getDrawable(R.drawable.starnull));
+                    star3.startAnimation(animstarnull);
+                }
+                titulo.startAnimation(animstarnull);
                 String ssegundos;
                 String sminutos;
                 if (segundos < 10) {
@@ -320,15 +349,26 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 } else {
                     sminutos = "" + minutos;
                 }
-                texto.setText("Tiempo: " + sminutos + ":" + ssegundos);
+                txttiempo.setText("Tiempo: " + sminutos + ":" + ssegundos);
 
-                Button botonsi = vi.findViewById(R.id.botonok);
-                botonsi.setTextSize(10);
-                botonsi.setOnClickListener(
+                Button botonok = vi.findViewById(R.id.botonok);
+                botonok.setOnClickListener(
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Intent intent = new Intent(Memorama.this, Menu.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+                );
+
+                botonretry.setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(Memorama.this, Memorama.class);
+                                intent.putExtra("cadena", cadena);
                                 startActivity(intent);
                                 finish();
                             }
