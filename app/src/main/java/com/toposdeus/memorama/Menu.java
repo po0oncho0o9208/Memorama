@@ -23,6 +23,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
     Button start;
     boolean verificador;
     String cadena;
+
     int[] dimensiones1 = new int[]{2, 4, 2, 2, 4, 6, 4, 4, 6, 2, 4, 6, 2, 4, 6, 2, 4, 6, 2, 4, 6};
     int[] dimensiones2 = new int[]{2, 4, 3, 2, 4, 6, 4, 4, 6, 2, 4, 6, 2, 4, 6, 2, 4, 6, 2, 4, 6};
     int[] record = new int[]{0, 1, 0, 2, 1, 0, 0, 3, 0, 1, 0, 2, 1, 0, 0, 3, 0, 1, 0, 2, 1, 0, 0, 3};

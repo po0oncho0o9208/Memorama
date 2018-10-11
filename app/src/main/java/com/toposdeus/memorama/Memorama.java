@@ -15,6 +15,7 @@ import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
+
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -27,8 +28,10 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
+
     int imagenest[] = new int[]{R.drawable.avernom, R.drawable.brozom, R.drawable.camilasodim, R.drawable.cantinflasm,
             R.drawable.capulinam, R.drawable.cardenasm, R.drawable.carmensalinasm, R.drawable.cepillinm, R.drawable.chabelom,
             R.drawable.chapom, R.drawable.cuahutemocm, R.drawable.chicharitom, R.drawable.compayitom, R.drawable.derbezm,
@@ -38,6 +41,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,
             R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,
             R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,};
+
     int mlargo, mancho;
     LinearLayout layout;
     Chronometer crono;
@@ -51,15 +55,21 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     int intentos = 0, id, carta1 = 0, carta2 = 0;
     Animation vibrar, presentacion, mover, animstar, animstarnull, animmarco;
     // String cartas[] = new String[]{"hola", "adios", "viernes", "jueves", "helado", "topo", "hola", "adios", "viernes", "jueves", "helado", "topo"};
+Button atras;
+    //boton atras
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+
+
         setContentView(R.layout.activity_memorama);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+
+
         txtpunt = findViewById(R.id.txtpunt);
         txtintent = findViewById(R.id.txtintent);
         layout = findViewById(R.id.layoutmemo);
@@ -79,7 +89,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         botonesimg = new int[mancho * mlargo];
         botones = new ImageView[mancho * mlargo];
         contestados = new boolean[mancho * mlargo];
+        atras=findViewById(R.id.atras);
         mostrarimagenes(mancho * mlargo);
+
+
         crearbotones();
         for (int i = 0; i < botones.length; i++) {
             botones[i].setEnabled(false);
@@ -103,6 +116,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
+
+        Intent i = new Intent(Memorama.this, Menu.class);
+        startActivity(i);
+        finish();
 
     }
 
@@ -242,9 +259,14 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             Intent intentds = new Intent(Memorama.this, Menu.class);
             startActivity(intentds);
             finish();
+
+
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
 
     private void mostrarimagenes(int total) {
         for (int i = 0; i < total / 2; ) {
@@ -267,7 +289,14 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
+
+
         getMenuInflater().inflate(R.menu.menu_memo, menu);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        }
+
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -391,6 +420,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
 
             }
+
         }
+
     }
+
+
 }
