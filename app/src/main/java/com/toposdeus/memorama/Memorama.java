@@ -1,7 +1,9 @@
 package com.toposdeus.memorama;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -46,9 +48,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     int ganador = 0;
     ImageView[] botones;
     TextView txtpunt, txtintent;
-    int intentos = 0;
-    int carta1 = 0;
-    int carta2 = 0;
+    int intentos = 0, id, carta1 = 0, carta2 = 0;
     Animation vibrar, presentacion, mover, animstar, animstarnull, animmarco;
     // String cartas[] = new String[]{"hola", "adios", "viernes", "jueves", "helado", "topo", "hola", "adios", "viernes", "jueves", "helado", "topo"};
 
@@ -65,13 +65,14 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         layout = findViewById(R.id.layoutmemo);
         crono = findViewById(R.id.crono);
         cadena = getIntent().getExtras().getString("cadena");
+        id = getIntent().getExtras().getInt("id");
         vibrar = AnimationUtils.loadAnimation(Memorama.this, R.anim.vibrarbotones);
         presentacion = AnimationUtils.loadAnimation(Memorama.this, R.anim.entradaquiz);
         mover = AnimationUtils.loadAnimation(Memorama.this, R.anim.agrandar);
         animstar = AnimationUtils.loadAnimation(Memorama.this, R.anim.agrandarstar);
         animstarnull = AnimationUtils.loadAnimation(Memorama.this, R.anim.agrandarstarnull);
         animmarco = AnimationUtils.loadAnimation(Memorama.this, R.anim.animacionmarco);
-        txtpunt.setText("Puntuacion 0");
+        txtpunt.setText("Pares 0");
         txtintent.setText("Intentos 0");
         mlargo = Integer.parseInt(String.valueOf(cadena.charAt(0)));
         mancho = Integer.parseInt(String.valueOf(cadena.charAt(2)));
@@ -182,7 +183,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                     botontemp.startAnimation(mover);
                                     btnTag.startAnimation(mover);
                                     ganador++;
-                                    txtpunt.setText("Puntuacion " + ganador);
+                                    txtpunt.setText("Pares " + ganador);
                                     carta1 = 0;
                                     carta2 = 0;
 
@@ -321,17 +322,20 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 titulo.setBackground(getResources().getDrawable(R.drawable.titulovic1));
                 LinearLayout marco = vi.findViewById(R.id.layoutmarco);
                 marco.startAnimation(animmarco);
+                int estrellas = 1;
                 if (intentos <= ((mlargo * mancho) / 2) + 3) {
-                    star2.startAnimation(animstar);
+                    estrellas = 2;
                     titulo.setBackground(getResources().getDrawable(R.drawable.titulovic2));
+                    star2.startAnimation(animstar);
                 } else {
                     star2.setBackground(getResources().getDrawable(R.drawable.starnull));
                     star2.startAnimation(animstarnull);
                 }
                 if (intentos <= (mlargo * mancho) / 2) {
+                    estrellas = 3;
                     botonretry.setVisibility(View.GONE);
-                    star3.startAnimation(animstar);
                     titulo.setBackground(getResources().getDrawable(R.drawable.titulovic3));
+                    star3.startAnimation(animstar);
                 } else {
                     star3.setBackground(getResources().getDrawable(R.drawable.starnull));
                     star3.startAnimation(animstarnull);
@@ -339,6 +343,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 titulo.startAnimation(animstarnull);
                 String ssegundos;
                 String sminutos;
+
                 if (segundos < 10) {
                     ssegundos = "0" + segundos;
                 } else {
@@ -350,12 +355,19 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                     sminutos = "" + minutos;
                 }
                 txttiempo.setText("Tiempo: " + sminutos + ":" + ssegundos);
-
+                SharedPreferences sharedPref;
+                sharedPref = Memorama.this.getSharedPreferences(
+                        "record", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt("record" + id, estrellas);
+                editor.putBoolean("contestada" + (id + 1), true);
+                editor.commit();
                 Button botonok = vi.findViewById(R.id.botonok);
                 botonok.setOnClickListener(
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+
                                 Intent intent = new Intent(Memorama.this, Menu.class);
                                 startActivity(intent);
                                 finish();
