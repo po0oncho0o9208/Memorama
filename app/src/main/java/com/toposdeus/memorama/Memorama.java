@@ -65,7 +65,7 @@ Button atras;
 
 
         setContentView(R.layout.activity_memorama);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
 
