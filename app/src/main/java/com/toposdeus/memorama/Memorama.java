@@ -117,7 +117,7 @@ Button atras;
     @Override
     public void onClick(View v) {
 
-        Intent i = new Intent(Memorama.this, Menu.class);
+        Intent i = new Intent(Memorama.this, Nivel.class);
         startActivity(i);
         finish();
 
@@ -256,7 +256,7 @@ Button atras;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Intent intentds = new Intent(Memorama.this, Menu.class);
+            Intent intentds = new Intent(Memorama.this, Nivel.class);
             startActivity(intentds);
             finish();
 
@@ -397,7 +397,7 @@ Button atras;
                             @Override
                             public void onClick(View v) {
 
-                                Intent intent = new Intent(Memorama.this, Menu.class);
+                                Intent intent = new Intent(Memorama.this, Nivel.class);
                                 startActivity(intent);
                                 finish();
                             }
