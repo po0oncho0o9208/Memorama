@@ -32,9 +32,9 @@ import android.support.v7.widget.Toolbar;
 
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
 
-    int imagenest[] = new int[]{R.drawable.avernom, R.drawable.brozom, R.drawable.camilasodim, R.drawable.cantinflasm,
-            R.drawable.capulinam, R.drawable.cardenasm, R.drawable.carmensalinasm, R.drawable.cepillinm, R.drawable.chabelom,
-            R.drawable.chapom, R.drawable.cuahutemocm, R.drawable.chicharitom, R.drawable.compayitom, R.drawable.derbezm,
+    int imagenest[] = new int[]{R.drawable.cero, R.drawable.uno, R.drawable.dos, R.drawable.tres,
+            R.drawable.cuatro, R.drawable.cinco, R.drawable.seis, R.drawable.siete, R.drawable.oco,
+            R.drawable.nueve, R.drawable.diez, R.drawable.chicharitom, R.drawable.compayitom, R.drawable.derbezm,
             R.drawable.danielbosognom, R.drawable.diegolunam, R.drawable.diegoriveram, R.drawable.donramonm, R.drawable.btnagregarback,
             R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,
             R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,
