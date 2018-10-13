@@ -5,6 +5,7 @@
     android:paddingBottom="15dp"
     android:paddingLeft="25dp"
     android:paddingRight="25dp"
+    android:background="@color/colorPrimaryDark"
     android:paddingTop="15dp">
 
     <LinearLayout
