@@ -1,5 +1,6 @@
 package com.toposdeus.memorama;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,7 +19,8 @@ public class SliderAdapterNiveles extends PagerAdapter {
     Context context;
     LayoutInflater inflater;
     int dificultad[];
-
+    Activity activity;
+    public boolean sfin = false;
     public int[] lista = {R.drawable.botonok, R.drawable.botonok, R.drawable.botonok, R.drawable.botonok};
     public String[] titulos = new String[]{"Facil", "Normal", "DIficil", "Extremo"};
     public int colores[] = {
@@ -51,9 +53,13 @@ public class SliderAdapterNiveles extends PagerAdapter {
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "" + dificultad[position], Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(context, Nivel.class);
+                intent.putExtra("dificultad", position);
                 context.startActivity(intent);
+                activity.finish();
+
+                sfin = true;
+
             }
         });
         boton.setBackground(context.getResources().getDrawable(lista[position]));
@@ -66,8 +72,10 @@ public class SliderAdapterNiveles extends PagerAdapter {
         container.removeView((LinearLayout) object);
     }
 
-    public SliderAdapterNiveles(Context context, int dificultad[]) {
+    public SliderAdapterNiveles(Context context, int dificultad[], Activity activity) {
         this.dificultad = dificultad;
         this.context = context;
+        this.activity = activity;
     }
+
 }

@@ -55,8 +55,9 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     int intentos = 0, id, carta1 = 0, carta2 = 0;
     Animation vibrar, presentacion, mover, animstar, animstarnull, animmarco;
     // String cartas[] = new String[]{"hola", "adios", "viernes", "jueves", "helado", "topo", "hola", "adios", "viernes", "jueves", "helado", "topo"};
-Button atras;
+    Button atras;
     //boton atras
+    int dificultad;
 
 
     @Override
@@ -65,7 +66,7 @@ Button atras;
 
 
         setContentView(R.layout.activity_memorama);
-        Toolbar toolbar =  findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
 
@@ -75,6 +76,7 @@ Button atras;
         layout = findViewById(R.id.layoutmemo);
         crono = findViewById(R.id.crono);
         cadena = getIntent().getExtras().getString("cadena");
+        dificultad = getIntent().getExtras().getInt("dificultad");
         id = getIntent().getExtras().getInt("id");
         vibrar = AnimationUtils.loadAnimation(Memorama.this, R.anim.vibrarbotones);
         presentacion = AnimationUtils.loadAnimation(Memorama.this, R.anim.entradaquiz);
@@ -89,7 +91,7 @@ Button atras;
         botonesimg = new int[mancho * mlargo];
         botones = new ImageView[mancho * mlargo];
         contestados = new boolean[mancho * mlargo];
-        atras=findViewById(R.id.atras);
+        atras = findViewById(R.id.atras);
         mostrarimagenes(mancho * mlargo);
 
 
@@ -128,7 +130,7 @@ Button atras;
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         // int ancho = metrics.widthPixels / (100) * 20;
 
-        int anchobtn = ((metrics.widthPixels / (mancho)) / 100) * 99;
+        int anchobtn = ((metrics.widthPixels / mancho + 1));
 
         for (int i = 0; i <= (mlargo); i++) {
             LinearLayout row = new LinearLayout(this);
@@ -136,7 +138,8 @@ Button atras;
                     LinearLayout.LayoutParams.MATCH_PARENT));
             LinearLayout.LayoutParams lll = (LinearLayout.LayoutParams) row.getLayoutParams();
             lll.gravity = Gravity.CENTER;
-            lll.setMargins(0, (metrics.widthPixels / mancho) / 5, 0, 0);
+
+            lll.setMargins(0, metrics.widthPixels / (mancho * 5), 0, 0);
             row.setLayoutParams(lll);
 
             for (int j = 0; j < mancho; j++) {
@@ -146,8 +149,10 @@ Button atras;
                     btnTag.setLayoutParams(new LinearLayout.LayoutParams(anchobtn, anchobtn));
                     LinearLayout.LayoutParams lllp = (LinearLayout.LayoutParams) btnTag.getLayoutParams();
                     lllp.gravity = Gravity.CENTER;
-                    lllp.setMargins((metrics.widthPixels / mancho) / 10, 0, (metrics.widthPixels / mancho) / 10, 0);
+                    lllp.setMargins(0, 0, metrics.widthPixels / (mancho * 5), 0);
                     btnTag.setLayoutParams(lllp);
+                    btnTag.getLayoutParams().height = metrics.widthPixels / (mancho + 1);
+                    btnTag.getLayoutParams().width = metrics.widthPixels / (mancho + 1);
                     btnTag.setId(j + (i * mancho));
                     botones[j + (i * mancho)] = btnTag;
                     // StateListDrawable states = new StateListDrawable();
@@ -266,8 +271,6 @@ Button atras;
     }
 
 
-
-
     private void mostrarimagenes(int total) {
         for (int i = 0; i < total / 2; ) {
             botonesimg[i] = imagenest[i];
@@ -292,7 +295,7 @@ Button atras;
 
 
         getMenuInflater().inflate(R.menu.menu_memo, menu);
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         }

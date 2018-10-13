@@ -1,11 +1,15 @@
 package com.toposdeus.memorama;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 public class Nivel extends AppCompatActivity {
     private ViewPager viewpager;
@@ -18,7 +22,8 @@ public class Nivel extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         viewpager = findViewById(R.id.viewpager);
-        adapter = new SliderAdapterNivel(this, new int[]{0, 1, 2, 3, 4, 5,});
+
+        adapter = new SliderAdapterNivel(this, new int[]{0, 1, 2, 3, 4, 5,}, getIntent().getExtras().getInt("dificultad"));
         viewpager.setAdapter(adapter);
 
         //aqui se pone la animacion de transicion
@@ -60,5 +65,16 @@ public class Nivel extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+
+            startActivity(new Intent(getBaseContext(), Niveles.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }

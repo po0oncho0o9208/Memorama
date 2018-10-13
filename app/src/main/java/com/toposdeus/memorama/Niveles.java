@@ -1,11 +1,13 @@
 package com.toposdeus.memorama;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 public class Niveles extends AppCompatActivity {
     private ViewPager viewpager;
@@ -18,8 +20,10 @@ public class Niveles extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_niveles);
         viewpager = findViewById(R.id.viewpager);
-        adapter = new SliderAdapterNiveles(this, new int[]{0, 1, 2, 3, 4, 5,});
+
+        adapter = new SliderAdapterNiveles(this, new int[]{0, 1, 2, 3, 4, 5,}, this);
         viewpager.setAdapter(adapter);
+
 
         //aqui se pone la animacion de transicion
         viewpager.setPageTransformer(false, new ViewPager.PageTransformer() {
