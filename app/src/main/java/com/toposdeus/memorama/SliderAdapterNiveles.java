@@ -22,7 +22,7 @@ public class SliderAdapterNiveles extends PagerAdapter {
     int dificultad[];
     Activity activity;
     public boolean sfin = false;
-    public int[] lista = {R.drawable.btnjugar1, R.drawable.jugar2, R.drawable.jugar3, R.drawable.jugar4};
+    public int[] lista = {R.drawable.btnjugar1, R.drawable.jugar2f, R.drawable.jugar3, R.drawable.jugar4};
     public int[] titulosimagen = {R.drawable.titulofacil, R.drawable.titulonormal, R.drawable.titulodificil, R.drawable.tituloextremo};
     public String[] titulos = new String[]{"", "", "", ""};
     public int colores[] = {

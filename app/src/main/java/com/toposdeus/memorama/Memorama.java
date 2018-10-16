@@ -141,8 +141,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                     LinearLayout.LayoutParams.MATCH_PARENT));
             LinearLayout.LayoutParams lll = (LinearLayout.LayoutParams) row.getLayoutParams();
             lll.gravity = Gravity.CENTER;
-
-            lll.setMargins(0, metrics.widthPixels / (mancho * 10), 0, 0);
+            lll.setMargins(0, metrics.widthPixels / (mancho * 12), 0, 0);
             row.setLayoutParams(lll);
 
             for (int j = 0; j < mancho; j++) {
@@ -152,7 +151,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                     btnTag.setLayoutParams(new LinearLayout.LayoutParams(anchobtn, anchobtn));
                     LinearLayout.LayoutParams lllp = (LinearLayout.LayoutParams) btnTag.getLayoutParams();
                     lllp.gravity = Gravity.CENTER;
-                    lllp.setMargins(0, 0, metrics.widthPixels / (mancho * 10), 0);
+                    lllp.setMargins(metrics.widthPixels / (mancho * 25), 0, metrics.widthPixels / (mancho * 25), 0);
                     btnTag.setLayoutParams(lllp);
                     btnTag.getLayoutParams().height = metrics.widthPixels / (mancho + 1);
                     btnTag.getLayoutParams().width = metrics.widthPixels / (mancho + 1);

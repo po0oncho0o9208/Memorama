@@ -22,8 +22,9 @@ public class SliderAdapterNivel extends PagerAdapter {
     Context context;
     LayoutInflater inflater;
     int dificultadarray[];
-    int[] dimensiones1 = new int[]{9, 2, 2, 3, 4, 4, 5, 6, 5, 6, 6, 5, 6, 7, 8, 9, 10, 6, 2, 4, 6};//FILAS
-    int[] dimensiones2 = new int[]{7, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5};//COLUMNAS
+
+    int[] dimensiones1 = new int[]{1, 2, 2, 3, 4, 4, 5, 6, 5, 6, 6, 5, 6, 7, 8, 9, 10, 6, 2, 4, 6};//FILAS
+    int[] dimensiones2 = new int[]{2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5};//COLUMNAS
     Typeface font;
     int[] record = new int[27];
     boolean[] contestadas = new boolean[30];
