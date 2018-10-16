@@ -16,6 +16,7 @@ public class Nivel extends AppCompatActivity {
     private SliderAdapterNivel adapter;
     private static final float MIN_SCALE = 0.7f;
     private static final float MIN_ALPHA = 0.3f;
+    int pagina = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,6 +26,8 @@ public class Nivel extends AppCompatActivity {
 
         adapter = new SliderAdapterNivel(this, new int[]{0, 1, 2, 3, 4, 5,}, getIntent().getExtras().getInt("dificultad"));
         viewpager.setAdapter(adapter);
+        pagina = getIntent().getIntExtra("pagina",0);
+        viewpager.setCurrentItem(pagina);
 
         //aqui se pone la animacion de transicion
         viewpager.setPageTransformer(false, new ViewPager.PageTransformer() {
