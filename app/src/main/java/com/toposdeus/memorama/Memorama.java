@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
 
@@ -70,7 +71,6 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-
 
         txtpunt = findViewById(R.id.txtpunt);
         txtintent = findViewById(R.id.txtintent);
@@ -121,6 +121,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
         Intent i = new Intent(Memorama.this, Nivel.class);
         i.putExtra("dificultad", dificultad);
+        i.putExtra("pagina", pagina());
+
         startActivity(i);
         finish();
 
@@ -140,7 +142,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             LinearLayout.LayoutParams lll = (LinearLayout.LayoutParams) row.getLayoutParams();
             lll.gravity = Gravity.CENTER;
 
-            lll.setMargins(0, metrics.widthPixels / (mancho * 5), 0, 0);
+            lll.setMargins(0, metrics.widthPixels / (mancho * 10), 0, 0);
             row.setLayoutParams(lll);
 
             for (int j = 0; j < mancho; j++) {
@@ -150,7 +152,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                     btnTag.setLayoutParams(new LinearLayout.LayoutParams(anchobtn, anchobtn));
                     LinearLayout.LayoutParams lllp = (LinearLayout.LayoutParams) btnTag.getLayoutParams();
                     lllp.gravity = Gravity.CENTER;
-                    lllp.setMargins(0, 0, metrics.widthPixels / (mancho * 5), 0);
+                    lllp.setMargins(0, 0, metrics.widthPixels / (mancho * 10), 0);
                     btnTag.setLayoutParams(lllp);
                     btnTag.getLayoutParams().height = metrics.widthPixels / (mancho + 1);
                     btnTag.getLayoutParams().width = metrics.widthPixels / (mancho + 1);
@@ -262,8 +264,9 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Intent intentds = new Intent(Memorama.this, Nivel.class);
-            startActivity(intentds);
+            Intent intent = new Intent(Memorama.this, Nivel.class);
+            intent.putExtra("pagina", pagina());
+            startActivity(intent);
             finish();
 
 
@@ -403,6 +406,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
                                 Intent intent = new Intent(Memorama.this, Nivel.class);
                                 intent.putExtra("dificultad", dificultad);
+                                intent.putExtra("pagina", pagina());
                                 startActivity(intent);
                                 finish();
                             }
@@ -436,6 +440,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             Intent intent = new Intent(Memorama.this, Nivel.class);
             intent.putExtra("dificultad", dificultad);
+            intent.putExtra("pagina", pagina());
             startActivity(intent);
             finish();
             return true;
@@ -443,5 +448,16 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         return super.onKeyDown(keyCode, event);
     }
 
+    private int pagina() {
+        int pag = 0;
+        if (id > 9) {
+            Toast.makeText(this,">9",Toast.LENGTH_LONG).show();
+            pag = 1;
+            if (id > 18) {
+                pag = 2;
+            }
+        }
+        return pag;
+    }
 
 }
