@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -118,8 +119,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-
         Intent i = new Intent(Memorama.this, Nivel.class);
+        i.putExtra("dificultad", dificultad);
         startActivity(i);
         finish();
 
@@ -401,6 +402,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                             public void onClick(View v) {
 
                                 Intent intent = new Intent(Memorama.this, Nivel.class);
+                                intent.putExtra("dificultad", dificultad);
                                 startActivity(intent);
                                 finish();
                             }
@@ -412,6 +414,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                             @Override
                             public void onClick(View v) {
                                 Intent intent = new Intent(Memorama.this, Memorama.class);
+                                intent.putExtra("dificultad", dificultad);
                                 intent.putExtra("cadena", cadena);
                                 startActivity(intent);
                                 finish();
@@ -426,6 +429,18 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
         }
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            Intent intent = new Intent(Memorama.this, Nivel.class);
+            intent.putExtra("dificultad", dificultad);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 

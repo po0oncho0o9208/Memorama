@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -21,13 +22,14 @@ public class SliderAdapterNiveles extends PagerAdapter {
     int dificultad[];
     Activity activity;
     public boolean sfin = false;
-    public int[] lista = {R.drawable.botonok, R.drawable.botonok, R.drawable.botonok, R.drawable.botonok};
-    public String[] titulos = new String[]{"Facil", "Normal", "DIficil", "Extremo"};
+    public int[] lista = {R.drawable.btnjugar1, R.drawable.jugar2, R.drawable.jugar3, R.drawable.jugar4};
+    public int[] titulosimagen = {R.drawable.titulofacil, R.drawable.titulonormal, R.drawable.titulodificil, R.drawable.tituloextremo};
+    public String[] titulos = new String[]{"", "", "", ""};
     public int colores[] = {
-            Color.rgb(255, 255, 255),
-            Color.rgb(239, 85, 85),
-            Color.rgb(110, 49, 89),
-            Color.rgb(1, 188, 212)
+            Color.rgb(237, 204, 144),
+            Color.rgb(160, 196, 154),
+            Color.rgb(152, 174, 215),
+            Color.rgb(184, 151, 192)
     };
 
     @Override
@@ -47,8 +49,12 @@ public class SliderAdapterNiveles extends PagerAdapter {
         View view = inflater.inflate(R.layout.viewpager, container, false);
         LinearLayout layoutslide = view.findViewById(R.id.sliderlayout);
         Button boton = view.findViewById(R.id.botonslider);
+
+        Typeface font = Typeface.createFromAsset(context.getAssets(), "fonts/birdyame.ttf");
         TextView titulo = view.findViewById(R.id.slidertitulo);
+        titulo.setTypeface(font);
         titulo.setText(titulos[position]);
+        titulo.setBackground(context.getResources().getDrawable(titulosimagen[position]));
         layoutslide.setBackgroundColor(colores[position]);
         boton.setOnClickListener(new View.OnClickListener() {
             @Override

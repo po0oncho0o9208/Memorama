@@ -80,6 +80,7 @@ public class SliderAdapterNivel extends PagerAdapter {
 
     public void crearaccesos(int mancho, int mlargo, LinearLayout layout, int position) {
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        font = Typeface.createFromAsset(context.getAssets(), "fonts/birdyame.ttf");
 
         for (int i = 0; i <= (mlargo); i++) {
             LinearLayout row = new LinearLayout(context);
@@ -100,7 +101,6 @@ public class SliderAdapterNivel extends PagerAdapter {
                         boton.setEnabled(false);
                         boton.setBackground(context.getResources().getDrawable(R.drawable.lock));
                     } else {
-                        font = Typeface.createFromAsset(context.getAssets(), "fonts/birdyame.ttf");
                         boton.setTypeface(font);
                         //boton.setText("" + position);
                         boton.setText("" + (1 + position + j + (i * mancho)));
