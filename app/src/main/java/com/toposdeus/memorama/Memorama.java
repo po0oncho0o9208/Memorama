@@ -245,34 +245,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
     }
 
-    public Drawable drawbg(Drawable draw, int alfa) {
 
-
-        Drawable marco = ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_launcher, getApplicationContext().getTheme());
-        Drawable[] drawarray = new Drawable[2];
-        drawarray[0] = draw;
-        if (false) {
-            marco.setAlpha(140 + alfa);
-        } else {
-            marco.setAlpha(alfa);
-        }
-        drawarray[1] = marco;
-        LayerDrawable layerdrawable = new LayerDrawable(drawarray);
-        return layerdrawable;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            Intent intent = new Intent(Memorama.this, Nivel.class);
-            intent.putExtra("pagina", pagina());
-            startActivity(intent);
-            finish();
-
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 
     private void mostrarimagenes(int total) {
@@ -451,7 +424,6 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     private int pagina() {
         int pag = 0;
         if (id > 9) {
-            Toast.makeText(this,">9",Toast.LENGTH_LONG).show();
             pag = 1;
             if (id > 18) {
                 pag = 2;
