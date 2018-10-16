@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="top"
+    android:background="@drawable/marco1"
+
     android:orientation="vertical"
     tools:context=".Memorama">
 
