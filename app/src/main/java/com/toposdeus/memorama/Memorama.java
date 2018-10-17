@@ -35,8 +35,8 @@ import android.widget.Toast;
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
 
     int imagenest[] = new int[]{R.drawable.uno1, R.drawable.dos2, R.drawable.tres3, R.drawable.cuatro4,
-            R.drawable.cinco5, R.drawable.cinco, R.drawable.seis, R.drawable.siete, R.drawable.oco,
-            R.drawable.nueve, R.drawable.diez, R.drawable.chicharitom, R.drawable.compayitom, R.drawable.derbezm,
+            R.drawable.cinco5, R.drawable.seis6, R.drawable.siete7, R.drawable.ocho8, R.drawable.nueve9,
+            R.drawable.atras4, R.drawable.diez, R.drawable.chicharitom, R.drawable.compayitom, R.drawable.derbezm,
             R.drawable.danielbosognom, R.drawable.diegolunam, R.drawable.diegoriveram, R.drawable.donramonm, R.drawable.btnagregarback,
             R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,
             R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,
