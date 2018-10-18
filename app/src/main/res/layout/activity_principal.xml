@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/memo"
+    tools:context="com.toposdeus.memorama.Principal">
+
+
+
+    <ImageView
+        android:id="@+id/btnplay"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:onClick="play"
+
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/play" />
+
+
+    <LinearLayout
+        android:id="@+id/l1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnplay"
+        android:layout_marginHorizontal="10dp"
+        android:gravity="center">
+
+
+        <ImageView
+            android:id="@+id/btnajustes"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginVertical="500dp"
+
+            android:layout_gravity="center"
+            android:layout_marginRight="170dp"
+
+
+            app:srcCompat="@drawable/ajustes" />
+
+
+        <ImageView
+            android:id="@+id/btntrofeos"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:srcCompat="@drawable/trofeos" />
+
+
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
