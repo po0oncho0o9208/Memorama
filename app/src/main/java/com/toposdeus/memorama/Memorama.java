@@ -55,7 +55,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     ImageView[] botones;
     TextView txtpunt, txtintent;
     int intentos = 0, id, carta1 = 0, carta2 = 0;
-    Animation vibrar, presentacion, mover, animstar, animstarnull, animmarco;
+    Animation vibrar, mover, animstar, animstarnull, animmarco, animcarta1, animcarta2;
     // String cartas[] = new String[]{"hola", "adios", "viernes", "jueves", "helado", "topo", "hola", "adios", "viernes", "jueves", "helado", "topo"};
     Button atras;
     //boton atras
@@ -80,11 +80,13 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         dificultad = getIntent().getExtras().getInt("dificultad");
         id = getIntent().getExtras().getInt("id");
         vibrar = AnimationUtils.loadAnimation(Memorama.this, R.anim.vibrarbotones);
-        presentacion = AnimationUtils.loadAnimation(Memorama.this, R.anim.entradaquiz);
         mover = AnimationUtils.loadAnimation(Memorama.this, R.anim.agrandar);
         animstar = AnimationUtils.loadAnimation(Memorama.this, R.anim.agrandarstar);
         animstarnull = AnimationUtils.loadAnimation(Memorama.this, R.anim.agrandarstarnull);
         animmarco = AnimationUtils.loadAnimation(Memorama.this, R.anim.animacionmarco);
+        animcarta1 = AnimationUtils.loadAnimation(Memorama.this, R.anim.carta1);
+        animcarta2 = AnimationUtils.loadAnimation(Memorama.this, R.anim.carta2);
+
         txtpunt.setText("Pares 0");
         txtintent.setText("Intentos 0");
         mlargo = Integer.parseInt(String.valueOf(cadena.charAt(0)));
@@ -107,7 +109,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             public void run() {
                 for (int i = 0; i < botones.length; i++) {
                     botones[i].setEnabled(true);
-                    botones[i].startAnimation(presentacion);
+                    botones[i].startAnimation(animcarta1);
                     botones[i].setBackground(getResources().getDrawable(R.drawable.fondomemo));
                     crono.setBase(SystemClock.elapsedRealtime());
                     crono.start();
@@ -122,7 +124,6 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         Intent i = new Intent(Memorama.this, Nivel.class);
         i.putExtra("dificultad", dificultad);
         i.putExtra("pagina", pagina());
-
         startActivity(i);
         finish();
 
@@ -156,6 +157,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                     btnTag.getLayoutParams().height = metrics.widthPixels / (mancho + 1);
                     btnTag.getLayoutParams().width = metrics.widthPixels / (mancho + 1);
                     btnTag.setId(j + (i * mancho));
+
+                    btnTag.startAnimation(animcarta1);
+
+
                     botones[j + (i * mancho)] = btnTag;
                     // StateListDrawable states = new StateListDrawable();
                     //  int o = j + (i * 3);
@@ -178,7 +183,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                             //   Metodos.preferenciavibrar(Nivel.this, 50);
                             // Metodos.Guardarint(Nivel.this, definirpregunta, getString(R.string.quiz));
                             if (carta1 == 0) {
-
+                                btnTag.startAnimation(animcarta1);
                                 btnTag.setBackground(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]
                                 ));
                                 // btnTag.setText("" + (finalJ + (finalI * mancho) + 1));
@@ -245,8 +250,6 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     }
 
 
-
-
     private void mostrarimagenes(int total) {
         for (int i = 0; i < total / 2; ) {
             botonesimg[i] = imagenest[i];
@@ -268,8 +271,6 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
-
-
         getMenuInflater().inflate(R.menu.menu_memo, menu);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -367,8 +368,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 sharedPref = Memorama.this.getSharedPreferences(
                         "record", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putInt("record" + id, estrellas);
-                editor.putBoolean("contestada" + (id + 1), true);
+                editor.putInt(dificultad + "record" + id, estrellas);
+                editor.putBoolean(dificultad + "contestada" + (id + 1), true);
                 editor.commit();
                 Button botonok = vi.findViewById(R.id.botonok);
                 botonok.setOnClickListener(
@@ -422,9 +423,9 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
     private int pagina() {
         int pag = 0;
-        if (id > 9) {
+        if (id > 8) {
             pag = 1;
-            if (id > 18) {
+            if (id > 17) {
                 pag = 2;
             }
         }

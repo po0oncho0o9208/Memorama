@@ -1,6 +1,8 @@
 package com.toposdeus.memorama;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +18,9 @@ public class Niveles extends AppCompatActivity {
     private SliderAdapterNiveles adapter;
     private static final float MIN_SCALE = 0.7f;
     private static final float MIN_ALPHA = 0.3f;
+    int pagina;
+    SharedPreferences sharedPref;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,6 +30,20 @@ public class Niveles extends AppCompatActivity {
         adapter = new SliderAdapterNiveles(this, new int[]{0, 1, 2, 3, 4, 5,}, this);
         viewpager.setAdapter(adapter);
 
+        TextView txtest = findViewById(R.id.txtestrella);
+        sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
+        int contador = 0;
+        for (int n = 0; n < 4; n++) {
+            for (int i = 0; i < 27; i++) {
+                contador += sharedPref.getInt(n + "record" + i, 0);
+            }
+        }
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/birdyame.ttf");
+        txtest.setText(contador + " X ");
+        txtest.setTypeface(font);
+
+        pagina = getIntent().getIntExtra("dificultad", 0);
+        viewpager.setCurrentItem(pagina);
 
         //aqui se pone la animacion de transicion
         viewpager.setPageTransformer(false, new ViewPager.PageTransformer() {

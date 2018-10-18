@@ -34,19 +34,19 @@
                 android:id="@+id/star01"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/starnull" />
+                android:background="@drawable/stargray" />
 
             <ImageView
                 android:id="@+id/star02"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/starnull" />
+                android:background="@drawable/stargray" />
 
             <ImageView
                 android:id="@+id/star03"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/starnull" />
+                android:background="@drawable/stargray" />
         </LinearLayout>
 
     </LinearLayout>

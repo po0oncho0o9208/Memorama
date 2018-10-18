@@ -29,8 +29,6 @@ public class SliderAdapterNivel extends PagerAdapter {
     int[] record = new int[27];
     boolean[] contestadas = new boolean[30];
     int dificultad;
-
-
     SharedPreferences sharedPref;
 
 
@@ -52,11 +50,11 @@ public class SliderAdapterNivel extends PagerAdapter {
         LinearLayout lin = view.findViewById(R.id.linealayoutmenu);
         sharedPref = context.getSharedPreferences("record", Context.MODE_PRIVATE);
         for (int i = 0; i < 27; i++) {
-            record[i] = sharedPref.getInt("record" + i, 0);
+            record[i] = sharedPref.getInt(dificultad + "record" + i, 0);
         }
         contestadas[0] = true;
-        for (int i = 0; i < 16; i++) {
-            contestadas[i] = sharedPref.getBoolean("contestada" + i, false);
+        for (int i = 0; i < 27; i++) {
+            contestadas[i] = sharedPref.getBoolean(dificultad + "contestada" + i, false);
         }
         contestadas[0] = true;
 

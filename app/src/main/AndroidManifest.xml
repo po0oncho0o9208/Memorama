@@ -28,7 +28,9 @@
         <activity
             android:name=".Menu"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Niveles" />
+        <activity
+            android:name=".Niveles"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>

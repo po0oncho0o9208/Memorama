@@ -1,6 +1,9 @@
 package com.toposdeus.memorama;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,23 +13,36 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
-public class Nivel extends AppCompatActivity {
+public class Nivel extends AppCompatActivity implements View.OnClickListener {
     private ViewPager viewpager;
     private SliderAdapterNivel adapter;
     private static final float MIN_SCALE = 0.7f;
     private static final float MIN_ALPHA = 0.3f;
     int pagina = 0;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         viewpager = findViewById(R.id.viewpager);
+        TextView txtest = findViewById(R.id.txtestrella);
+        sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
+        int contador = 0;
+        for (int n = 0; n < 4; n++) {
+            for (int i = 0; i < 27; i++) {
+                contador += sharedPref.getInt(n + "record" + i, 0);
+            }
+        }
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/birdyame.ttf");
+        txtest.setText(contador + " X ");
+        txtest.setTypeface(font);
 
         adapter = new SliderAdapterNivel(this, new int[]{0, 1, 2, 3, 4, 5,}, getIntent().getExtras().getInt("dificultad"));
         viewpager.setAdapter(adapter);
-        pagina = getIntent().getIntExtra("pagina",0);
+        pagina = getIntent().getIntExtra("pagina", 0);
         viewpager.setCurrentItem(pagina);
 
         //aqui se pone la animacion de transicion
@@ -68,11 +84,22 @@ public class Nivel extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(Nivel.this, Niveles.class);
+        intent.putExtra("dificultad", adapter.dificultad);
+        startActivity(intent);
+        finish();
+
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            startActivity(new Intent(getBaseContext(), Niveles.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+            Intent intent = new Intent(Nivel.this, Niveles.class);
+            intent.putExtra("dificultad", adapter.dificultad);
+            startActivity(intent);
             finish();
             return true;
         }
