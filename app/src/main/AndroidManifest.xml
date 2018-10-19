@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/numero2"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/numero2"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -31,6 +31,8 @@
         <activity
             android:name=".Niveles"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".Principal"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

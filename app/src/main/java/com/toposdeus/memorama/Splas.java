@@ -15,7 +15,7 @@ public class Splas extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(Splas.this,Niveles.class);
+                Intent intent = new Intent(Splas.this,Principal.class);
                 startActivity(intent);
                 finish();
             }
