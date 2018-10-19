@@ -33,7 +33,8 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
-
+    int[][][] matriz = {{{1, 2, 2, 3, 2, 4, 5, 4, 5, 6, 6, 5, 6, 7, 8, 9, 10, 6, 2, 4, 6}, {2, 3, 2, 4, 5, 4, 5, 6, 6, 5, 6, 7, 8, 9, 10, 6, 2, 4, 6, 7, 7}}, {{2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6}}};
+    // int[][] matriz2 = {{2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}};
     int imagenest[] = new int[]{R.drawable.uno1, R.drawable.dos2, R.drawable.tres3, R.drawable.cuatro4,
             R.drawable.cinco5, R.drawable.seis6, R.drawable.siete7, R.drawable.ocho8, R.drawable.nueve9,
             R.drawable.atras4, R.drawable.diez, R.drawable.chicharitom, R.drawable.compayitom, R.drawable.derbezm,
@@ -79,6 +80,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         cadena = getIntent().getExtras().getString("cadena");
         dificultad = getIntent().getExtras().getInt("dificultad");
         id = getIntent().getExtras().getInt("id");
+
         vibrar = AnimationUtils.loadAnimation(Memorama.this, R.anim.vibrarbotones);
         mover = AnimationUtils.loadAnimation(Memorama.this, R.anim.agrandar);
         animstar = AnimationUtils.loadAnimation(Memorama.this, R.anim.agrandarstar);
@@ -89,8 +91,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
         txtpunt.setText("Pares 0");
         txtintent.setText("Intentos 0");
-        mlargo = Integer.parseInt(String.valueOf(cadena.charAt(0)));
-        mancho = Integer.parseInt(String.valueOf(cadena.charAt(2)));
+        mlargo = matriz[0][dificultad][id];
+        //Integer.parseInt(String.valueOf(cadena.charAt(0)));
+        mancho = matriz[1][dificultad][id];
+        //Integer.parseInt(String.valueOf(cadena.charAt(2)));
         botonesimg = new int[mancho * mlargo];
         botones = new ImageView[mancho * mlargo];
         contestados = new boolean[mancho * mlargo];
