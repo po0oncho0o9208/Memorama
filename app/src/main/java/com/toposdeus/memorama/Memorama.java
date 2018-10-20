@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -33,7 +35,11 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
-    int[][][] matriz = {{{1, 2, 2, 3, 2, 4, 5, 4, 5, 6, 6, 5, 6, 7, 8, 9, 10, 6, 2, 4, 6}, {2, 3, 2, 4, 5, 4, 5, 6, 6, 5, 6, 7, 8, 9, 10, 6, 2, 4, 6, 7, 7}}, {{2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6}}};
+    int[][][] matriz = {{{1, 2, 2, 3, 2, 4, 5, 4, 5, 6, 6, 5, 6, 7, 8, 9, 10, 6, 2, 4, 6}, {2, 3, 2, 4, 5, 4, 5, 6, 6, 5, 6, 7, 8, 9, 10, 6, 2, 4, 6, 7, 7},
+            {2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6}},
+            {{3, 3, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6},
+                    {4, 4, 4, 4, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 8, 8}, {4, 4, 4, 4, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 8, 8}}};
+
     // int[][] matriz2 = {{2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}};
     int imagenest[] = new int[]{R.drawable.uno1, R.drawable.dos2, R.drawable.tres3, R.drawable.cuatro4,
             R.drawable.cinco5, R.drawable.seis6, R.drawable.siete7, R.drawable.ocho8, R.drawable.nueve9,
@@ -61,7 +67,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     Button atras;
     //boton atras
     int dificultad;
-
+    DisplayMetrics metrics;
+    int anchobtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,13 +95,14 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         animmarco = AnimationUtils.loadAnimation(Memorama.this, R.anim.animacionmarco);
         animcarta1 = AnimationUtils.loadAnimation(Memorama.this, R.anim.carta1);
         animcarta2 = AnimationUtils.loadAnimation(Memorama.this, R.anim.carta2);
-
         txtpunt.setText("Pares 0");
         txtintent.setText("Intentos 0");
         mlargo = matriz[0][dificultad][id];
         //Integer.parseInt(String.valueOf(cadena.charAt(0)));
         mancho = matriz[1][dificultad][id];
         //Integer.parseInt(String.valueOf(cadena.charAt(2)));
+        metrics = getResources().getDisplayMetrics();
+        anchobtn = ((metrics.widthPixels / mancho + 1));
         botonesimg = new int[mancho * mlargo];
         botones = new ImageView[mancho * mlargo];
         contestados = new boolean[mancho * mlargo];
@@ -105,7 +113,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         crearbotones();
         for (int i = 0; i < botones.length; i++) {
             botones[i].setEnabled(false);
-            botones[i].setBackground(getResources().getDrawable(botonesimg[i]));
+            botones[i].setBackground(resize(getResources().getDrawable(botonesimg[i]), anchobtn));
         }
 
         new Handler().postDelayed(new Runnable() {
@@ -114,7 +122,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 for (int i = 0; i < botones.length; i++) {
                     botones[i].setEnabled(true);
                     botones[i].startAnimation(animcarta1);
-                    botones[i].setBackground(getResources().getDrawable(R.drawable.fondomemo));
+                    botones[i].setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn));
                     crono.setBase(SystemClock.elapsedRealtime());
                     crono.start();
                 }
@@ -135,10 +143,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
 
     public void crearbotones() {
-        DisplayMetrics metrics = getResources().getDisplayMetrics();
         // int ancho = metrics.widthPixels / (100) * 20;
 
-        int anchobtn = ((metrics.widthPixels / mancho + 1));
 
         for (int i = 0; i <= (mlargo); i++) {
             LinearLayout row = new LinearLayout(this);
@@ -188,8 +194,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                             // Metodos.Guardarint(Nivel.this, definirpregunta, getString(R.string.quiz));
                             if (carta1 == 0) {
                                 btnTag.startAnimation(animcarta1);
-                                btnTag.setBackground(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]
-                                ));
+                                btnTag.setBackground(resize(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]), anchobtn));
                                 // btnTag.setText("" + (finalJ + (finalI * mancho) + 1));
                                 carta1 = botonesimg[finalJ + (finalI * mancho)];
                                 botontemp = btnTag;
@@ -199,7 +204,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                     botones[i].setEnabled(false);
                                 }
                                 new Hilo().execute();
-                                btnTag.setBackground(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]));
+                                btnTag.setBackground(resize(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]), anchobtn));
                                 // btnTag.setText("" + (finalJ + (finalI * mancho) + 1));
                                 // btnTag.setText(cartas[finalJ + (finalI * mancho)]);
                                 carta2 = botonesimg[finalJ + (finalI * mancho)];
@@ -226,8 +231,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
-                                            botontemp.setBackground(getResources().getDrawable(R.drawable.fondomemo));
-                                            btnTag.setBackground(getResources().getDrawable(R.drawable.fondomemo));
+                                            botontemp.setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn));
+                                            btnTag.setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn));
                                             for (int i = 0; i < botones.length; i++) {
                                                 if (!contestados[i]) {
                                                     botones[i].setEnabled(true);
@@ -434,6 +439,12 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             }
         }
         return pag;
+    }
+
+    private Drawable resize(Drawable image, int size) {
+        Bitmap b = ((BitmapDrawable) image).getBitmap();
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, size, size, false);
+        return new BitmapDrawable(getResources(), bitmapResized);
     }
 
 }

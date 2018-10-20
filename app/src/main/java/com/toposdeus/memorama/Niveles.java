@@ -2,6 +2,7 @@ package com.toposdeus.memorama;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -9,11 +10,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Niveles extends AppCompatActivity {
+public class Niveles extends AppCompatActivity implements View.OnClickListener {
     private ViewPager viewpager;
     private SliderAdapterNiveles adapter;
     private static final float MIN_SCALE = 0.7f;
@@ -84,5 +86,25 @@ public class Niveles extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(Niveles.this, Principal.class);
+        intent.putExtra("dificultad", adapter.dificultad);
+        startActivity(intent);
+        finish();
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            Intent intent = new Intent(Niveles.this, Principal.class);
+            intent.putExtra("dificultad", adapter.dificultad);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }

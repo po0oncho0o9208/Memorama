@@ -71,8 +71,8 @@ public class SliderAdapterNiveles extends PagerAdapter {
         txvwresueltas.setTypeface(font);
         txtestrellas.setTypeface(font);
 
-        txvwresueltas.setTextSize(60);
-        txtestrellas.setTextSize(40);
+        txvwresueltas.setTextSize(45);
+        txtestrellas.setTextSize(35);
         txvwresueltas.setTextColor(context.getResources().getColor(R.color.white));
         txtestrellas.setTextColor(context.getResources().getColor(R.color.white));
 

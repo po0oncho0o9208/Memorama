@@ -15,7 +15,6 @@
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:onClick="play"
-
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         app:srcCompat="@drawable/play" />

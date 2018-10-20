@@ -25,6 +25,9 @@ public class SliderAdapterNivel extends PagerAdapter {
 
     int[] dimensiones1 = new int[]{1, 2, 2, 3, 2, 4, 5, 4, 5, 6, 6, 5, 6, 7, 8, 9, 10, 6, 2, 4, 6};//FILAS
     int[] dimensiones2 = new int[]{2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5};//COLUMNAS
+
+    int[] botones = {R.drawable.ju1, R.drawable.ju2b, R.drawable.ju3, R.drawable.ju1};
+
     Typeface font;
     int[] record = new int[27];
     boolean[] contestadas = new boolean[30];
@@ -54,11 +57,13 @@ public class SliderAdapterNivel extends PagerAdapter {
         }
         contestadas[0] = true;
         for (int i = 0; i < 27; i++) {
+
             contestadas[i] = sharedPref.getBoolean(dificultad + "contestada" + i, false);
         }
         contestadas[0] = true;
 
-        crearaccesos(3, 3, lin, 9 * position);
+
+        crearaccesos(3, 3, lin, 9 * position, dificultad);
 
 
         container.addView(view);
@@ -77,7 +82,7 @@ public class SliderAdapterNivel extends PagerAdapter {
     }
 
 
-    public void crearaccesos(int mancho, int mlargo, LinearLayout layout, int position) {
+    public void crearaccesos(int mancho, int mlargo, LinearLayout layout, int position, int id) {
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         font = Typeface.createFromAsset(context.getAssets(), "fonts/birdyame.ttf");
 
@@ -96,6 +101,8 @@ public class SliderAdapterNivel extends PagerAdapter {
                     Button boton = inflar.findViewById(R.id.botonmemorama);
                     boton.getLayoutParams().height = metrics.widthPixels / 4;
                     boton.getLayoutParams().width = metrics.widthPixels / 4;
+                    boton.setBackground(context.getResources().getDrawable(botones[id]));
+
                     if (!contestadas[position + j + (i * mancho)]) {
                         boton.setEnabled(false);
                         boton.setBackground(context.getResources().getDrawable(R.drawable.lock));
