@@ -37,15 +37,15 @@ import android.widget.Toast;
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
     int[][][] matriz =
             //filas
-            {{{1, 2, 2, 3, 2, 4, 5, 4, 5,       2, 2, 3, 2, 4, 5, 4 , 5, 6,     1, 1, 1},
-            {2, 3, 2, 4, 5, 4, 5, 6, 6, 5, 6, 7, 8, 9, 10, 6, 2, 4, 6, 7, 7},
-            {2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+            {{{1, 2, 2, 3, 2, 4, 5, 4, 5, 2, 2, 3, 2, 4, 5, 4, 5, 6, 1, 1, 1},
+                    {2, 3, 2, 4, 5, 4, 5, 6, 6, 5, 6, 7, 8, 9, 10, 6, 2, 4, 6, 7, 7},
+                    {2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
                     {3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6}},
-//columnas
-                    {{2, 2, 3, 3, 5, 3, 3, 4, 4,     2, 3, 3, 5, 3, 3, 4, 4, 4,   2, 2, 2},
-                    {3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6},
-                    {4, 4, 4, 4, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 8, 8},
-                    {4, 4, 4, 4, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 8, 8}}};
+                    //columnas
+                    {{2, 2, 3, 3, 5, 3, 3, 4, 4, 2, 3, 3, 5, 3, 3, 4, 4, 4, 2, 2, 2},
+                            {3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6},
+                            {4, 4, 4, 4, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 8, 8},
+                            {4, 4, 4, 4, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 8, 8}}};
 
     // int[][] matriz2 = {{2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}};
     int imagenest[] = new int[]{R.drawable.uno1, R.drawable.dos2, R.drawable.tres3, R.drawable.cuatro4,
@@ -62,14 +62,13 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     LinearLayout layout;
     Chronometer crono;
     ImageView botontemp;
-    String cadena;
     int[] botonesimg;
     boolean[] contestados;
     int ganador = 0;
     ImageView[] botones;
     TextView txtpunt, txtintent;
     int intentos = 0, id, carta1 = 0, carta2 = 0;
-    Animation vibrar, mover, animstar, animstarnull, animmarco, animcarta1, animcarta2;
+    Animation vibrar, mover, animstar, animstarnull, animmarco, animcarta1, animcarta2, girari;
     // String cartas[] = new String[]{"hola", "adios", "viernes", "jueves", "helado", "topo", "hola", "adios", "viernes", "jueves", "helado", "topo"};
     Button atras;
     //boton atras
@@ -91,7 +90,6 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         txtintent = findViewById(R.id.txtintent);
         layout = findViewById(R.id.layoutmemo);
         crono = findViewById(R.id.crono);
-        cadena = getIntent().getExtras().getString("cadena");
         dificultad = getIntent().getExtras().getInt("dificultad");
         id = getIntent().getExtras().getInt("id");
 
@@ -102,12 +100,12 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         animmarco = AnimationUtils.loadAnimation(Memorama.this, R.anim.animacionmarco);
         animcarta1 = AnimationUtils.loadAnimation(Memorama.this, R.anim.carta1);
         animcarta2 = AnimationUtils.loadAnimation(Memorama.this, R.anim.carta2);
+        girari = AnimationUtils.loadAnimation(Memorama.this, R.anim.girarinfinito);
+
         txtpunt.setText("Pares 0");
         txtintent.setText("Intentos 0");
         mlargo = matriz[0][dificultad][id];
-        //Integer.parseInt(String.valueOf(cadena.charAt(0)));
         mancho = matriz[1][dificultad][id];
-        //Integer.parseInt(String.valueOf(cadena.charAt(2)));
         metrics = getResources().getDisplayMetrics();
         anchobtn = ((metrics.widthPixels / mancho + 1));
         botonesimg = new int[mancho * mlargo];
@@ -323,6 +321,9 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
             if (ganador == botones.length / 2) {
                 crono.stop();
+                SharedPreferences sharedPref;
+                sharedPref = Memorama.this.getSharedPreferences(
+                        "record", Context.MODE_PRIVATE);
                 int tiempo = ((int) (SystemClock.elapsedRealtime() - crono.getBase())) / 1000;
                 int minutos = tiempo / 60;
                 int segundos = tiempo - (minutos * 60);
@@ -343,28 +344,12 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 ImageView star2 = vi.findViewById(R.id.star2);
                 ImageView star3 = vi.findViewById(R.id.star3);
                 star1.startAnimation(animstar);
+                ImageView girar = vi.findViewById(R.id.backwin);
+                girar.startAnimation(girari);
                 Button botonretry = vi.findViewById(R.id.botonretry);
                 titulo.setBackground(getResources().getDrawable(R.drawable.titulovic1));
                 LinearLayout marco = vi.findViewById(R.id.layoutmarco);
                 marco.startAnimation(animmarco);
-                int estrellas = 1;
-                if (intentos <= ((mlargo * mancho) / 2) + 3) {
-                    estrellas = 2;
-                    titulo.setBackground(getResources().getDrawable(R.drawable.titulovic2));
-                    star2.startAnimation(animstar);
-                } else {
-                    star2.setBackground(getResources().getDrawable(R.drawable.starnull));
-                    star2.startAnimation(animstarnull);
-                }
-                if (intentos <= (mlargo * mancho) / 2) {
-                    estrellas = 3;
-                    botonretry.setVisibility(View.GONE);
-                    titulo.setBackground(getResources().getDrawable(R.drawable.titulovic3));
-                    star3.startAnimation(animstar);
-                } else {
-                    star3.setBackground(getResources().getDrawable(R.drawable.starnull));
-                    star3.startAnimation(animstarnull);
-                }
                 titulo.startAnimation(animstarnull);
                 String ssegundos;
                 String sminutos;
@@ -380,11 +365,13 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                     sminutos = "" + minutos;
                 }
                 txttiempo.setText("Tiempo: " + sminutos + ":" + ssegundos);
-                SharedPreferences sharedPref;
-                sharedPref = Memorama.this.getSharedPreferences(
-                        "record", Context.MODE_PRIVATE);
+
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putInt(dificultad + "record" + id, estrellas);
+                //verificamos si la las estrellas obtenidas son mas a las ya registradas que por default son cero
+                int numestrellas = estrellas((mancho * mlargo) / 2, dificultad, titulo, star2, star3, botonretry);
+                if (numestrellas > sharedPref.getInt(dificultad + "record" + id, 0)) {
+                    editor.putInt(dificultad + "record" + id, numestrellas);
+                }
                 editor.putBoolean(dificultad + "contestada" + (id + 1), true);
                 editor.commit();
                 Button botonok = vi.findViewById(R.id.botonok);
@@ -408,7 +395,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                             public void onClick(View v) {
                                 Intent intent = new Intent(Memorama.this, Memorama.class);
                                 intent.putExtra("dificultad", dificultad);
-                                intent.putExtra("cadena", cadena);
+                                intent.putExtra("id", id);
                                 startActivity(intent);
                                 finish();
                             }
@@ -452,6 +439,68 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         Bitmap b = ((BitmapDrawable) image).getBitmap();
         Bitmap bitmapResized = Bitmap.createScaledBitmap(b, size, size, false);
         return new BitmapDrawable(getResources(), bitmapResized);
+    }
+
+
+    private int estrellas(int pares, int nivel, ImageView titulo, ImageView star2, ImageView star3, Button botonretry) {
+        int estrella = 1;
+        int[] titulos = {R.drawable.titulovic1, R.drawable.titulovic2, R.drawable.titulovic3};
+        switch (nivel) {
+            case 0:
+                if (intentos - pares < 10) {
+                    estrella++;
+                    star2.startAnimation(animstar);
+                } else {
+                    star2.setBackground(getResources().getDrawable(R.drawable.starnull));
+                    star2.startAnimation(animstarnull);
+                }
+                if (intentos - pares < 5) {
+                    estrella++;
+                    botonretry.setVisibility(View.GONE);
+                    star3.startAnimation(animstar);
+                } else {
+                    star3.setBackground(getResources().getDrawable(R.drawable.starnull));
+                    star3.startAnimation(animstarnull);
+                }
+                break;
+            case 1:
+                if (intentos - pares < 7) {
+                    estrella++;
+                    star2.startAnimation(animstar);
+                } else {
+                    star2.setBackground(getResources().getDrawable(R.drawable.starnull));
+                    star2.startAnimation(animstarnull);
+                }
+                if (intentos - pares < 4) {
+                    estrella++;
+                    botonretry.setVisibility(View.GONE);
+                    star3.startAnimation(animstar);
+                } else {
+                    star3.setBackground(getResources().getDrawable(R.drawable.starnull));
+                    star3.startAnimation(animstarnull);
+                }
+                break;
+            case 2:
+                if (intentos - pares < 5) {
+                    estrella++;
+                    star2.startAnimation(animstar);
+                } else {
+                    star2.setBackground(getResources().getDrawable(R.drawable.starnull));
+                    star2.startAnimation(animstarnull);
+                }
+                if (intentos - pares < 2) {
+                    estrella++;
+                    botonretry.setVisibility(View.GONE);
+                    star3.startAnimation(animstar);
+                } else {
+                    star3.setBackground(getResources().getDrawable(R.drawable.starnull));
+                    star3.startAnimation(animstarnull);
+                }
+                break;
+        }
+
+        titulo.setBackground(getResources().getDrawable(titulos[estrella - 1]));
+        return estrella;
     }
 
 }

@@ -30,13 +30,7 @@ public class SliderAdapterNiveles extends PagerAdapter {
     SharedPreferences sharedPref;
 
 
-    public int colores[] = {
-            Color.rgb(237, 204, 144),
-            Color.rgb(160, 196, 154),
 
-            Color.rgb(152, 174, 215),
-            Color.rgb(184, 151, 192)
-    };
 
 
     @Override
@@ -62,7 +56,6 @@ public class SliderAdapterNiveles extends PagerAdapter {
         titulo.setTypeface(font);
         titulo.setText(titulos[position]);
         titulo.setBackground(context.getResources().getDrawable(titulosimagen[position]));
-        layoutslide.setBackgroundColor(colores[position]);
         int contador = 0;
         int contadorestrellas = 0;
         TextView txvwresueltas = view.findViewById(R.id.resueltas);

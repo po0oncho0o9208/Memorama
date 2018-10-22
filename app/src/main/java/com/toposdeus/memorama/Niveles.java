@@ -1,17 +1,26 @@
 package com.toposdeus.memorama;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +32,6 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
     int pagina;
     SharedPreferences sharedPref;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +39,7 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
         viewpager = findViewById(R.id.viewpager);
         adapter = new SliderAdapterNiveles(this, new int[]{0, 1, 2, 3, 4, 5,}, this);
         viewpager.setAdapter(adapter);
-
+        dialogo();
         TextView txtest = findViewById(R.id.txtestrella);
         sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
         int contador = 0;
@@ -107,4 +115,29 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
         return super.onKeyDown(keyCode, event);
     }
 
+
+    private void dialogo() {
+        Animation flechaanim = AnimationUtils.loadAnimation(Niveles.this, R.anim.moverflecha);
+        ColorDrawable dialogColor = new ColorDrawable(Color.GRAY);
+        dialogColor.setAlpha(0);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(Niveles.this);
+        LayoutInflater inflater = getLayoutInflater();
+        View vi = inflater.inflate(R.layout.instrucciones, null);
+        ImageView flecha = vi.findViewById(R.id.flecha1);
+        LinearLayout lay = vi.findViewById(R.id.layoutinstrucciones);
+        flecha.startAnimation(flechaanim);
+        builder.setView(vi);
+        final AlertDialog dialog = builder.create();
+        dialog.setCancelable(true);
+        lay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+
+            }
+        });
+        dialog.getWindow().setBackgroundDrawable(dialogColor);
+        dialog.show();
+
+    }
 }

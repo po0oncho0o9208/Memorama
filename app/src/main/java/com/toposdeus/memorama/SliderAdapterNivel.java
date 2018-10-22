@@ -23,10 +23,8 @@ public class SliderAdapterNivel extends PagerAdapter {
     LayoutInflater inflater;
     int dificultadarray[];
 
-    int[] dimensiones1 = new int[]{1, 2, 2, 3, 2, 4, 5, 4, 5, 6, 6, 5, 6, 7, 8, 9, 10, 6, 2, 4, 6};//FILAS
-    int[] dimensiones2 = new int[]{2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5};//COLUMNAS
 
-    int[] botones = {R.drawable.ju1, R.drawable.ju2b, R.drawable.ju3, R.drawable.ju1};
+    int[] botones = {R.drawable.ju1, R.drawable.ju2, R.drawable.ju3, R.drawable.ju1};
 
     Typeface font;
     int[] record = new int[27];
@@ -136,7 +134,6 @@ public class SliderAdapterNivel extends PagerAdapter {
                         public void onClick(View v) {
                             Intent intent = new Intent(context, Memorama.class);
                             intent.putExtra("dificultad", dificultad);
-                            intent.putExtra("cadena", "" + dimensiones1[num] + "x" + dimensiones2[num]);
                             intent.putExtra("id", num);
                             context.startActivity(intent);
                         }
