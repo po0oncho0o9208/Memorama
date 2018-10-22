@@ -9,7 +9,7 @@
         android:toYDelta="0%"
         android:zAdjustment="normal" />
     <scale
-        android:duration="2000"
+        android:duration="1500"
         android:fillBefore="true"
         android:fromXScale="0.7"
         android:fromYScale="0.7"
@@ -19,7 +19,7 @@
         android:toYScale="1.0" />
 
     <alpha
-        android:duration="2000"
+        android:duration="1500"
         android:fromAlpha="0.0"
         android:interpolator="@android:anim/accelerate_interpolator"
         android:repeatCount="infinite"

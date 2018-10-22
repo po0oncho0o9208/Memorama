@@ -31,8 +31,12 @@
         <activity
             android:name=".Niveles"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Principal"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".Principal"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="[ADMOB_APP_ID]"/>
     </application>
 
 </manifest>
