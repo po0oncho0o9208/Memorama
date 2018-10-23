@@ -11,8 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 public class Nivel extends AppCompatActivity implements View.OnClickListener {
@@ -26,7 +24,7 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_nivel);
         viewpager = findViewById(R.id.viewpager);
         TextView txtest = findViewById(R.id.txtestrella);
         sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);

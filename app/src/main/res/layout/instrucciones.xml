@@ -9,21 +9,19 @@
 
 
         <TextView
-            android:layout_marginTop="50dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:background="@drawable/masniveles"
+            android:layout_width="300dp"
+            android:layout_height="250dp"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="Encuentra mas niveles "
             android:textColor="#ffffff"
             android:textSize="40sp" />
 
         <ImageView
-            android:layout_marginTop="100dp"
             android:layout_gravity="right"
             android:id="@+id/flecha1"
             android:layout_width="150dp"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:background="@drawable/flecha" />
 
 

@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
@@ -49,26 +50,27 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
     // int[][] matriz2 = {{2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}};
     int imagenest[] = new int[]{R.drawable.uno1, R.drawable.dos2, R.drawable.tres3, R.drawable.cuatro4,
-            R.drawable.cinco5, R.drawable.seis6, R.drawable.siete7, R.drawable.ocho8, R.drawable.nueve9,
-            R.drawable.atras4, R.drawable.unoin, R.drawable.oso, R.drawable.dosin, R.drawable.tazas,
+            R.drawable.cinco5, R.drawable.seis6, R.drawable.siete7, R.drawable.ocho8, R.drawable.nueve9, R.drawable.unoin, R.drawable.dosin, R.drawable.tazas,
             R.drawable.tresin, R.drawable.tacos, R.drawable.cuatroin, R.drawable.focos, R.drawable.cincoin,
             R.drawable.fantasmas, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,
             R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,
             R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,
             R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,
             R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,};
+    int imagenesingles[] = new int[]{R.drawable.uno1, R.drawable.unoin, R.drawable.dos2, R.drawable.dosin, R.drawable.tres3,
+            R.drawable.tresin, R.drawable.cuatro4, R.drawable.cuatroin, R.drawable.cinco5, R.drawable.cincoin, R.drawable.seis6, R.drawable.seisin,
+            R.drawable.siete7, R.drawable.sietein, R.drawable.ocho8, R.drawable.ochoin, R.drawable.nueve9, R.drawable.nuevein};
 
     int mlargo, mancho;
     LinearLayout layout;
-    Chronometer crono;
+    TextView txtpunt;
     ImageView botontemp;
     int[] botonesimg;
     boolean[] contestados;
     int ganador = 0;
     ImageView[] botones;
-    TextView txtpunt, txtintent;
     int intentos = 0, id, carta1 = 0, carta2 = 0;
-    Animation vibrar, mover, animstar, animstarnull, animmarco, animcarta1, animcarta2, girari;
+    Animation vibrar, mover, animstar, animstarnull, animmarco, animcarta1, animcarta2, girari, seacaba;
     // String cartas[] = new String[]{"hola", "adios", "viernes", "jueves", "helado", "topo", "hola", "adios", "viernes", "jueves", "helado", "topo"};
     Button atras;
     //boton atras
@@ -87,9 +89,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         setSupportActionBar(toolbar);
 
         txtpunt = findViewById(R.id.txtpunt);
-        txtintent = findViewById(R.id.txtintent);
         layout = findViewById(R.id.layoutmemo);
-        crono = findViewById(R.id.crono);
         dificultad = getIntent().getExtras().getInt("dificultad");
         id = getIntent().getExtras().getInt("id");
 
@@ -100,10 +100,9 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         animmarco = AnimationUtils.loadAnimation(Memorama.this, R.anim.animacionmarco);
         animcarta1 = AnimationUtils.loadAnimation(Memorama.this, R.anim.carta1);
         animcarta2 = AnimationUtils.loadAnimation(Memorama.this, R.anim.carta2);
+        seacaba = AnimationUtils.loadAnimation(Memorama.this, R.anim.seterminatiempo);
         girari = AnimationUtils.loadAnimation(Memorama.this, R.anim.girarinfinito);
 
-        txtpunt.setText("Pares 0");
-        txtintent.setText("Intentos 0");
         mlargo = matriz[0][dificultad][id];
         mancho = matriz[1][dificultad][id];
         metrics = getResources().getDisplayMetrics();
@@ -113,7 +112,17 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         contestados = new boolean[mancho * mlargo];
         atras = findViewById(R.id.atras);
         mostrarimagenes(mancho * mlargo);
+        switch (dificultad) {
 
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                txtpunt.setText("   00:00");
+
+                break;
+        }
 
         crearbotones();
         for (int i = 0; i < botones.length; i++) {
@@ -128,12 +137,53 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                     botones[i].setEnabled(true);
                     botones[i].startAnimation(animcarta1);
                     botones[i].setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn));
-                    crono.setBase(SystemClock.elapsedRealtime());
-                    crono.start();
+
+                    switch (dificultad) {
+                        case 0:
+                            break;
+                        case 1:
+                            porintentos();
+                            break;
+                        case 2:
+                            portiempo();
+                            break;
+                        case 3:
+                            break;
+                    }
                 }
             }
-        }, mancho * 500);
+        }, mancho * 1000);
 
+    }
+
+    private void porintentos() {
+        txtpunt.setText("5");
+
+    }
+
+    private void portiempo() {
+        new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                int minutos = (int) ((millisUntilFinished / 1000) / 60);
+                int segundos = (int) ((millisUntilFinished / 1000) - (minutos * 60));
+                if (segundos < 10) {
+                    txtpunt.setText("   0" + minutos + ":" + "0" + segundos);
+                } else {
+                    txtpunt.setText("   0" + minutos + ":" + "" + segundos);
+                }
+                if (segundos < 10 && minutos == 0) {
+                    txtpunt.startAnimation(seacaba);
+                    txtpunt.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                }
+
+            }
+
+            public void onFinish() {
+
+                Toast.makeText(Memorama.this, "perdiste", Toast.LENGTH_LONG).show();
+            }
+        }.start();
     }
 
     @Override
@@ -214,7 +264,6 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                 // btnTag.setText(cartas[finalJ + (finalI * mancho)]);
                                 carta2 = botonesimg[finalJ + (finalI * mancho)];
                                 intentos++;
-                                txtintent.setText("Intentos " + intentos);
                                 if (carta1 == carta2) {
                                     contestados[btnTag.getId()] = true;
                                     contestados[botontemp.getId()] = true;
@@ -265,15 +314,31 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
 
     private void mostrarimagenes(int total) {
-        for (int i = 0; i < total / 2; ) {
-            botonesimg[i] = imagenest[i];
-            i++;
+        //llenar arreglo de imagenes
+        if (id < 8) {
+            for (int i = 0; i < total / 2; ) {
+                botonesimg[i] = imagenest[i];
+                i++;
+
+            }
+            for (int i = (total / 2); i < total; ) {
+                botonesimg[i] = imagenest[i - (total / 2)];
+                i++;
+            }
+
+        } else {
+            for (int i = 0; i < total / 2; ) {
+                botonesimg[i] = imagenesingles[i];
+                i++;
+
+            }
+            for (int i = (total / 2); i < total; ) {
+                botonesimg[i] = imagenesingles[i - (total / 2)];
+                i++;
+            }
 
         }
-        for (int i = (total / 2); i < total; ) {
-            botonesimg[i] = imagenest[i - (total / 2)];
-            i++;
-        }
+
         for (int i = 0; i < total; i++) {
             int index = (int) (Math.random() * total);
             int btntemp = botonesimg[i];
@@ -320,13 +385,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
 
             if (ganador == botones.length / 2) {
-                crono.stop();
                 SharedPreferences sharedPref;
                 sharedPref = Memorama.this.getSharedPreferences(
                         "record", Context.MODE_PRIVATE);
-                int tiempo = ((int) (SystemClock.elapsedRealtime() - crono.getBase())) / 1000;
-                int minutos = tiempo / 60;
-                int segundos = tiempo - (minutos * 60);
+
                 ColorDrawable dialogColor = new ColorDrawable(Color.GRAY);
                 dialogColor.setAlpha(0);
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Memorama.this);
@@ -336,7 +398,6 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 final AlertDialog dialog = builder.create();
                 dialog.setCancelable(false);
                 dialog.getWindow().setBackgroundDrawable(dialogColor);
-                TextView txttiempo = vi.findViewById(R.id.txttimepo);
                 TextView txtintentos = vi.findViewById(R.id.txtintentos);
                 txtintentos.setText("Intentos: " + intentos);
                 ImageView titulo = vi.findViewById(R.id.imagentitulo);
@@ -351,24 +412,11 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 LinearLayout marco = vi.findViewById(R.id.layoutmarco);
                 marco.startAnimation(animmarco);
                 titulo.startAnimation(animstarnull);
-                String ssegundos;
-                String sminutos;
 
-                if (segundos < 10) {
-                    ssegundos = "0" + segundos;
-                } else {
-                    ssegundos = "" + segundos;
-                }
-                if (minutos < 10) {
-                    sminutos = "0" + minutos;
-                } else {
-                    sminutos = "" + minutos;
-                }
-                txttiempo.setText("Tiempo: " + sminutos + ":" + ssegundos);
 
                 SharedPreferences.Editor editor = sharedPref.edit();
                 //verificamos si la las estrellas obtenidas son mas a las ya registradas que por default son cero
-                int numestrellas = estrellas((mancho * mlargo) / 2, dificultad, titulo, star2, star3, botonretry);
+                int numestrellas = estrellas((mancho * mlargo) / 2, titulo, star2, star3, botonretry, 2);
                 if (numestrellas > sharedPref.getInt(dificultad + "record" + id, 0)) {
                     editor.putInt(dificultad + "record" + id, numestrellas);
                 }
@@ -442,10 +490,11 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     }
 
 
-    private int estrellas(int pares, int nivel, ImageView titulo, ImageView star2, ImageView star3, Button botonretry) {
+    private int estrellas(int pares, ImageView titulo, ImageView star2, ImageView star3, Button botonretry, int segundos) {
         int estrella = 1;
         int[] titulos = {R.drawable.titulovic1, R.drawable.titulovic2, R.drawable.titulovic3};
-        switch (nivel) {
+
+        switch (dificultad) {
             case 0:
                 if (intentos - pares < 10) {
                     estrella++;
@@ -498,6 +547,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 }
                 break;
         }
+
 
         titulo.setBackground(getResources().getDrawable(titulos[estrella - 1]));
         return estrella;

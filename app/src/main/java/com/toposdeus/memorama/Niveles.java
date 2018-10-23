@@ -24,6 +24,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 public class Niveles extends AppCompatActivity implements View.OnClickListener {
     private ViewPager viewpager;
     private SliderAdapterNiveles adapter;
@@ -31,6 +34,7 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
     private static final float MIN_ALPHA = 0.3f;
     int pagina;
     SharedPreferences sharedPref;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +43,10 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
         viewpager = findViewById(R.id.viewpager);
         adapter = new SliderAdapterNiveles(this, new int[]{0, 1, 2, 3, 4, 5,}, this);
         viewpager.setAdapter(adapter);
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         dialogo();
         TextView txtest = findViewById(R.id.txtestrella);
         sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);

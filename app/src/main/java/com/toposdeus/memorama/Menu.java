@@ -26,7 +26,7 @@ public class Menu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_nivel);
         font = Typeface.createFromAsset(getAssets(), "fonts/birdyame.ttf");
         sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
         LinearLayout lay = findViewById(R.id.linealayoutmenu);
