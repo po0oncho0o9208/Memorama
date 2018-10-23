@@ -39,7 +39,8 @@
             android:name=".Principal"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
+        <activity android:name=".Ajustes" />
+        <activity android:name=".Trofeos"></activity>
     </application>
 
 </manifest>

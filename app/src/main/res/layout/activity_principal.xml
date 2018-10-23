@@ -17,7 +17,7 @@
         android:onClick="play"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        app:srcCompat="@drawable/play" />
+        android:background="@drawable/botonplay" />
 
 
     <LinearLayout
@@ -34,19 +34,19 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginVertical="500dp"
-
+            android:onClick="ajustes"
             android:layout_gravity="center"
-            android:layout_marginRight="170dp"
-
-
-            app:srcCompat="@drawable/ajustes" />
+            android:layout_marginRight="120dp"
+            android:background="@drawable/botonajustes"
+         />
 
 
         <ImageView
             android:id="@+id/btntrofeos"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:srcCompat="@drawable/trofeos" />
+            android:onClick="trofeos"
+            android:background="@drawable/botontrofeos" />
 
 
 
