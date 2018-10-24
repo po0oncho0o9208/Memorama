@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
     int[][][] matriz =
@@ -53,6 +54,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             R.drawable.tresin, R.drawable.cuatro4, R.drawable.cuatroin, R.drawable.cinco5, R.drawable.cincoin, R.drawable.seis6, R.drawable.seisin,
             R.drawable.siete7, R.drawable.sietein, R.drawable.ocho8, R.drawable.ochoin, R.drawable.nueve9, R.drawable.nuevein};
     int intentospermitidos[] = {3, 6, 6, 6, 6, 2, 5, 6, 8, 5, 6, 4, 5, 6, 5, 4, 6, 6, 4, 5, 4, 5, 5, 5, 5, 5, 8, 5, 8, 5, 2, 21,};
+    int tiempos[] = {30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000,
+            30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000};
     int restadorintentos;
     int mlargo, mancho;
     boolean tiempo = false;
@@ -62,6 +65,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     int[] botonesimg;
     boolean[] contestados;
     int ganador = 0;
+    boolean gameover = false;
+    int minutos, segundos;
     ImageView[] botones;
     int intentos = 0, id, carta1 = 0, carta2 = 0;
     Animation vibrar, mover, animstar, animmarco, animcarta1, animcarta2, seacaba;
@@ -71,6 +76,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     int dificultad;
     DisplayMetrics metrics;
     int anchobtn;
+    CountDownTimer crono;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -128,13 +134,14 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             botones[i].setBackground(resize(getResources().getDrawable(botonesimg[i]), anchobtn));
         }
 
+        //presentacion de las cartas se hace un temporizador en el que se descubren las cartas y despues de  mancho * 1000 milisegundos se vuelven a esconder
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i < botones.length; i++) {
                     botones[i].setEnabled(true);
                     botones[i].startAnimation(animcarta1);
-                    botones[i].setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn));
+                    botones[i].setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn / 2));
 
                     switch (dificultad) {
                         case 0:
@@ -160,17 +167,19 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void portiempo() {
-        new CountDownTimer(30000, 1000) {
+        crono = new CountDownTimer(tiempos[id], 1000) {
 
             public void onTick(long millisUntilFinished) {
-                int minutos = (int) ((millisUntilFinished / 1000) / 60);
-                int segundos = (int) ((millisUntilFinished / 1000) - (minutos * 60));
-                if (segundos < 10) {
-                    txtpunt.setText("0" + minutos + ":" + "0" + segundos);
+                int minutosi = (int) ((millisUntilFinished / 1000) / 60);
+                int segundosi = (int) ((millisUntilFinished / 1000) - (minutosi * 60));
+                minutos = minutosi;
+                segundos = segundosi;
+                if (segundosi < 10) {
+                    txtpunt.setText("0" + minutosi + ":" + "0" + segundosi);
                 } else {
-                    txtpunt.setText("0" + minutos + ":" + "" + segundos);
+                    txtpunt.setText("0" + minutosi + ":" + "" + segundosi);
                 }
-                if (segundos < 10 && minutos == 0) {
+                if (segundosi < 10 && minutosi == 0) {
                     txtpunt.startAnimation(seacaba);
                     txtpunt.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
                 }
@@ -178,8 +187,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             }
 
             public void onFinish() {
-                dialogo(false);
+                if (!gameover)
+                    dialogo(false);
             }
+
         }.start();
     }
 
@@ -246,7 +257,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                             // Metodos.Guardarint(Nivel.this, definirpregunta, getString(R.string.quiz));
                             if (carta1 == 0) {
                                 btnTag.startAnimation(animcarta1);
-                                btnTag.setBackground(resize(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]), anchobtn));
+                                btnTag.setBackground(resize(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]), anchobtn / 2));
                                 // btnTag.setText("" + (finalJ + (finalI * mancho) + 1));
                                 carta1 = botonesimg[finalJ + (finalI * mancho)];
                                 botontemp = btnTag;
@@ -255,7 +266,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                 for (int i = 0; i < botones.length; i++) {
                                     botones[i].setEnabled(false);
                                 }
-                                btnTag.setBackground(resize(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]), anchobtn));
+                                btnTag.setBackground(resize(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]), anchobtn / 2));
                                 // btnTag.setText("" + (finalJ + (finalI * mancho) + 1));
                                 // btnTag.setText(cartas[finalJ + (finalI * mancho)]);
                                 carta2 = botonesimg[finalJ + (finalI * mancho)];
@@ -284,8 +295,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
-                                            botontemp.setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn));
-                                            btnTag.setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn));
+                                            botontemp.setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn / 2));
+                                            btnTag.setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn / 2));
                                             for (int i = 0; i < botones.length; i++) {
                                                 if (!contestados[i]) {
                                                     botones[i].setEnabled(true);
@@ -486,13 +497,16 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     private int estrellas(int pares, ImageView titulo, ImageView star2, ImageView star3, Button botonretry) {
         int estrella = 1;
         int[] titulos = {R.drawable.titulovic1, R.drawable.titulovic2, R.drawable.titulovic3};
-
+        // diferencia lo que hara el metodo dependiendo de la dificultad en la que se este ejecutando el nivel
         switch (dificultad) {
             case 0:
                 if (intentos - pares < 10) {
+                    star2.setBackground(getResources().getDrawable(R.drawable.star));
+
                     estrella++;
                 }
                 if (intentos - pares < 5) {
+                    star3.setBackground(getResources().getDrawable(R.drawable.star));
                     estrella++;
                     botonretry.setVisibility(View.GONE);
                 }
@@ -509,10 +523,13 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 }
                 break;
             case 2:
-                if (intentos - pares < 5) {
+                gameover = true;
+                if (segundos > (tiempos[id] / 3000) * 2) {
+                    star2.setBackground(getResources().getDrawable(R.drawable.star));
                     estrella++;
                 }
-                if (intentos - pares < 2) {
+                if (segundos > tiempos[id] / 3000) {
+                    star3.setBackground(getResources().getDrawable(R.drawable.star));
                     estrella++;
                     botonretry.setVisibility(View.GONE);
                 }
@@ -520,6 +537,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         }
 
         titulo.setBackground(getResources().getDrawable(titulos[estrella - 1]));
+
         return estrella;
     }
 
