@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -47,9 +48,13 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        dialogo();
-        TextView txtest = findViewById(R.id.txtestrella);
         sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
+
+        if (sharedPref.getBoolean("instrucciones", true)) {
+            dialogo();
+        }
+
+        TextView txtest = findViewById(R.id.txtestrella);
         int contador = 0;
         for (int n = 0; n < 4; n++) {
             for (int i = 0; i < 27; i++) {
@@ -131,6 +136,7 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
         final AlertDialog.Builder builder = new AlertDialog.Builder(Niveles.this);
         LayoutInflater inflater = getLayoutInflater();
         View vi = inflater.inflate(R.layout.instrucciones, null);
+        final CheckBox checkbox = vi.findViewById(R.id.checkbox);
         ImageView flecha = vi.findViewById(R.id.flecha1);
         LinearLayout lay = vi.findViewById(R.id.layoutinstrucciones);
         flecha.startAnimation(flechaanim);
@@ -140,6 +146,11 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
         lay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (checkbox.isChecked()) {
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putBoolean("instrucciones", false);
+                    editor.commit();
+                }
                 dialog.cancel();
 
             }

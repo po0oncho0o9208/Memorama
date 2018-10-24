@@ -13,13 +13,19 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 public class Nivel extends AppCompatActivity implements View.OnClickListener {
     private ViewPager viewpager;
     private SliderAdapterNivel adapter;
     private static final float MIN_SCALE = 0.7f;
     private static final float MIN_ALPHA = 0.3f;
     int pagina = 0;
+
     SharedPreferences sharedPref;
+    private AdView mAdView;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,7 +34,11 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
         viewpager = findViewById(R.id.viewpager);
         TextView txtest = findViewById(R.id.txtestrella);
         sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         int contador = 0;
+
         for (int n = 0; n < 4; n++) {
             for (int i = 0; i < 27; i++) {
                 contador += sharedPref.getInt(n + "record" + i, 0);
