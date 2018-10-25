@@ -9,26 +9,19 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
-
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,12 +31,20 @@ import android.widget.Toast;
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
     int[][][] matriz =
             //filas
+<<<<<<< HEAD
             {{{1, 2, 2, 3, 2, 4, 5, 4, 5,  2, 2, 3, 2, 4, 5, 4, 5, 6,  6, 6, 7, 6, 6, 7, 6, 9, 8},
+=======
+            {{{1, 2, 2, 3, 2, 4, 5, 4, 5, 2, 2, 3, 2, 4, 5, 4, 5, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+>>>>>>> cd2bbbadc79dd8718c29fdd1b27deff30510ab13
                     {2, 3, 2, 4, 5, 4, 5, 6, 6, 5, 6, 7, 8, 9, 10, 6, 2, 4, 6, 7, 7},
                     {2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
                     {3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6}},
                     //columnas
+<<<<<<< HEAD
                     {{2, 2, 3, 3, 5, 3, 3, 4, 4, 2, 3, 3, 5, 3, 3, 4, 4, 4,  5, 6, 5, 7, 8, 7, 9, 9, 8},
+=======
+                    {{2, 2, 3, 3, 5, 3, 3, 4, 4, 2, 3, 3, 5, 3, 3, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+>>>>>>> cd2bbbadc79dd8718c29fdd1b27deff30510ab13
                             {3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6},
                             {4, 4, 4, 4, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 8, 8},
                             {4, 4, 4, 4, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 8, 8}}};
@@ -60,35 +61,41 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     int imagenesingles[] = new int[]{R.drawable.uno1, R.drawable.unoin, R.drawable.dos2, R.drawable.dosin, R.drawable.tres3,
             R.drawable.tresin, R.drawable.cuatro4, R.drawable.cuatroin, R.drawable.cinco5, R.drawable.cincoin, R.drawable.seis6, R.drawable.seisin,
             R.drawable.siete7, R.drawable.sietein, R.drawable.ocho8, R.drawable.ochoin, R.drawable.nueve9, R.drawable.nuevein};
-
+    int intentospermitidos[] = {3, 6, 6, 6, 6, 2, 5, 6, 8, 5, 6, 4, 5, 6, 5, 4, 6, 6, 4, 5, 4, 5, 5, 5, 5, 5, 8, 5, 8, 5, 2, 21,};
+    int tiempos[] = {30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000,
+            30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000};
+    int restadorintentos;
     int mlargo, mancho;
+    boolean tiempo = false;
     LinearLayout layout;
-    TextView txtpunt;
+    TextView txtpunt, txttitulo;
     ImageView botontemp;
     int[] botonesimg;
     boolean[] contestados;
     int ganador = 0;
+    boolean gameover = false;
+    int minutos, segundos;
     ImageView[] botones;
     int intentos = 0, id, carta1 = 0, carta2 = 0;
-    Animation vibrar, mover, animstar, animstarnull, animmarco, animcarta1, animcarta2, girari, seacaba;
+    Animation vibrar, mover, animstar, animmarco, animcarta1, animcarta2, seacaba;
     // String cartas[] = new String[]{"hola", "adios", "viernes", "jueves", "helado", "topo", "hola", "adios", "viernes", "jueves", "helado", "topo"};
     Button atras;
     //boton atras
     int dificultad;
     DisplayMetrics metrics;
     int anchobtn;
+    CountDownTimer crono;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_memorama);
         Toolbar toolbar = findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
 
         txtpunt = findViewById(R.id.txtpunt);
+        txttitulo = findViewById(R.id.txttitulome);
         layout = findViewById(R.id.layoutmemo);
         dificultad = getIntent().getExtras().getInt("dificultad");
         id = getIntent().getExtras().getInt("id");
@@ -96,12 +103,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         vibrar = AnimationUtils.loadAnimation(Memorama.this, R.anim.vibrarbotones);
         mover = AnimationUtils.loadAnimation(Memorama.this, R.anim.agrandar);
         animstar = AnimationUtils.loadAnimation(Memorama.this, R.anim.agrandarstar);
-        animstarnull = AnimationUtils.loadAnimation(Memorama.this, R.anim.agrandarstarnull);
         animmarco = AnimationUtils.loadAnimation(Memorama.this, R.anim.animacionmarco);
         animcarta1 = AnimationUtils.loadAnimation(Memorama.this, R.anim.carta1);
         animcarta2 = AnimationUtils.loadAnimation(Memorama.this, R.anim.carta2);
         seacaba = AnimationUtils.loadAnimation(Memorama.this, R.anim.seterminatiempo);
-        girari = AnimationUtils.loadAnimation(Memorama.this, R.anim.girarinfinito);
 
         mlargo = matriz[0][dificultad][id];
         mancho = matriz[1][dificultad][id];
@@ -112,14 +117,21 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         contestados = new boolean[mancho * mlargo];
         atras = findViewById(R.id.atras);
         mostrarimagenes(mancho * mlargo);
+        restadorintentos = intentospermitidos[id];
+        // verificamos la modalidad de juego para poner el titulo
         switch (dificultad) {
-
             case 0:
+                txttitulo.setText("Intentos: ");
+                txtpunt.setText("0");
+
                 break;
             case 1:
+                txttitulo.setText("Intentos restantes: ");
+                txtpunt.setText("" + restadorintentos);
                 break;
             case 2:
-                txtpunt.setText("   00:00");
+                txttitulo.setText("Tiempo restante: ");
+                txtpunt.setText("00:00");
 
                 break;
         }
@@ -130,13 +142,14 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             botones[i].setBackground(resize(getResources().getDrawable(botonesimg[i]), anchobtn));
         }
 
+        //presentacion de las cartas se hace un temporizador en el que se descubren las cartas y despues de  mancho * 1000 milisegundos se vuelven a esconder
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i < botones.length; i++) {
                     botones[i].setEnabled(true);
                     botones[i].startAnimation(animcarta1);
-                    botones[i].setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn));
+                    botones[i].setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn / 2));
 
                     switch (dificultad) {
                         case 0:
@@ -157,22 +170,24 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void porintentos() {
-        txtpunt.setText("5");
+
 
     }
 
     private void portiempo() {
-        new CountDownTimer(30000, 1000) {
+        crono = new CountDownTimer(tiempos[id], 1000) {
 
             public void onTick(long millisUntilFinished) {
-                int minutos = (int) ((millisUntilFinished / 1000) / 60);
-                int segundos = (int) ((millisUntilFinished / 1000) - (minutos * 60));
-                if (segundos < 10) {
-                    txtpunt.setText("   0" + minutos + ":" + "0" + segundos);
+                int minutosi = (int) ((millisUntilFinished / 1000) / 60);
+                int segundosi = (int) ((millisUntilFinished / 1000) - (minutosi * 60));
+                minutos = minutosi;
+                segundos = segundosi;
+                if (segundosi < 10) {
+                    txtpunt.setText("0" + minutosi + ":" + "0" + segundosi);
                 } else {
-                    txtpunt.setText("   0" + minutos + ":" + "" + segundos);
+                    txtpunt.setText("0" + minutosi + ":" + "" + segundosi);
                 }
-                if (segundos < 10 && minutos == 0) {
+                if (segundosi < 10 && minutosi == 0) {
                     txtpunt.startAnimation(seacaba);
                     txtpunt.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
                 }
@@ -180,9 +195,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             }
 
             public void onFinish() {
-
-                Toast.makeText(Memorama.this, "perdiste", Toast.LENGTH_LONG).show();
+                if (!gameover)
+                    dialogo(false);
             }
+
         }.start();
     }
 
@@ -249,7 +265,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                             // Metodos.Guardarint(Nivel.this, definirpregunta, getString(R.string.quiz));
                             if (carta1 == 0) {
                                 btnTag.startAnimation(animcarta1);
-                                btnTag.setBackground(resize(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]), anchobtn));
+                                btnTag.setBackground(resize(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]), anchobtn / 2));
                                 // btnTag.setText("" + (finalJ + (finalI * mancho) + 1));
                                 carta1 = botonesimg[finalJ + (finalI * mancho)];
                                 botontemp = btnTag;
@@ -258,8 +274,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                 for (int i = 0; i < botones.length; i++) {
                                     botones[i].setEnabled(false);
                                 }
-                                new Hilo().execute();
-                                btnTag.setBackground(resize(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]), anchobtn));
+                                btnTag.setBackground(resize(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]), anchobtn / 2));
                                 // btnTag.setText("" + (finalJ + (finalI * mancho) + 1));
                                 // btnTag.setText(cartas[finalJ + (finalI * mancho)]);
                                 carta2 = botonesimg[finalJ + (finalI * mancho)];
@@ -275,9 +290,12 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                     botontemp.startAnimation(mover);
                                     btnTag.startAnimation(mover);
                                     ganador++;
-                                    txtpunt.setText("Pares " + ganador);
                                     carta1 = 0;
                                     carta2 = 0;
+                                    //verificamos si se descubrieron todos los pares
+                                    if (ganador == botones.length / 2) {
+                                        dialogo(true);
+                                    }
 
                                 } else {
                                     botontemp.startAnimation(vibrar);
@@ -285,8 +303,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
-                                            botontemp.setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn));
-                                            btnTag.setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn));
+                                            botontemp.setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn / 2));
+                                            btnTag.setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn / 2));
                                             for (int i = 0; i < botones.length; i++) {
                                                 if (!contestados[i]) {
                                                     botones[i].setEnabled(true);
@@ -296,6 +314,23 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                     }, 700);
                                     carta1 = 0;
                                     carta2 = 0;
+                                    //verificamos que sea la modalidad de intentos permitidos
+                                    if (dificultad == 1) {
+                                        //se resta 1 a los intentos permitidos
+                                        restadorintentos--;
+                                        //setear intentos permitidos nuevamente en el textview
+                                        txtpunt.setText("" + restadorintentos);
+                                        //ponemos la animacion en rojo para la ultima tercera parte de los intentos
+                                        if (restadorintentos < intentospermitidos[id] / 3) {
+                                            txtpunt.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                                            txtpunt.startAnimation(seacaba);
+                                        }
+                                        //verificamos si los intentos permitidos son 0
+                                        if (restadorintentos == 0) {
+                                            //mostramos pantalla de perdedor!!!!
+                                            dialogo(false);
+                                        }
+                                    }
                                     // btnTag.setBackground(getResources().getDrawable(R.drawable.btnagregarback));
                                 }
                             }
@@ -360,104 +395,81 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         return super.onCreateOptionsMenu(menu);
     }
 
-    class Hilo extends AsyncTask<Void, Integer, Void> {
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
+    private void dialogo(boolean resultado) {
 
-        }
+        SharedPreferences sharedPref;
+        sharedPref = Memorama.this.getSharedPreferences("record", Context.MODE_PRIVATE);
+        ColorDrawable dialogColor = new ColorDrawable(Color.GRAY);
+        dialogColor.setAlpha(0);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(Memorama.this);
+        LayoutInflater inflater = getLayoutInflater();
+        View vi = inflater.inflate(R.layout.layout_victoria, null);
+        builder.setView(vi);
+        final AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(dialogColor);
+        TextView txtintentos = vi.findViewById(R.id.txtintentos);
+        txtintentos.setText("Intentos: " + intentos);
+        ImageView titulo = vi.findViewById(R.id.imagentitulo);
+        ImageView star1 = vi.findViewById(R.id.star1);
+        ImageView star2 = vi.findViewById(R.id.star2);
+        ImageView star3 = vi.findViewById(R.id.star3);
+        Button botonretry = vi.findViewById(R.id.botonretry);
+        LinearLayout marco = vi.findViewById(R.id.layoutmarco);
+        marco.startAnimation(animmarco);
+        SharedPreferences.Editor editor = sharedPref.edit();
 
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                Thread.sleep(300);
+        //verificamos si el metodo se llamo cuando se completo el memorama
+        if (resultado) {
+            star1.setBackground(getResources().getDrawable(R.drawable.star));
+            //verificamos si la las estrellas obtenidas son mas a las ya registradas que por default son cero
+            //si es menor no guardara las estrellas obtenidas
+            int numestrellas = estrellas((mancho * mlargo) / 2, titulo, star2, star3, botonretry);
+            if (numestrellas > sharedPref.getInt(dificultad + "record" + id, 0)) {
+                editor.putInt(dificultad + "record" + id, numestrellas);
 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
-            return null;
+            editor.putBoolean(dificultad + "contestada" + (id + 1), true);
         }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-
-            if (ganador == botones.length / 2) {
-                SharedPreferences sharedPref;
-                sharedPref = Memorama.this.getSharedPreferences(
-                        "record", Context.MODE_PRIVATE);
-
-                ColorDrawable dialogColor = new ColorDrawable(Color.GRAY);
-                dialogColor.setAlpha(0);
-                final AlertDialog.Builder builder = new AlertDialog.Builder(Memorama.this);
-                LayoutInflater inflater = getLayoutInflater();
-                View vi = inflater.inflate(R.layout.layout_victoria, null);
-                builder.setView(vi);
-                final AlertDialog dialog = builder.create();
-                dialog.setCancelable(false);
-                dialog.getWindow().setBackgroundDrawable(dialogColor);
-                TextView txtintentos = vi.findViewById(R.id.txtintentos);
-                txtintentos.setText("Intentos: " + intentos);
-                ImageView titulo = vi.findViewById(R.id.imagentitulo);
-                ImageView star1 = vi.findViewById(R.id.star1);
-                ImageView star2 = vi.findViewById(R.id.star2);
-                ImageView star3 = vi.findViewById(R.id.star3);
-                star1.startAnimation(animstar);
-                ImageView girar = vi.findViewById(R.id.backwin);
-                girar.startAnimation(girari);
-                Button botonretry = vi.findViewById(R.id.botonretry);
-                titulo.setBackground(getResources().getDrawable(R.drawable.titulovic1));
-                LinearLayout marco = vi.findViewById(R.id.layoutmarco);
-                marco.startAnimation(animmarco);
-                titulo.startAnimation(animstarnull);
+        editor.commit();
+        star1.startAnimation(animstar);
+        star2.startAnimation(animstar);
+        star3.startAnimation(animstar);
 
 
-                SharedPreferences.Editor editor = sharedPref.edit();
-                //verificamos si la las estrellas obtenidas son mas a las ya registradas que por default son cero
-                int numestrellas = estrellas((mancho * mlargo) / 2, titulo, star2, star3, botonretry, 2);
-                if (numestrellas > sharedPref.getInt(dificultad + "record" + id, 0)) {
-                    editor.putInt(dificultad + "record" + id, numestrellas);
+        Button botonok = vi.findViewById(R.id.botonok);
+        botonok.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent = new Intent(Memorama.this, Nivel.class);
+                        intent.putExtra("dificultad", dificultad);
+                        intent.putExtra("pagina", pagina());
+                        startActivity(intent);
+                        finish();
+                    }
                 }
-                editor.putBoolean(dificultad + "contestada" + (id + 1), true);
-                editor.commit();
-                Button botonok = vi.findViewById(R.id.botonok);
-                botonok.setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
+        );
 
-                                Intent intent = new Intent(Memorama.this, Nivel.class);
-                                intent.putExtra("dificultad", dificultad);
-                                intent.putExtra("pagina", pagina());
-                                startActivity(intent);
-                                finish();
-                            }
-                        }
-                );
+        botonretry.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Memorama.this, Memorama.class);
+                        intent.putExtra("dificultad", dificultad);
+                        intent.putExtra("id", id);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+        );
 
-                botonretry.setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(Memorama.this, Memorama.class);
-                                intent.putExtra("dificultad", dificultad);
-                                intent.putExtra("id", id);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }
-                );
-
-                dialog.show();
-
-
-            }
-
-        }
+        dialog.show();
 
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -490,66 +502,50 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     }
 
 
-    private int estrellas(int pares, ImageView titulo, ImageView star2, ImageView star3, Button botonretry, int segundos) {
+    private int estrellas(int pares, ImageView titulo, ImageView star2, ImageView star3, Button botonretry) {
         int estrella = 1;
         int[] titulos = {R.drawable.titulovic1, R.drawable.titulovic2, R.drawable.titulovic3};
-
+        // diferencia lo que hara el metodo dependiendo de la dificultad en la que se este ejecutando el nivel
         switch (dificultad) {
             case 0:
                 if (intentos - pares < 10) {
+                    star2.setBackground(getResources().getDrawable(R.drawable.star));
+
                     estrella++;
-                    star2.startAnimation(animstar);
-                } else {
-                    star2.setBackground(getResources().getDrawable(R.drawable.starnull));
-                    star2.startAnimation(animstarnull);
                 }
                 if (intentos - pares < 5) {
+                    star3.setBackground(getResources().getDrawable(R.drawable.star));
                     estrella++;
                     botonretry.setVisibility(View.GONE);
-                    star3.startAnimation(animstar);
-                } else {
-                    star3.setBackground(getResources().getDrawable(R.drawable.starnull));
-                    star3.startAnimation(animstarnull);
                 }
                 break;
             case 1:
-                if (intentos - pares < 7) {
+                if (restadorintentos > intentospermitidos[id] / 3) {
+                    star2.setBackground(getResources().getDrawable(R.drawable.star));
                     estrella++;
-                    star2.startAnimation(animstar);
-                } else {
-                    star2.setBackground(getResources().getDrawable(R.drawable.starnull));
-                    star2.startAnimation(animstarnull);
                 }
-                if (intentos - pares < 4) {
+                if (restadorintentos > (intentospermitidos[id] / 3) * 2) {
+                    star3.setBackground(getResources().getDrawable(R.drawable.star));
                     estrella++;
                     botonretry.setVisibility(View.GONE);
-                    star3.startAnimation(animstar);
-                } else {
-                    star3.setBackground(getResources().getDrawable(R.drawable.starnull));
-                    star3.startAnimation(animstarnull);
                 }
                 break;
             case 2:
-                if (intentos - pares < 5) {
+                gameover = true;
+                if (segundos > (tiempos[id] / 3000) * 2) {
+                    star2.setBackground(getResources().getDrawable(R.drawable.star));
                     estrella++;
-                    star2.startAnimation(animstar);
-                } else {
-                    star2.setBackground(getResources().getDrawable(R.drawable.starnull));
-                    star2.startAnimation(animstarnull);
                 }
-                if (intentos - pares < 2) {
+                if (segundos > tiempos[id] / 3000) {
+                    star3.setBackground(getResources().getDrawable(R.drawable.star));
                     estrella++;
                     botonretry.setVisibility(View.GONE);
-                    star3.startAnimation(animstar);
-                } else {
-                    star3.setBackground(getResources().getDrawable(R.drawable.starnull));
-                    star3.startAnimation(animstarnull);
                 }
                 break;
         }
 
-
         titulo.setBackground(getResources().getDrawable(titulos[estrella - 1]));
+
         return estrella;
     }
 
