@@ -24,7 +24,7 @@ public class SliderAdapterNiveles extends PagerAdapter {
     Activity activity;
     public boolean sfin = false;
     public int[] lista = {R.drawable.btnjugar1, R.drawable.btnjugar2, R.drawable.btnjugar3, R.drawable.btnjugar4};
-    public int[] titulosimagen = {R.drawable.titulofacil, R.drawable.titulonormal, R.drawable.titulodificil, R.drawable.tituloextremo};
+    public int[] titulosimagen = {R.drawable.titulonormal, R.drawable.titulopreciso, R.drawable.titulocontrareloj, R.drawable.titulolibre};
     public String[] titulos = new String[]{"", "", "", ""};
     boolean[] contestadas = new boolean[27];
     SharedPreferences sharedPref;

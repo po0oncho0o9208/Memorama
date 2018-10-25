@@ -53,9 +53,14 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     int imagenesingles[] = new int[]{R.drawable.uno1, R.drawable.unoin, R.drawable.dos2, R.drawable.dosin, R.drawable.tres3,
             R.drawable.tresin, R.drawable.cuatro4, R.drawable.cuatroin, R.drawable.cinco5, R.drawable.cincoin, R.drawable.seis6, R.drawable.seisin,
             R.drawable.siete7, R.drawable.sietein, R.drawable.ocho8, R.drawable.ochoin, R.drawable.nueve9, R.drawable.nuevein};
+    //intentos para cad nivel en especifico
     int intentospermitidos[] = {3, 6, 6, 6, 6, 2, 5, 6, 8, 5, 6, 4, 5, 6, 5, 4, 6, 6, 4, 5, 4, 5, 5, 5, 5, 5, 8, 5, 8, 5, 2, 21,};
+
+    //tiempo permitido para cada nivel
     int tiempos[] = {30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000,
             30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000, 30000, 30000, 50000};
+
+
     int restadorintentos;
     int mlargo, mancho;
     boolean tiempo = false;
@@ -70,7 +75,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     ImageView[] botones;
     int intentos = 0, id, carta1 = 0, carta2 = 0;
     Animation vibrar, mover, animstar, animmarco, animcarta1, animcarta2, seacaba;
-    // String cartas[] = new String[]{"hola", "adios", "viernes", "jueves", "helado", "topo", "hola", "adios", "viernes", "jueves", "helado", "topo"};
+
     Button atras;
     //boton atras
     int dificultad;
@@ -230,31 +235,14 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                     btnTag.getLayoutParams().height = metrics.widthPixels / (mancho + 1);
                     btnTag.getLayoutParams().width = metrics.widthPixels / (mancho + 1);
                     btnTag.setId(j + (i * mancho));
-
                     btnTag.startAnimation(animcarta1);
-
-
                     botones[j + (i * mancho)] = btnTag;
-                    // StateListDrawable states = new StateListDrawable();
-                    //  int o = j + (i * 3);
-                    //  states.addState(new int[]{android.R.attr.state_enabled}, drawbg(getResources().getDrawable(R.drawable.fondomemo), 0));
-                    //  states.addState(new int[]{android.R.attr.state_pressed}, drawbg(getResources().getDrawable(botonesimg[j + (i * mancho)]), 0));
-                    // states.addState(new int[]{android.R.attr.state_enabled}, drawbg(getResources().obtainTypedArray(
-                    //      imagenes[nivel]).getDrawable(j + (i * 3)), j + (i * 3), 0));
-                    //states.addState(new int[]{android.R.attr.state_enabled}, drawbg(resizeImagen(this, getResources().obtainTypedArray(
-                    //  imagenes[nivel]).getResourceId(j + (i * 3), 1), ancho, ancho), j + (i * 3), 0));
-                    //btnTag.setBackground(states);
                     final int finalJ = j;
                     final int finalI = i;
                     btnTag.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // definirpregunta = finalJ + (finalI * 3);
-                            //Animation mover = AnimationUtils.loadAnimation(Nivel.this, R.anim.mover);
-                            //btnTag.startAnimation(mover);
-                            //   Metodos.preferenciasonido(Nivel.this, R.raw.click);
-                            //   Metodos.preferenciavibrar(Nivel.this, 50);
-                            // Metodos.Guardarint(Nivel.this, definirpregunta, getString(R.string.quiz));
+
                             if (carta1 == 0) {
                                 btnTag.startAnimation(animcarta1);
                                 btnTag.setBackground(resize(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]), anchobtn / 2));
@@ -502,7 +490,6 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             case 0:
                 if (intentos - pares < 10) {
                     star2.setBackground(getResources().getDrawable(R.drawable.star));
-
                     estrella++;
                 }
                 if (intentos - pares < 5) {
