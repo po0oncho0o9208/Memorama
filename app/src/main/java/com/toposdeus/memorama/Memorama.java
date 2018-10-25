@@ -31,14 +31,17 @@ import android.widget.Toast;
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
     int[][][] matriz =
 
-            //filas
-            {{{1, 2, 2, 3, 2, 4, 5, 4, 5, 2, 2, 3, 2, 4, 5, 4, 5, 6, 6, 6, 7, 6, 6, 7, 6, 9, 8},
+            //filas 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+            {{{1, 2, 2, 3, 2, 4, 5, 4, 5,    2, 2, 3, 2, 4, 5, 4, 5, 6, 6, 6, 7, 6, 6, 7, 6, 9, 8},
                     {1, 2, 2, 3, 2, 4, 5, 4, 5, 2, 2, 3, 2, 4, 5, 4, 5, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                     {2, 3, 2, 4, 5, 4, 5, 6, 6, 5, 6, 7, 8, 9, 10, 6, 2, 4, 6, 7, 7},
                     {2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
                     {3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6}},
-                    //columnas
-                    {{2, 2, 3, 3, 5, 3, 3, 4, 4, 2, 3, 3, 5, 3, 3, 4, 4, 4, 5, 6, 5, 7, 8, 7, 9, 9, 8},
+
+
+                    //columnas                    {{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+
+                    {{2, 2, 3, 3, 5, 3, 3, 4, 4,    2, 3, 3, 5, 3, 3, 4, 4, 4, 5, 6, 5, 7, 8, 7, 9, 9, 8},
                             {2, 2, 3, 3, 5, 3, 3, 4, 4, 2, 3, 3, 5, 3, 3, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2},
                             {3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6},
                             {4, 4, 4, 4, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 8, 8},
@@ -53,9 +56,29 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,
             R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,
             R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback, R.drawable.btnagregarback,};
-    int imagenesingles[] = new int[]{R.drawable.uno1, R.drawable.unoin, R.drawable.dos2, R.drawable.dosin, R.drawable.tres3,
-            R.drawable.tresin, R.drawable.cuatro4, R.drawable.cuatroin, R.drawable.cinco5, R.drawable.cincoin, R.drawable.seis6, R.drawable.seisin,
-            R.drawable.siete7, R.drawable.sietein, R.drawable.ocho8, R.drawable.ochoin, R.drawable.nueve9, R.drawable.nuevein};
+
+
+    int imagenesnivel10[] = new int[]{R.drawable.unoin, R.drawable.uva};
+
+    int imagenesnivel11[] = new int[]{R.drawable.unoin, R.drawable.dulces, R.drawable.dosin};
+
+    int imagenesnivel12[] = new int[]{R.drawable.uno1, R.drawable.tacos, R.drawable.dos2, R.drawable.tresin, R.drawable.tambores};
+
+    int imagenesnivel13[] = new int[]{R.drawable.uno1, R.drawable.conejo, R.drawable.dos2, R.drawable.tresin, R.drawable.cuatroin};
+
+    int imagenesnivel14[] = new int[]{R.drawable.uno1, R.drawable.fantasmas, R.drawable.dos2, R.drawable.tresin, R.drawable.cuatroin, R.drawable.cincoin};
+
+    int imagenesnivel15[] = new int[]{R.drawable.uno1, R.drawable.soles, R.drawable.dos2, R.drawable.tresin, R.drawable.cuatroin, R.drawable.cincoin, R.drawable.seisin, R.drawable.sombreros};
+
+    int imagenesnivel16[] = new int[]{R.drawable.uno1, R.drawable.sillas, R.drawable.dos2, R.drawable.tresin, R.drawable.cuatroin, R.drawable.cincoin, R.drawable.seisin,
+    R.drawable.sietein};
+
+    int imagenesnivel17[] = new int[]{R.drawable.uno1, R.drawable.estrellas, R.drawable.dos2, R.drawable.tresin, R.drawable.cuatroin, R.drawable.cincoin, R.drawable.seisin,
+            R.drawable.sietein, R.drawable.ochoin, R.drawable.ojos};
+
+    int imagenesnivel18[] = new int[]{R.drawable.uno1, R.drawable.nubes, R.drawable.dos2, R.drawable.tresin, R.drawable.cuatroin, R.drawable.cincoin, R.drawable.seisin,
+            R.drawable.sietein, R.drawable.ochoin, R.drawable.nuevein, R.drawable.naranjas,R.drawable.oso};
+
     //intentos para cad nivel en especifico
     int intentospermitidos[] = {3, 6, 6, 6, 6, 2, 5, 6, 8, 5, 6, 4, 5, 6, 5, 4, 6, 6, 4, 5, 4, 5, 5, 5, 5, 5, 8, 5, 8, 5, 2, 21,};
 
@@ -332,8 +355,11 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
 
     private void mostrarimagenes(int total) {
+
         //llenar arreglo de imagenes
-        if (id < 8) {
+
+
+        if (id <= 8) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenest[i];
                 i++;
@@ -344,18 +370,133 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 i++;
             }
 
-        } else {
+        }  if (   id == 9  ) {
             for (int i = 0; i < total / 2; ) {
-                botonesimg[i] = imagenesingles[i];
+                botonesimg[i] = imagenesnivel10[i];
                 i++;
 
             }
             for (int i = (total / 2); i < total; ) {
-                botonesimg[i] = imagenesingles[i - (total / 2)];
+                botonesimg[i] = imagenesnivel10[i - (total / 2)];
+                i++;
+            }
+
+        } //bien
+
+        if (id == 10  ) {
+            for (int i = 0; i < total / 2; ) {
+                botonesimg[i] = imagenesnivel11[i];
+                i++;
+
+            }
+            for (int i = (total / 2); i < total; ) {
+                botonesimg[i] = imagenesnivel11[i - (total / 2)];
                 i++;
             }
 
         }
+
+
+        if (id ==11 ) {
+            for (int i = 0; i < total / 2; ) {
+                botonesimg[i] = imagenesnivel12[i];
+                i++;
+
+            }
+            for (int i = (total / 2); i < total; ) {
+                botonesimg[i] = imagenesnivel12[i - (total / 2)];
+                i++;
+            }
+
+        }
+
+
+        if (id ==12  ) {
+            for (int i = 0; i < total / 2; ) {
+                botonesimg[i] = imagenesnivel13[i];
+                i++;
+
+            }
+            for (int i = (total / 2); i < total; ) {
+                botonesimg[i] = imagenesnivel13[i - (total / 2)];
+                i++;
+            }
+
+        }
+
+
+
+        if (id ==13  ) {
+            for (int i = 0; i < total / 2; ) {
+                botonesimg[i] = imagenesnivel14[i];
+                i++;
+
+            }
+            for (int i = (total / 2); i < total; ) {
+                botonesimg[i] = imagenesnivel14[i - (total / 2)];
+                i++;
+            }
+
+        }
+
+
+        if (id ==14  ) {
+            for (int i = 0; i < total / 2; ) {
+                botonesimg[i] = imagenesnivel15[i];
+                i++;
+
+            }
+            for (int i = (total / 2); i < total; ) {
+                botonesimg[i] = imagenesnivel15[i - (total / 2)];
+                i++;
+            }
+
+        }
+
+
+        if (id ==15  ) {
+            for (int i = 0; i < total / 2; ) {
+                botonesimg[i] = imagenesnivel16[i];
+                i++;
+
+            }
+            for (int i = (total / 2); i < total; ) {
+                botonesimg[i] = imagenesnivel16[i - (total / 2)];
+                i++;
+            }
+
+        }
+
+
+        if (id ==16  ) {
+            for (int i = 0; i < total / 2; ) {
+                botonesimg[i] = imagenesnivel17[i];
+                i++;
+
+            }
+            for (int i = (total / 2); i < total; ) {
+                botonesimg[i] = imagenesnivel17[i - (total / 2)];
+                i++;
+            }
+
+        }
+
+
+        if (id ==17  ) {
+            for (int i = 0; i < total / 2; ) {
+                botonesimg[i] = imagenesnivel18[i];
+                i++;
+
+            }
+            for (int i = (total / 2); i < total; ) {
+                botonesimg[i] = imagenesnivel18[i - (total / 2)];
+                i++;
+            }
+
+        }
+
+
+
 
         for (int i = 0; i < total; i++) {
             int index = (int) (Math.random() * total);
