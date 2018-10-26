@@ -190,26 +190,12 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                     botones[i].startAnimation(animcarta1);
                     botones[i].setBackground(resize(getResources().getDrawable(R.drawable.fondomemo), anchobtn / 2));
 
-                    switch (dificultad) {
-                        case 0:
-                            break;
-                        case 1:
-                            porintentos();
-                            break;
-                        case 2:
-                            portiempo();
-                            break;
-                        case 3:
-                            break;
+                    if (dificultad == 2) {
+                        portiempo();
                     }
                 }
             }
         }, mancho * 1000);
-
-    }
-
-    private void porintentos() {
-
 
     }
 
@@ -667,8 +653,6 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         final AlertDialog dialog = builder.create();
         dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(dialogColor);
-        TextView txtintentos = vi.findViewById(R.id.txtintentos);
-        txtintentos.setText("Intentos: " + intentos);
         ImageView titulo = vi.findViewById(R.id.imagentitulo);
         ImageView star1 = vi.findViewById(R.id.star1);
         ImageView star2 = vi.findViewById(R.id.star2);
