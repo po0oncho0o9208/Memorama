@@ -1,9 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.toposdeus.memorama.Trofeos">
+    android:background="@drawable/fondonivel"
+    android:orientation="vertical"
+    android:scrollbars="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/marcoredondo">
+
+        <Button
+            android:id="@+id/botonatras"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/trofeos" />
+
+        <TextView
+            android:id="@+id/textopciones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:text="Trofeos"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
