@@ -32,7 +32,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     int[][][] matriz =
 
             //filas 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-            {{{1, 2, 2, 3, 2, 4, 5, 4, 5,    2, 2, 3, 2, 4, 5, 4, 5, 6,    2, 3, 2, 4, 5, 4, 5 , 6, 6},
+            {{{1, 2, 2, 3, 2, 4, 5, 4, 5, 2, 2, 3, 2, 4, 5, 4, 5, 6, 2, 3, 2, 4, 5, 4, 5, 6, 6},
                     {1, 2, 2, 3, 2, 4, 5, 4, 5, 2, 2, 3, 2, 4, 5, 4, 5, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                     {2, 3, 2, 4, 5, 4, 5, 6, 6, 5, 6, 7, 8, 9, 10, 6, 2, 4, 6, 7, 7},
                     {2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
@@ -41,7 +41,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
                     //columnas                    {{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 
-                    {{2, 2, 3, 3, 5, 3, 3, 4, 4,    2, 3, 3, 5, 3, 3, 4, 4, 4,    3, 3, 5, 3 , 3, 4, 4, 4, 5},
+                    {{2, 2, 3, 3, 5, 3, 3, 4, 4, 2, 3, 3, 5, 3, 3, 4, 4, 4, 3, 3, 5, 3, 3, 4, 4, 4, 5},
                             {2, 2, 3, 3, 5, 3, 3, 4, 4, 2, 3, 3, 5, 3, 3, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2},
                             {3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6},
                             {4, 4, 4, 4, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 8, 8},
@@ -49,7 +49,9 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
     // int[][] matriz2 = {{2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}};
     int imagenest[] = new int[]{R.drawable.uno1, R.drawable.dos2, R.drawable.tres3, R.drawable.cuatro4,
-            R.drawable.cinco5, R.drawable.seis6, R.drawable.siete7, R.drawable.ocho8, R.drawable.nueve9, R.drawable.atras4};
+            R.drawable.cinco5, R.drawable.seis6, R.drawable.siete7, R.drawable.ocho8, R.drawable.nueve9, R.drawable.uva, R.drawable.dulces,
+            R.drawable.tacos, R.drawable.sombreros, R.drawable.soles, R.drawable.sillas, R.drawable.nubes, R.drawable.naranjas, R.drawable.tazas,
+            R.drawable.estrellas, R.drawable.corbatas, R.drawable.fantasmas};
 
 
     int imagenesnivel10[] = new int[]{R.drawable.unoin, R.drawable.uva};
@@ -65,13 +67,13 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     int imagenesnivel15[] = new int[]{R.drawable.unoin, R.drawable.soles, R.drawable.dosin, R.drawable.tresin, R.drawable.cuatroin, R.drawable.cincoin, R.drawable.seisin, R.drawable.sombreros};
 
     int imagenesnivel16[] = new int[]{R.drawable.unoin, R.drawable.sillas, R.drawable.dosin, R.drawable.tresin, R.drawable.cuatroin, R.drawable.cincoin, R.drawable.seisin,
-    R.drawable.sietein};
+            R.drawable.sietein};
 
     int imagenesnivel17[] = new int[]{R.drawable.unoin, R.drawable.estrellas, R.drawable.dosin, R.drawable.tresin, R.drawable.cuatroin, R.drawable.cincoin, R.drawable.seisin,
             R.drawable.sietein, R.drawable.ochoin, R.drawable.ojos};
 
     int imagenesnivel18[] = new int[]{R.drawable.unoin, R.drawable.nubes, R.drawable.dosin, R.drawable.tresin, R.drawable.cuatroin, R.drawable.cincoin, R.drawable.seisin,
-            R.drawable.sietein, R.drawable.ochoin, R.drawable.nuevein, R.drawable.naranjas,R.drawable.oso};
+            R.drawable.sietein, R.drawable.ochoin, R.drawable.nuevein, R.drawable.naranjas, R.drawable.oso};
 
     int imagenesnivel19[] = new int[]{R.drawable.uno1, R.drawable.oso, R.drawable.uva};
 
@@ -90,10 +92,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             R.drawable.siete7, R.drawable.sandias, R.drawable.sietein};
 
     int imagenesnivel26[] = new int[]{R.drawable.uno1, R.drawable.ojos, R.drawable.dos2, R.drawable.tres3, R.drawable.cuatro4, R.drawable.cinco5, R.drawable.seis6,
-            R.drawable.siete7, R.drawable.ocho8, R.drawable.ochoin, R.drawable.estrellas,R.drawable.oso,R.drawable.fantasmas};
+            R.drawable.siete7, R.drawable.ocho8, R.drawable.ochoin, R.drawable.estrellas, R.drawable.oso, R.drawable.fantasmas};
 
     int imagenesnivel27[] = new int[]{R.drawable.uno1, R.drawable.ojos, R.drawable.dos2, R.drawable.tres3, R.drawable.cuatro4, R.drawable.cinco5, R.drawable.seis6,
-            R.drawable.siete7, R.drawable.ocho8, R.drawable.fantasmas, R.drawable.estrellas,R.drawable.oso,R.drawable.nueve9,R.drawable.nuevein,R.drawable.naranjas};
+            R.drawable.siete7, R.drawable.ocho8, R.drawable.fantasmas, R.drawable.estrellas, R.drawable.oso, R.drawable.nueve9, R.drawable.nuevein, R.drawable.naranjas};
 
     //intentos para cad nivel en especifico
     int intentospermitidos[] = {3, 6, 6, 6, 6, 2, 5, 6, 8, 5, 6, 4, 5, 6, 5, 4, 6, 6, 4, 5, 4, 5, 5, 5, 5, 5, 8, 5, 8, 5, 2, 21,};
@@ -146,9 +148,14 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         animcarta1 = AnimationUtils.loadAnimation(Memorama.this, R.anim.carta1);
         animcarta2 = AnimationUtils.loadAnimation(Memorama.this, R.anim.carta2);
         seacaba = AnimationUtils.loadAnimation(Memorama.this, R.anim.seterminatiempo);
+        if (dificultad == 3) {
+            mlargo = getIntent().getIntExtra("largo", 2);
+            mancho = getIntent().getIntExtra("ancho", 2);
+        } else {
+            mlargo = matriz[0][dificultad][id];
+            mancho = matriz[1][dificultad][id];
+        }
 
-        mlargo = matriz[0][dificultad][id];
-        mancho = matriz[1][dificultad][id];
         metrics = getResources().getDisplayMetrics();
         anchobtn = ((metrics.widthPixels / mancho + 1));
         botonesimg = new int[mancho * mlargo];
@@ -171,7 +178,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             case 2:
                 txttitulo.setText("Tiempo restante: ");
                 txtpunt.setText("00:00");
-
+                break;
+            case 3:
+                txttitulo.setText("Modo libre");
+                txtpunt.setText(" ");
                 break;
         }
 
@@ -229,12 +239,18 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        Intent i = new Intent(Memorama.this, Nivel.class);
-        i.putExtra("dificultad", dificultad);
-        i.putExtra("pagina", pagina());
-        startActivity(i);
-        finish();
-
+        if (dificultad == 3) {
+            Intent i = new Intent(Memorama.this, Niveles.class);
+            i.putExtra("dificultad", dificultad);
+            startActivity(i);
+            finish();
+        } else {
+            Intent i = new Intent(Memorama.this, Nivel.class);
+            i.putExtra("dificultad", dificultad);
+            i.putExtra("pagina", pagina());
+            startActivity(i);
+            finish();
+        }
     }
 
 
@@ -372,7 +388,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 i++;
             }
 
-        }  if (   id == 9  ) {
+        }
+        if (id == 9) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel10[i];
                 i++;
@@ -385,7 +402,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
         } //bien
 
-        if (id == 10  ) {
+        if (id == 10) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel11[i];
                 i++;
@@ -399,7 +416,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         }
 
 
-        if (id ==11 ) {
+        if (id == 11) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel12[i];
                 i++;
@@ -413,7 +430,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         }
 
 
-        if (id ==12  ) {
+        if (id == 12) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel13[i];
                 i++;
@@ -427,8 +444,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         }
 
 
-
-        if (id ==13  ) {
+        if (id == 13) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel14[i];
                 i++;
@@ -442,7 +458,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         }
 
 
-        if (id ==14  ) {
+        if (id == 14) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel15[i];
                 i++;
@@ -456,7 +472,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         }
 
 
-        if (id ==15  ) {
+        if (id == 15) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel16[i];
                 i++;
@@ -470,7 +486,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         }
 
 
-        if (id ==16  ) {
+        if (id == 16) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel17[i];
                 i++;
@@ -484,7 +500,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         }
 
 
-        if (id ==17  ) {
+        if (id == 17) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel18[i];
                 i++;
@@ -497,7 +513,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
         }
 
-        if (id ==18  ) {
+        if (id == 18) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel19[i];
                 i++;
@@ -510,7 +526,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
         }
 
-        if (id ==19  ) {
+        if (id == 19) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel20[i];
                 i++;
@@ -523,7 +539,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
         }
 
-              if (id ==20  ) {
+        if (id == 20) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel21[i];
                 i++;
@@ -536,7 +552,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
         }
 
-        if (id ==21  ) {
+        if (id == 21) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel22[i];
                 i++;
@@ -549,7 +565,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
         }
 
-        if (id ==22  ) {
+        if (id == 22) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel23[i];
                 i++;
@@ -561,7 +577,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             }
 
         }
-        if (id ==23  ) {
+        if (id == 23) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel24[i];
                 i++;
@@ -574,7 +590,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
         }
 
-        if (id ==24  ) {
+        if (id == 24) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel25[i];
                 i++;
@@ -587,7 +603,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
         }
 
-        if (id ==25  ) {
+        if (id == 25) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel26[i];
                 i++;
@@ -601,7 +617,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         }
 
 
-        if (id ==26  ) {
+        if (id == 26) {
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel27[i];
                 i++;
@@ -613,9 +629,6 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             }
 
         }
-
-
-
 
 
         for (int i = 0; i < total; i++) {
@@ -664,7 +677,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
         //verificamos si el metodo se llamo cuando se completo el memorama
         if (resultado) {
-            star1.setBackground(getResources().getDrawable(R.drawable.star));
+            if (dificultad == 3) {
+            } else {
+                star1.setBackground(getResources().getDrawable(R.drawable.star));
+            }
             //verificamos si la las estrellas obtenidas son mas a las ya registradas que por default son cero
             //si es menor no guardara las estrellas obtenidas
             int numestrellas = estrellas((mancho * mlargo) / 2, titulo, star2, star3, botonretry);
@@ -686,11 +702,18 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                     @Override
                     public void onClick(View v) {
 
-                        Intent intent = new Intent(Memorama.this, Nivel.class);
-                        intent.putExtra("dificultad", dificultad);
-                        intent.putExtra("pagina", pagina());
-                        startActivity(intent);
-                        finish();
+                        if (dificultad == 3) {
+                            Intent i = new Intent(Memorama.this, Niveles.class);
+                            i.putExtra("dificultad", dificultad);
+                            startActivity(i);
+                            finish();
+                        } else {
+                            Intent i = new Intent(Memorama.this, Nivel.class);
+                            i.putExtra("dificultad", dificultad);
+                            i.putExtra("pagina", pagina());
+                            startActivity(i);
+                            finish();
+                        }
                     }
                 }
         );
@@ -699,11 +722,18 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Memorama.this, Memorama.class);
-                        intent.putExtra("dificultad", dificultad);
-                        intent.putExtra("id", id);
-                        startActivity(intent);
-                        finish();
+                        if (dificultad == 3) {
+                            Intent i = new Intent(Memorama.this, Niveles.class);
+                            i.putExtra("dificultad", dificultad);
+                            startActivity(i);
+                            finish();
+                        } else {
+                            Intent i = new Intent(Memorama.this, Nivel.class);
+                            i.putExtra("dificultad", dificultad);
+                            i.putExtra("pagina", pagina());
+                            startActivity(i);
+                            finish();
+                        }
                     }
                 }
         );
@@ -782,6 +812,11 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                     estrella++;
                     botonretry.setVisibility(View.GONE);
                 }
+                break;
+
+            case 3:
+                botonretry.setVisibility(View.GONE);
+
                 break;
         }
 
