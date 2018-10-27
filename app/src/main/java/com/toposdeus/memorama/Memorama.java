@@ -29,15 +29,19 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
-    int[][] matriz =
+    int[][][] matriz =
 
-            //filas 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-            {{1, 2, 2, 3, 2, 4, 5, 4, 5, 2, 2, 3, 2, 4, 5, 4, 5, 6, 2, 3, 2, 4, 5, 4, 5, 6, 6},
-
-
-                    //columnas                    {{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-
-                    {2, 2, 3, 3, 5, 3, 3, 4, 4, 2, 3, 3, 5, 3, 3, 4, 4, 4, 3, 3, 5, 3, 3, 4, 4, 4, 5}};
+            {{{1, 2, 2, 3, 2, 4, 5, 4, 5, 2, 2, 3, 2, 4, 5, 4, 5, 6, 6, 6, 7, 6, 6, 7, 6, 9, 8},
+                    {1, 2, 2, 3, 2, 4, 5, 4, 5, 2, 2, 3, 2, 4, 5, 4, 5, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                    {2, 3, 2, 4, 5, 4, 5, 6, 6, 5, 6, 7, 8, 9, 10, 6, 2, 4, 6, 7, 7},
+                    {2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+                    {3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6}},
+                    //columnas
+                    {{2, 2, 3, 3, 5, 3, 3, 4, 4, 2, 3, 3, 5, 3, 3, 4, 4, 4, 5, 6, 5, 7, 8, 7, 9, 9, 8},
+                            {2, 2, 3, 3, 5, 3, 3, 4, 4, 2, 3, 3, 5, 3, 3, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+                            {3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6},
+                            {4, 4, 4, 4, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 8, 8},
+                            {4, 4, 4, 4, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 8, 8}}};
 
     // int[][] matriz2 = {{2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}};
     int imagenest[] = new int[]{R.drawable.uno1, R.drawable.dos2, R.drawable.tres3, R.drawable.cuatro4,
@@ -144,8 +148,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             mlargo = getIntent().getIntExtra("largo", 2);
             mancho = getIntent().getIntExtra("ancho", 2);
         } else {
-            mlargo = matriz[0][id];
-            mancho = matriz[1][id];
+            mlargo = matriz[0][dificultad][id];
+            mancho = matriz[1][dificultad][id];
         }
 
         metrics = getResources().getDisplayMetrics();

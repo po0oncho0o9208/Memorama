@@ -6,6 +6,8 @@
     android:orientation="vertical"
     android:scrollbars="vertical">
 
+    <include layout="@layout/barra" />
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
