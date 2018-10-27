@@ -117,9 +117,21 @@ public class SliderAdapterNiveles extends PagerAdapter {
             txtestrellas.setText(contadorestrellas + " X ");
             txvwresueltas.setText("" + contador + "/27");
         } else {
-
-
-            boton.setEnabled(false);
+            TextView falt = view.findViewById(R.id.txtfaltantes);
+            int contadores = 0;
+            for (int n = 0; n < 3; n++) {
+                for (int i = 0; i < 27; i++) {
+                    contadores += sharedPref.getInt(n + "record" + i, 0);
+                }
+            }
+            if (contadores < 50) {
+                falt.setText("Desbloquea con 50 estrellas ");
+                LinearLayout lay = view.findViewById(R.id.layoutspinners);
+                lay.setVisibility(View.INVISIBLE);
+                boton.setEnabled(false);
+            } else {
+                falt.setVisibility(View.GONE);
+            }
         }
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
