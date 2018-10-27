@@ -56,7 +56,7 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
 
         TextView txtest = findViewById(R.id.txtestrella);
         int contador = 0;
-        for (int n = 0; n < 4; n++) {
+        for (int n = 0; n < 3; n++) {
             for (int i = 0; i < 27; i++) {
                 contador += sharedPref.getInt(n + "record" + i, 0);
             }
