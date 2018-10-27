@@ -90,7 +90,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             R.drawable.siete7, R.drawable.ocho8, R.drawable.fantasmas, R.drawable.estrellas, R.drawable.oso, R.drawable.nueve9, R.drawable.nuevein, R.drawable.naranjas};
 
     //intentos para cad nivel en especifico
-    int intentospermitidos[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 12, 12, 14, 14, 16, 16, 16, 16, 16, 16, 15, 15, 15, 15, 15, 18};
+    int intentospermitidos[] = {3, 4, 5, 6, 7, 8, 9, 10, 10, 12, 12, 14, 14, 16, 16, 16, 16, 16, 16, 15, 15, 15, 15, 15, 18, 18, 18};
 
     //tiempo permitido para cada nivel
     int tiempos[] = {10000, 15000, 20000, 30000, 35000, 40000, 45000, 50000, 50000, 50000, 55000, 55000,

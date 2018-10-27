@@ -10,13 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class Principal extends AppCompatActivity {
 
 
-    ImageView play,ajustes,trofeos;
-
+    ImageView play, ajustes, trofeos;
+    LinearLayout layout;
+    ProgressBar progresbar;
 
 
     @Override
@@ -28,7 +31,8 @@ public class Principal extends AppCompatActivity {
         play = findViewById(R.id.btnplay);
         ajustes = findViewById(R.id.btnajustes);
         trofeos = findViewById(R.id.btntrofeos);
-
+        layout = findViewById(R.id.layoutprincipal);
+        progresbar = findViewById(R.id.pgbr);
 
 
     }
@@ -94,5 +98,26 @@ public class Principal extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        layout.setVisibility(View.GONE);
+        progresbar.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        layout.setVisibility(View.VISIBLE);
+        progresbar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        layout.setVisibility(View.VISIBLE);
+        progresbar.setVisibility(View.VISIBLE);
+
+    }
 
 }
