@@ -17,6 +17,7 @@
             android:id="@+id/botonatras"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:onClick="atras"
             android:background="@drawable/ajustes" />
 
         <TextView
@@ -82,6 +83,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/marcoredondo"
                 android:text="Reestablecer"
+                android:onClick="Borrar"
                 android:textColor="@android:color/white"
                 android:textSize="8pt" />
 
@@ -94,6 +96,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/marcoredondo"
                 android:text="calificanos"
+                android:onClick="Calificar"
                 android:textColor="@android:color/white"
                 android:textSize="8pt" />
 
@@ -106,6 +109,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/marcoredondo"
                 android:text="comparte si te gusto"
+                android:onClick="Compartir"
                 android:textColor="@android:color/white"
                 android:textSize="6pt" />
 
