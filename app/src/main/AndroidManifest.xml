@@ -50,7 +50,10 @@
         <activity android:name=".Ajustes"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".Trofeos"></activity>
+        <activity android:name=".Trofeos"
+
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

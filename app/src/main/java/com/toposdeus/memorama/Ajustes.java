@@ -132,8 +132,12 @@ public class Ajustes extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        sharedPref = getSharedPreferences("record", 0);
-                        sharedPref.edit().remove("instrucciones").commit();
+                        //sharedPref = getSharedPreferences("record", 0);
+                        //sharedPref.edit().remove("record").commit();
+                        sharedPref.edit().clear().commit();
+                        Toast.makeText(Ajustes.this, "Se han restablecido sus datos ", Toast.LENGTH_SHORT).show();
+                        dialog.cancel();
+
                     }
                 }
         );
