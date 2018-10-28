@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondonivel"
@@ -8,113 +8,82 @@
 
     <include layout="@layout/barra" />
 
+
     <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/marcoredondo">
-
-        <Button
-            android:id="@+id/botonatras"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:onClick="atras"
-            android:background="@drawable/ajustes" />
-
-        <TextView
-            android:id="@+id/textopciones"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:text="Opciones"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@android:color/white"
-            android:textSize="18dp" />
-
-    </LinearLayout>
-
-    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/linearLayout1"
         android:layout_gravity="center|top"
-        android:gravity="center|top">
+        android:gravity="center|top"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|top"
-            android:gravity="center|top"
             android:orientation="vertical">
 
             <CheckBox
                 android:id="@+id/checkboxsonido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout1"
-
                 android:layout_marginTop="30dp"
-                android:layout_weight="1"
+                android:buttonTint="@color/gray"
                 android:text="SONIDO"
                 android:textAlignment="center"
-                android:textColor="#0505b9"
+                android:textColor="@color/gray"
                 android:textSize="10pt" />
 
             <CheckBox
                 android:id="@+id/checkboxvibrar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/checkboxsonido"
                 android:layout_marginTop="20dp"
-                android:layout_weight="1"
+                android:buttonTint="@color/gray"
                 android:text="VIBRAR"
                 android:textAlignment="center"
-                android:textColor="#0505b9"
+                android:textColor="@color/gray"
                 android:textSize="10pt" />
-
-
-            <Button
-                android:id="@+id/botonreestablecer"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_below="@+id/botoncomojugar"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/marcoredondo"
-                android:text="Reestablecer"
-                android:onClick="Borrar"
-                android:textColor="@android:color/white"
-                android:textSize="8pt" />
-
-            <Button
-                android:id="@+id/botoncalifica"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_below="@+id/botonreestablecer"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/marcoredondo"
-                android:text="calificanos"
-                android:onClick="Calificar"
-                android:textColor="@android:color/white"
-                android:textSize="8pt" />
-
-            <Button
-                android:id="@+id/botoncomparte"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_below="@+id/botoncalifica"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/marcoredondo"
-                android:text="comparte si te gusto"
-                android:onClick="Compartir"
-                android:textColor="@android:color/white"
-                android:textSize="6pt" />
-
-
         </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+
+        <Button
+            android:id="@+id/botonreestablecer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/marcoredondo"
+            android:text="Reestablecer"
+            android:textColor="@android:color/white"
+            android:textSize="8pt" />
+
+        <Button
+            android:id="@+id/botoncalifica"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/botonreestablecer"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/marcoredondo"
+            android:text="calificanos"
+            android:textColor="@android:color/white"
+            android:textSize="8pt" />
+
+        <Button
+            android:id="@+id/botoncomparte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/botoncalifica"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/marcoredondo"
+            android:text="comparte si te gusto"
+            android:textColor="@android:color/white"
+            android:textSize="6pt" />
+
+
+    </LinearLayout>
+</LinearLayout>

@@ -94,7 +94,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             R.drawable.siete7, R.drawable.ocho8, R.drawable.fantasmas, R.drawable.estrellas, R.drawable.oso, R.drawable.nueve9, R.drawable.nuevein, R.drawable.naranjas};
 
     //intentos para cad nivel en especifico
-    int intentospermitidos[] = {3, 4, 5, 6, 7, 8, 9, 10, 10, 12, 12, 14, 14, 16, 16, 16, 16, 16, 16, 15, 15, 15, 15, 15, 18, 18, 18};
+    int intentospermitidos[] = {3, 4, 5, 6, 7, 8, 9, 10, 12, 12, 12, 14, 14, 16, 16, 16, 16, 16, 16, 15, 15, 15, 15, 15, 18, 18, 18};
 
     //tiempo permitido para cada nivel
     int tiempos[] = {10000, 15000, 20000, 30000, 35000, 40000, 45000, 50000, 50000, 50000, 55000, 55000,
@@ -116,7 +116,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     int intentos = 0, id, carta1 = 0, carta2 = 0;
     Animation vibrar, mover, animstar, animmarco, animcarta1, animcarta2, seacaba;
 
-    Button atras;
+    Button atras, restart;
     //boton atras
     int dificultad;
     DisplayMetrics metrics;
@@ -163,7 +163,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         // verificamos la modalidad de juego para poner el titulo
         switch (dificultad) {
             case 0:
-                txttitulo.setText("Intentos: ");
+                txttitulo.setText("Intentos fallidos: ");
                 txtpunt.setText("0");
 
                 break;
@@ -235,17 +235,31 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        if (dificultad == 3) {
-            Intent i = new Intent(Memorama.this, Niveles.class);
-            i.putExtra("dificultad", dificultad);
-            startActivity(i);
-            finish();
-        } else {
-            Intent i = new Intent(Memorama.this, Nivel.class);
-            i.putExtra("dificultad", dificultad);
-            i.putExtra("pagina", pagina());
-            startActivity(i);
-            finish();
+        switch (v.getId()) {
+            case R.id.atras:
+                if (dificultad == 3) {
+                    Intent i = new Intent(Memorama.this, Niveles.class);
+                    i.putExtra("dificultad", dificultad);
+                    startActivity(i);
+                    finish();
+                } else {
+                    Intent i = new Intent(Memorama.this, Nivel.class);
+                    i.putExtra("dificultad", dificultad);
+                    i.putExtra("pagina", pagina());
+                    startActivity(i);
+                    finish();
+                }
+                break;
+            case R.id.restart:
+                Intent i = new Intent(Memorama.this, Memorama.class);
+                i.putExtra("dificultad", dificultad);
+                i.putExtra("pagina", pagina());
+                i.putExtra("id", id);
+                i.putExtra("largo", mlargo);
+                i.putExtra("ancho", mancho);
+                startActivity(i);
+                finish();
+                break;
         }
     }
 
@@ -334,6 +348,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                     }, 700);
                                     carta1 = 0;
                                     carta2 = 0;
+                                    if (dificultad == 0) {
+                                        txtpunt.setText("" + intentos);
+                                    }
+
                                     //verificamos que sea la modalidad de intentos permitidos
                                     if (dificultad == 1) {
                                         //se resta 1 a los intentos permitidos
@@ -718,18 +736,14 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (dificultad == 3) {
-                            Intent i = new Intent(Memorama.this, Niveles.class);
-                            i.putExtra("dificultad", dificultad);
-                            startActivity(i);
-                            finish();
-                        } else {
-                            Intent i = new Intent(Memorama.this, Nivel.class);
-                            i.putExtra("dificultad", dificultad);
-                            i.putExtra("pagina", pagina());
-                            startActivity(i);
-                            finish();
-                        }
+                        Intent i = new Intent(Memorama.this, Memorama.class);
+                        i.putExtra("dificultad", dificultad);
+                        i.putExtra("pagina", pagina());
+                        i.putExtra("id", id);
+                        i.putExtra("largo", mlargo);
+                        i.putExtra("ancho", mancho);
+                        startActivity(i);
+                        finish();
                     }
                 }
         );
@@ -742,11 +756,18 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            Intent intent = new Intent(Memorama.this, Nivel.class);
-            intent.putExtra("dificultad", dificultad);
-            intent.putExtra("pagina", pagina());
-            startActivity(intent);
-            finish();
+            if (dificultad == 3) {
+                Intent i = new Intent(Memorama.this, Niveles.class);
+                i.putExtra("dificultad", dificultad);
+                startActivity(i);
+                finish();
+            } else {
+                Intent i = new Intent(Memorama.this, Nivel.class);
+                i.putExtra("dificultad", dificultad);
+                i.putExtra("pagina", pagina());
+                startActivity(i);
+                finish();
+            }
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -799,14 +820,16 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 break;
             case 2:
                 gameover = true;
-                if (segundos > (tiempos[id] / 3000) * 2) {
+
+                if (segundos > tiempos[id] / 3000) {
                     star2.setBackground(getResources().getDrawable(R.drawable.star));
                     estrella++;
+
                 }
-                if (segundos > tiempos[id] / 3000) {
+                if (segundos > (tiempos[id] / 3000) * 2) {
                     star3.setBackground(getResources().getDrawable(R.drawable.star));
-                    estrella++;
                     botonretry.setVisibility(View.GONE);
+                    estrella++;
                 }
                 break;
 

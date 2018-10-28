@@ -68,71 +68,119 @@ public class SliderAdapterNiveles extends PagerAdapter {
         TextView txvwresueltas = view.findViewById(R.id.resueltas);
         TextView txtestrellas = view.findViewById(R.id.estrellas);
 
-
-        if (position == 3) {
-            Spinner spinnera = view.findViewById(R.id.spinnera);
-            ArrayAdapter<CharSequence> adaptadora = ArrayAdapter.createFromResource(context, R.array.ancho, R.layout.spinner_itemview);
-            spinnera.setAdapter(adaptadora);
-            spinnera.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    anchovar = Integer.parseInt(parent.getItemAtPosition(position).toString());
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                }
-            });
-            Spinner spinnerl = view.findViewById(R.id.spinnerl);
-            ArrayAdapter<CharSequence> adaptadorl = ArrayAdapter.createFromResource(context, R.array.largo, R.layout.spinner_itemview);
-            spinnerl.setAdapter(adaptadorl);
-            spinnerl.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    largovar = Integer.parseInt(parent.getItemAtPosition(position).toString());
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                }
-            });
-
-        }
         for (int i = 0; i < 27; i++) {
             if (contestadas[i] = sharedPref.getBoolean(position + "contestada" + i, false)) {
                 contador++;
             }
-
         }
         for (int i = 0; i < 27; i++) {
             contadorestrellas += sharedPref.getInt(position + "record" + i, 0);
         }
-        if (position < 3) {
-            txvwresueltas.setTypeface(font);
-            txtestrellas.setTypeface(font);
-            txvwresueltas.setTextSize(45);
-            txtestrellas.setTextSize(35);
-            txvwresueltas.setTextColor(context.getResources().getColor(R.color.white));
-            txtestrellas.setTextColor(context.getResources().getColor(R.color.white));
-            txtestrellas.setText(contadorestrellas + " X ");
-            txvwresueltas.setText("" + contador + "/27");
-        } else {
-            TextView falt = view.findViewById(R.id.txtfaltantes);
-            int contadores = 0;
-            for (int n = 0; n < 3; n++) {
-                for (int i = 0; i < 27; i++) {
-                    contadores += sharedPref.getInt(n + "record" + i, 0);
-                }
-            }
-            if (contadores < 50) {
-                falt.setText("Desbloquea con 50 estrellas ");
-                LinearLayout lay = view.findViewById(R.id.layoutspinners);
-                lay.setVisibility(View.INVISIBLE);
-                boton.setEnabled(false);
-            } else {
-                falt.setVisibility(View.GONE);
+
+
+        int contadores = 0;
+        for (int n = 0; n < 3; n++) {
+            for (int i = 0; i < 27; i++) {
+                contadores += sharedPref.getInt(n + "record" + i, 0);
             }
         }
+
+
+        switch (position) {
+
+            case 0:
+                TextView falt = view.findViewById(R.id.txtfaltantes);
+                falt.setVisibility(View.GONE);
+                txvwresueltas.setTypeface(font);
+                txtestrellas.setTypeface(font);
+                txvwresueltas.setTextSize(45);
+                txtestrellas.setTextSize(35);
+                txvwresueltas.setTextColor(context.getResources().getColor(R.color.white));
+                txtestrellas.setTextColor(context.getResources().getColor(R.color.white));
+                txtestrellas.setText(contadorestrellas + " X ");
+                txvwresueltas.setText("" + contador + "/27");
+                break;
+            case 1:
+                TextView falt1 = view.findViewById(R.id.txtfaltantes);
+                if (contadores < 27) {
+                    falt1.setText("Desbloquea con 27 estrellas ");
+                    LinearLayout lay = view.findViewById(R.id.layoutspinners);
+                    lay.setVisibility(View.INVISIBLE);
+                    boton.setEnabled(false);
+                } else {
+                    txvwresueltas.setTypeface(font);
+                    txtestrellas.setTypeface(font);
+                    txvwresueltas.setTextSize(45);
+                    txtestrellas.setTextSize(35);
+                    txvwresueltas.setTextColor(context.getResources().getColor(R.color.white));
+                    txtestrellas.setTextColor(context.getResources().getColor(R.color.white));
+                    txtestrellas.setText(contadorestrellas + " X ");
+                    txvwresueltas.setText("" + contador + "/27");
+                    falt1.setVisibility(View.GONE);
+                }
+
+                break;
+            case 2:
+                TextView falt2 = view.findViewById(R.id.txtfaltantes);
+
+                if (contadores < 54) {
+                    falt2.setText("Desbloquea con 54 estrellas ");
+                    LinearLayout lay = view.findViewById(R.id.layoutspinners);
+                    lay.setVisibility(View.INVISIBLE);
+                    boton.setEnabled(false);
+                } else {
+                    txvwresueltas.setTypeface(font);
+                    txtestrellas.setTypeface(font);
+                    txvwresueltas.setTextSize(45);
+                    txtestrellas.setTextSize(35);
+                    txvwresueltas.setTextColor(context.getResources().getColor(R.color.white));
+                    txtestrellas.setTextColor(context.getResources().getColor(R.color.white));
+                    txtestrellas.setText(contadorestrellas + " X ");
+                    txvwresueltas.setText("" + contador + "/27");
+                    falt2.setVisibility(View.GONE);
+                }
+
+                break;
+            case 3:
+                Spinner spinnera = view.findViewById(R.id.spinnera);
+                ArrayAdapter<CharSequence> adaptadora = ArrayAdapter.createFromResource(context, R.array.ancho, R.layout.spinner_itemview);
+                spinnera.setAdapter(adaptadora);
+                spinnera.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        anchovar = Integer.parseInt(parent.getItemAtPosition(position).toString());
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+                Spinner spinnerl = view.findViewById(R.id.spinnerl);
+                ArrayAdapter<CharSequence> adaptadorl = ArrayAdapter.createFromResource(context, R.array.largo, R.layout.spinner_itemview);
+                spinnerl.setAdapter(adaptadorl);
+                spinnerl.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        largovar = Integer.parseInt(parent.getItemAtPosition(position).toString());
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+                TextView falt3 = view.findViewById(R.id.txtfaltantes);
+                if (contadores < 81) {
+                    falt3.setText("Desbloquea con 81 estrellas ");
+                    LinearLayout lay = view.findViewById(R.id.layoutspinners);
+                    lay.setVisibility(View.INVISIBLE);
+                    boton.setEnabled(false);
+                } else {
+                    falt3.setVisibility(View.GONE);
+                }
+                break;
+        }
+
+
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
