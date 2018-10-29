@@ -52,7 +52,7 @@ public class Principal extends AppCompatActivity {
     }
 
     public void trofeos(View view) {
-        Intent intent13 = new Intent(this, Trofeos.class);
+        Intent intent13 = new Intent(this, MainActivity.class);
         startActivity(intent13);
         // Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://rh.imss.gob.mx/tarjetondigital/"));
         // startActivity(intent1);
