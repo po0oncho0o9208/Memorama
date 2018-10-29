@@ -31,20 +31,17 @@ import android.widget.Toast;
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
     int[][][] matriz =
 
-            {{{1, 2, 2, 3, 2, 4, 5, 4, 5,    2, 2, 3, 2, 4, 5, 4, 5, 6,    2, 3, 2, 4, 5, 4, 5 , 6, 6},
-
-                    {1, 2, 2, 3, 2, 4, 5, 4, 5,    2, 2, 3, 2, 4, 5, 4, 5, 6,    2, 3, 2, 4, 5, 4, 5 , 6, 6},
-
-                    {1, 2, 2, 3, 2, 4, 5, 4, 5,    2, 2, 3, 2, 4, 5, 4, 5, 6,    2, 3, 2, 4, 5, 4, 5 , 6, 6},
-                    {1, 2, 2, 3, 2, 4, 5, 4, 5,    2, 2, 3, 2, 4, 5, 4, 5, 6,    2, 3, 2, 4, 5, 4, 5 , 6, 6},
+            {{{1, 2, 2, 3, 2, 4, 5, 4, 5, 2, 2, 3, 2, 4, 5, 4, 5, 6, 2, 3, 2, 4, 5, 4, 5, 6, 6},
+                    {1, 2, 2, 3, 2, 4, 5, 4, 5, 2, 2, 3, 2, 4, 5, 4, 5, 6, 2, 3, 2, 4, 5, 4, 5, 6, 6},
+                    {1, 2, 2, 3, 2, 4, 5, 4, 5, 2, 2, 3, 2, 4, 5, 4, 5, 6, 2, 3, 2, 4, 5, 4, 5, 6, 6},
+                    {1, 2, 2, 3, 2, 4, 5, 4, 5, 2, 2, 3, 2, 4, 5, 4, 5, 6, 2, 3, 2, 4, 5, 4, 5, 6, 6},
                     {3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6}},
 
                     //columnas
-                    {{2, 2, 3, 3, 5, 3, 3, 4, 4,    2, 3, 3, 5, 3, 3, 4, 4, 4,    3, 3, 5, 3 , 3, 4, 4, 4, 5},
-
-                            {2, 2, 3, 3, 5, 3, 3, 4, 4,    2, 3, 3, 5, 3, 3, 4, 4, 4,    3, 3, 5, 3 , 3, 4, 4, 4, 5},
-                            {2, 2, 3, 3, 5, 3, 3, 4, 4,    2, 3, 3, 5, 3, 3, 4, 4, 4,    3, 3, 5, 3 , 3, 4, 4, 4, 5},
-                            {2, 2, 3, 3, 5, 3, 3, 4, 4,    2, 3, 3, 5, 3, 3, 4, 4, 4,    3, 3, 5, 3 , 3, 4, 4, 4, 5},
+                    {{2, 2, 3, 3, 5, 3, 3, 4, 4, 2, 3, 3, 5, 3, 3, 4, 4, 4, 3, 3, 5, 3, 3, 4, 4, 4, 5},
+                            {2, 2, 3, 3, 5, 3, 3, 4, 4, 2, 3, 3, 5, 3, 3, 4, 4, 4, 3, 3, 5, 3, 3, 4, 4, 4, 5},
+                            {2, 2, 3, 3, 5, 3, 3, 4, 4, 2, 3, 3, 5, 3, 3, 4, 4, 4, 3, 3, 5, 3, 3, 4, 4, 4, 5},
+                            {2, 2, 3, 3, 5, 3, 3, 4, 4, 2, 3, 3, 5, 3, 3, 4, 4, 4, 3, 3, 5, 3, 3, 4, 4, 4, 5},
                             {4, 4, 4, 4, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 8, 8}}};
 
     // int[][] matriz2 = {{2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {2, 2, 3, 3, 5, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}};
@@ -99,13 +96,13 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
     //intentos para cad nivel en especifico
     int intentospermitidos[] = {1, 2, 3, 3, 4, 5, 7, 7, 9,
-                                2, 2, 3, 3, 4, 4, 6, 6, 8,
-                                2, 2, 3, 3, 4, 4, 6, 7, 8};
+            2, 2, 3, 3, 4, 4, 6, 6, 8,
+            2, 2, 3, 3, 4, 4, 6, 7, 8};
 
     //tiempo permitido para cada nivel
     int tiempos[] = {6000, 9000, 15000, 18000, 24000, 30000, 35000, 50000, 90000,
-                           8000, 14000, 17000, 230000, 29000, 34000, 60000, 80000, 90000,
-                                 13000, 16000, 22000, 280000, 33000, 70000, 70000, 80000, 100000};
+            8000, 14000, 17000, 230000, 29000, 34000, 60000, 80000, 90000,
+            13000, 16000, 22000, 280000, 33000, 70000, 70000, 80000, 100000};
 
 
     int restadorintentos;
@@ -152,8 +149,9 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         animcarta2 = AnimationUtils.loadAnimation(Memorama.this, R.anim.carta2);
         seacaba = AnimationUtils.loadAnimation(Memorama.this, R.anim.seterminatiempo);
         if (dificultad == 3) {
-            mlargo = getIntent().getIntExtra("largo", 2);
-            mancho = getIntent().getIntExtra("ancho", 2);
+
+            mlargo = Integer.parseInt("" + getIntent().getStringExtra("dimensiones").charAt(0));
+            mancho = Integer.parseInt("" + getIntent().getStringExtra("dimensiones").charAt(2));
         } else {
             mlargo = matriz[0][dificultad][id];
             mancho = matriz[1][dificultad][id];

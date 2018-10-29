@@ -37,7 +37,7 @@ public class SliderAdapterNiveles extends PagerAdapter {
     boolean[] contestadas = new boolean[27];
     int paginas[] = {R.layout.viewpager, R.layout.viewpager, R.layout.viewpager, R.layout.dialogolibre};
     SharedPreferences sharedPref;
-    int anchovar, largovar;
+    String dimensiones;
 
 
     @Override
@@ -142,26 +142,15 @@ public class SliderAdapterNiveles extends PagerAdapter {
 
                 break;
             case 3:
-                Spinner spinnera = view.findViewById(R.id.spinnera);
-                ArrayAdapter<CharSequence> adaptadora = ArrayAdapter.createFromResource(context, R.array.ancho, R.layout.spinner_itemview);
-                spinnera.setAdapter(adaptadora);
-                spinnera.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        anchovar = Integer.parseInt(parent.getItemAtPosition(position).toString());
-                    }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-                    }
-                });
                 Spinner spinnerl = view.findViewById(R.id.spinnerl);
-                ArrayAdapter<CharSequence> adaptadorl = ArrayAdapter.createFromResource(context, R.array.largo, R.layout.spinner_itemview);
+                ArrayAdapter<CharSequence> adaptadorl = ArrayAdapter.createFromResource(context, R.array.ancho, R.layout.spinner_itemview);
                 spinnerl.setAdapter(adaptadorl);
                 spinnerl.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        largovar = Integer.parseInt(parent.getItemAtPosition(position).toString());
+
+                        dimensiones = parent.getItemAtPosition(position).toString();
                     }
 
                     @Override
@@ -169,7 +158,7 @@ public class SliderAdapterNiveles extends PagerAdapter {
                     }
                 });
                 TextView falt3 = view.findViewById(R.id.txtfaltantes);
-                if (contadores < 81) {
+                if (contadores < 1) {
                     falt3.setText("Desbloquea con 81 estrellas ");
                     LinearLayout lay = view.findViewById(R.id.layoutspinners);
                     lay.setVisibility(View.INVISIBLE);
@@ -189,8 +178,7 @@ public class SliderAdapterNiveles extends PagerAdapter {
                 if (position == 3) {
                     Intent intent = new Intent(context, Memorama.class);
                     intent.putExtra("dificultad", position);
-                    intent.putExtra("ancho", anchovar);
-                    intent.putExtra("largo", largovar);
+                    intent.putExtra("dimensiones", dimensiones);
                     intent.putExtra("id", 0);
                     context.startActivity(intent);
                     activity.finish();

@@ -108,7 +108,7 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
                     } finally {
                         if (fileOutputStream != null) {
                             Uri bmpUri = Uri.parse(file.getPath());
-                            intento.putExtra(Intent.EXTRA_TEXT, "En esta aplicación podrás descargar y ver tu tarjetón digital, veras sus promociones" + Html.fromHtml("<br />") +
+                            intento.putExtra(Intent.EXTRA_TEXT, "Descubre que tan buena memoria tienes y ejercitala con esta aplicacion " + Html.fromHtml("<br />") +
                                     "y recibirás notificaciones de cuando llegue el tarjetón , así como noticias relevantes del IMSS  " + Html.fromHtml("<br />") +
                                     "https://play.google.com/store/apps/details?id=com.tarjetonimss.user.imsswebtarjeton");
                             intento.putExtra(

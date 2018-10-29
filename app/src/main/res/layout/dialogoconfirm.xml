@@ -18,7 +18,8 @@
         android:layout_marginTop="40dp"
         android:text="¿Deseas salir de la aplicacion?"
         android:textAlignment="center"
-        android:textColor="#2e65cd" />
+        android:textColor="#2e65cd"
+        android:textSize="20dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +32,9 @@
             android:id="@+id/botonno"
             android:layout_width="80dp"
             android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/botonprincipal"
             android:text="NO"
 
@@ -41,6 +44,8 @@
             android:id="@+id/botonsi"
             android:layout_width="80dp"
             android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/botonprincipal"
             android:text="SI"
             android:textColor="#2e65cd" />
@@ -48,8 +53,5 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"></LinearLayout>
 
 </LinearLayout>
