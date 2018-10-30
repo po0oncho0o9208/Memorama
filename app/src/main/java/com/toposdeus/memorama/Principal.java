@@ -54,6 +54,7 @@ public class Principal extends AppCompatActivity {
     }
 
     public void trofeos(View view) {
+<<<<<<< HEAD
         Ajustes.vibrar(this, 50);
         Intent intent13 = new Intent(this, Trofeos.class);
 =======
