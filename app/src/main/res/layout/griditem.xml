@@ -17,6 +17,14 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp" />
 
+
+    <ImageView
+        android:id="@+id/imgimagen2"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp" />
+
     <TextView
         android:id="@+id/txttitulo"
         android:layout_width="match_parent"
@@ -26,6 +34,8 @@
         android:text="TextView"
         android:textColor="#ffffff"
         android:textSize="25dp" />
+
+
 
 
 </LinearLayout>

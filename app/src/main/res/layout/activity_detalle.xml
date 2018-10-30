@@ -29,6 +29,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="30dp"
         android:gravity="center"
+        android:layout_centerVertical="true"
         android:orientation="horizontal">
 
 
@@ -42,19 +43,6 @@
             android:background="@drawable/faces"
 
             android:onClick="Seguir" />
-
-        <Button
-            android:id="@+id/btnfondo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/marcoredondo"
-            android:gravity="center"
-            android:onClick="Wallpaper"
-            android:text="   PROTECTOR DE PANT.   "
-            android:textColor="#ffffff"
-            android:textSize="12dp"
-            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btncompartir"

@@ -69,24 +69,7 @@ public class Detalle extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public void Wallpaper(View view) {
 
-        Bitmap topo = BitmapFactory.decodeStream(getResources().openRawResource(movil));
-        WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
-        int flag_lock = WallpaperManager.FLAG_LOCK;
-
-        try {
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                wallpaperManager.setBitmap(topo, null, true, flag_lock);//**
-            }
-            Toast.makeText(this, "Se Cambio Protector de Pantalla", Toast.LENGTH_SHORT).show();
-        } catch (IOException error) {
-
-            Log.e("prueba", "colocar wall error: " + error);
-
-        }
-    }
 
     public void Compartir1(View view) {
 

@@ -39,7 +39,7 @@ public class Trofeos extends AppCompatActivity implements View.OnClickListener {
         txtest.setTypeface(font);
     }
 
-    @Override
+      @Override
     public void onClick(View v) {
         Intent intent = new Intent(Trofeos.this, Principal.class);
         startActivity(intent);
