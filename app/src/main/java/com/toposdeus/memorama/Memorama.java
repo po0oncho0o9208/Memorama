@@ -250,8 +250,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        if (mediaPlayer.isPlaying())
-            mediaPlayer.stop();
+        if (Ajustes.Cargarboolean(this, "sonido")) {
+            if (mediaPlayer.isPlaying())
+                mediaPlayer.stop();
+        }
         Ajustes.vibrar(this, 50);
 
         switch (v.getId()) {
@@ -780,8 +782,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     @Override
     protected void onPause() {
         super.onPause();
-        if (mediaPlayer.isPlaying())
-            mediaPlayer.pause();
+        if (Ajustes.Cargarboolean(this, "sonido")) {
+            if (mediaPlayer.isPlaying())
+                mediaPlayer.pause();
+        }
     }
 
     @Override
@@ -794,16 +798,20 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mediaPlayer.isPlaying())
-            mediaPlayer.stop();
+        if (Ajustes.Cargarboolean(this, "sonido")) {
+            if (mediaPlayer.isPlaying())
+                mediaPlayer.stop();
+        }
     }
 
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            if (mediaPlayer.isPlaying())
-                mediaPlayer.stop();
+            if (Ajustes.Cargarboolean(this, "sonido")) {
+                if (mediaPlayer.isPlaying())
+                    mediaPlayer.stop();
+            }
             if (dificultad == 3) {
                 Intent i = new Intent(Memorama.this, Niveles.class);
                 i.putExtra("dificultad", dificultad);
