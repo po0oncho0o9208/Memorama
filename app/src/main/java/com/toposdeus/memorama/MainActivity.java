@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -19,7 +20,7 @@ import com.google.android.gms.ads.InterstitialAd;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MainActivity extends  AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     GridView grilla;
     InterstitialAd mInterstitialAd;
     TextView txtest, txtgriditem;
@@ -31,7 +32,7 @@ public class MainActivity extends  AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        grilla = (GridView) findViewById(R.id.grilla);
+        grilla = findViewById(R.id.grilla);
         txtest = findViewById(R.id.txtestrella);
         txtgriditem = findViewById(R.id.txttitulo);
         btnatras = findViewById(R.id.atras);
@@ -46,7 +47,7 @@ public class MainActivity extends  AppCompatActivity implements View.OnClickList
             }
         }
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/birdyame.ttf");
-
+        contador = 50;
         txtest.setText(contador + " X ");
 
         txtest.setTypeface(font);
@@ -55,85 +56,53 @@ public class MainActivity extends  AppCompatActivity implements View.OnClickList
 
         ArrayList<Datos> datos = new ArrayList<Datos>();
 
-        datos.add(new Datos(1, R.drawable.uno1, "UNO"));
-        datos.add(new Datos(2, R.drawable.dos2, "DOS"));
+        int[] imagenes = {R.drawable.uno1, R.drawable.dos2, R.drawable.tres3, R.drawable.cuatro4, R.drawable.cinco5, R.drawable.seis6, R.drawable.siete7
+                , R.drawable.ocho8, R.drawable.nueve9, R.drawable.unoin, R.drawable.dosin, R.drawable.tresin, R.drawable.cuatroin, R.drawable.cincoin, R.drawable.seisin,
+                R.drawable.sietein, R.drawable.ochoin, R.drawable.nuevein, R.drawable.uva, R.drawable.oso, R.drawable.dulces, R.drawable.tazas, R.drawable.tambores,
+                R.drawable.tacos, R.drawable.conejo, R.drawable.focos, R.drawable.corbatas, R.drawable.fantasmas, R.drawable.sombreros, R.drawable.soles,
+                R.drawable.sillas, R.drawable.sandias, R.drawable.estrellas, R.drawable.ojos, R.drawable.naranjas, R.drawable.nubes, R.drawable.atras4};
 
-        datos.add(new Datos(3, R.drawable.tres3, "TRES"));
-        datos.add(new Datos(4, R.drawable.cuatro4, "CUATRO"));
-
-        datos.add(new Datos(5, R.drawable.cinco5, "CINCO"));
-        datos.add(new Datos(6, R.drawable.seis6, "SEIS"));
-
-        datos.add(new Datos(7, R.drawable.siete7, "SIETE"));
-        datos.add(new Datos(8, R.drawable.ocho8, "OCHO"));
-
-        datos.add(new Datos(9, R.drawable.nueve9, "NUEVE"));
-        datos.add(new Datos(10, R.drawable.unoin, "ONE"));
-
-        datos.add(new Datos(11, R.drawable.dosin, "TWO"));
-        datos.add(new Datos(12, R.drawable.tresin, "THREE"));
-
-        datos.add(new Datos(13, R.drawable.cuatroin, "FOUR"));
-        datos.add(new Datos(14, R.drawable.cinco5, "FIVE"));
-
-        datos.add(new Datos(15, R.drawable.seisin, "SIX"));
-        datos.add(new Datos(16, R.drawable.sietein, "SEVEN"));
-
-        datos.add(new Datos(17, R.drawable.ochoin, "EIGHT"));
-        datos.add(new Datos(18, R.drawable.nuevein, "NINE"));
-
-        datos.add(new Datos(19, R.drawable.uva, " UVAS"));
-        datos.add(new Datos(20, R.drawable.oso, " 1 OSO"));
-
-        datos.add(new Datos(21, R.drawable.dulces, "2 DULCES"));
-        datos.add(new Datos(22, R.drawable.tazas, "2 TAZAS"));
-
-        datos.add(new Datos(23, R.drawable.tambores, "3 TAMBORES"));
-        datos.add(new Datos(24, R.drawable.tacos, "3 TACOS"));
-
-        datos.add(new Datos(25, R.drawable.conejo, "4 CONEJOS"));
-        datos.add(new Datos(26, R.drawable.focos, "4 FOCOS"));
-
-        datos.add(new Datos(27, R.drawable.corbatas, "5 CORBATAS"));
-        datos.add(new Datos(28, R.drawable.fantasmas, "5 FANTASMAS"));
-
-        datos.add(new Datos(29, R.drawable.sombreros, "6 SOMBREROS"));
-        datos.add(new Datos(30, R.drawable.soles, "6 SOLES"));
-
-        datos.add(new Datos(31, R.drawable.sillas, "7 SILLAS"));
-        datos.add(new Datos(32, R.drawable.sandias, "7 SANDIAS"));
-
-        datos.add(new Datos(33, R.drawable.estrellas, "8 ESTRELLAS"));
-        datos.add(new Datos(34, R.drawable.ojos, "8 OJOS"));
-
-        datos.add(new Datos(35, R.drawable.naranjas, "9 NARANJAS"));
-        datos.add(new Datos(36, R.drawable.nubes, "9 NUBES"));
-
-        datos.add(new Datos(37, R.drawable.atras4, "CAMPEON"));
-
+        String[] nombres = {"UNO", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN",
+                "EIGHT", "NINE", "1 UVAS", "1 OSO", "2 DULCES", "2 TAZAS", "3 TAMBORES", "3 TACOS", "4 CONEJOS", "4 FOCOS", "5 CORBATAS", "5 FANTASMAS",
+                "6 SOMBREROS", "6 SOLES", "7 SILLAS", "7 SANDIAS", "8 ESTRELLAS", "8 OJOS", "9 NARANJAS", "9 NUBES", "CAMPEON"};
+        for (int i = 0; i < 37; i++) {
+            //if (sharedPref.getBoolean("trofeo" + i, false))
+            if ((contador / 5) < i)
+                datos.add(new Datos(i + 1, R.drawable.lock, "???"));
+            else
+                datos.add(new Datos(i + 1, imagenes[i], nombres[i]));
+        }
 
         Adaptador miadaptador = new Adaptador(getApplicationContext(), datos);
         grilla.setAdapter(miadaptador);
 
-
+        final int contadorfinal = contador;
         grilla.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    Datos obj = (Datos) parent.getItemAtPosition(position);
-                    Intent paso = new Intent(getApplicationContext(), Detalle.class);
-                    paso.putExtra("objeto", (Serializable) obj);
 
-                    startActivity(paso);
+
+                    //if (sharedPref.getBoolean("trofeo" + i, false))
+                    if (((contadorfinal / 5) > position)) {
+                        Toast.makeText(MainActivity.this,""+contadorfinal,Toast.LENGTH_LONG).show();
+                        Datos obj = (Datos) parent.getItemAtPosition(position);
+                        Intent paso = new Intent(getApplicationContext(), Detalle.class);
+                        paso.putExtra("objeto", (Serializable) obj);
+                        startActivity(paso);
+
                 }
+
+            }
 
         });
 
 
-
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             Intent intent = new Intent(MainActivity.this, Principal.class);
             startActivity(intent);
@@ -145,6 +114,7 @@ public class MainActivity extends  AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+
         Intent intent = new Intent(MainActivity.this, Principal.class);
         startActivity(intent);
         finish();

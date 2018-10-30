@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -126,6 +127,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     DisplayMetrics metrics;
     int anchobtn;
     CountDownTimer crono;
+    MediaPlayer mediaPlayer, click;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -140,6 +142,14 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         layout = findViewById(R.id.layoutmemo);
         dificultad = getIntent().getExtras().getInt("dificultad");
         id = getIntent().getExtras().getInt("id");
+
+        // Ajustes.preferenciasonido(this,R.raw.riptide,true).start();
+        //Ajustes.preferenciasonido(this, R.raw.riptide, true);
+
+        if (Ajustes.Cargarboolean(this, "sonido")) {
+            mediaPlayer = MediaPlayer.create(this, R.raw.dugget);
+            mediaPlayer.start();
+        }
 
         vibrar = AnimationUtils.loadAnimation(Memorama.this, R.anim.vibrarbotones);
         mover = AnimationUtils.loadAnimation(Memorama.this, R.anim.agrandar);
@@ -240,6 +250,10 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
+        if (mediaPlayer.isPlaying())
+            mediaPlayer.stop();
+        Ajustes.vibrar(this, 50);
+
         switch (v.getId()) {
             case R.id.atras:
                 if (dificultad == 3) {
@@ -302,6 +316,11 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                         @Override
                         public void onClick(View v) {
                             //vibrar
+                            if (Ajustes.Cargarboolean(Memorama.this, "sonido")) {
+
+                                click = MediaPlayer.create(Memorama.this, R.raw.click);
+                                click.start();
+                            }
                             Ajustes.vibrar(Memorama.this, 50);
 
                             if (carta1 == 0) {
@@ -758,10 +777,33 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mediaPlayer.isPlaying())
+            mediaPlayer.pause();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if (Ajustes.Cargarboolean(this, "sonido"))
+            mediaPlayer.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer.isPlaying())
+            mediaPlayer.stop();
+    }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if (mediaPlayer.isPlaying())
+                mediaPlayer.stop();
             if (dificultad == 3) {
                 Intent i = new Intent(Memorama.this, Niveles.class);
                 i.putExtra("dificultad", dificultad);

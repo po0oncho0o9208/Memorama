@@ -1,6 +1,7 @@
 package com.toposdeus.memorama;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +44,10 @@ public class Adaptador extends BaseAdapter {
 
         LayoutInflater inflate = LayoutInflater.from((contexto));
         convertView = inflate.inflate(R.layout.griditem, null);
-        ImageView imagen = (ImageView) convertView.findViewById(R.id.imgimagen);
-        TextView titulo=(TextView) convertView.findViewById(R.id.txttitulo);
+        ImageView imagen = convertView.findViewById(R.id.imgimagen);
+        Typeface font = Typeface.createFromAsset(contexto.getAssets(), "fonts/birdyame.ttf");
+        TextView titulo = convertView.findViewById(R.id.txttitulo);
+        titulo.setTypeface(font);
         titulo.setText(lista.get(position).getTitulo().toString());
         imagen.setImageResource(lista.get(position).getImagen());
         return convertView;

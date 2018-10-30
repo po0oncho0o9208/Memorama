@@ -32,6 +32,8 @@ Califica el juego y ayudanos a mejorar"
             android:text="si" />
 
         <Button
+            android:id="@+id/botonno"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="no ahora" />

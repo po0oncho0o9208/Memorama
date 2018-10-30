@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -38,6 +39,7 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
     Button btnatras, reestablecer, botoncomparte, botoncalifica;
     SharedPreferences sharedPref;
     TextView txtest;
+    static MediaPlayer mediaPlayer;
 
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
 
@@ -240,5 +242,27 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
             Vibrator vib = (Vibrator) contexto.getSystemService(VIBRATOR_SERVICE);
             vib.vibrate(tim);
         }
+    }
+
+
+
+
+    public static MediaPlayer preferenciasonido(Context contexto, int sound, boolean reproducir) {
+        SoundManager soundm;
+        soundm = new SoundManager(contexto);
+
+        mediaPlayer = MediaPlayer.create(contexto, sound);
+        if (reproducir) {
+
+            //  mediaPlayer.start();
+
+
+            if (!reproducir) {
+                //    mediaPlayer.stop();
+                //  mediaPlayer = null;
+            }
+
+        }
+        return mediaPlayer;
     }
 }
