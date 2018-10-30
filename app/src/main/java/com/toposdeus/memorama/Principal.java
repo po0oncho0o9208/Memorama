@@ -56,6 +56,9 @@ public class Principal extends AppCompatActivity {
     public void trofeos(View view) {
         Ajustes.vibrar(this, 50);
         Intent intent13 = new Intent(this, Trofeos.class);
+=======
+        Intent intent13 = new Intent(this, MainActivity.class);
+>>>>>>> d9d26a9dc2f2bebd809a7610e32769e5bc1ad761
         startActivity(intent13);
         // Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://rh.imss.gob.mx/tarjetondigital/"));
         // startActivity(intent1);
