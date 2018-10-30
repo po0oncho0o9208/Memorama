@@ -260,7 +260,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 i.putExtra("dificultad", dificultad);
                 i.putExtra("pagina", pagina());
                 i.putExtra("id", id);
-                i.putExtra("largo", mlargo);
+                i.putExtra("dimensiones", mlargo + "x" + mancho);
                 i.putExtra("ancho", mancho);
                 startActivity(i);
                 finish();
@@ -301,6 +301,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                     btnTag.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            //vibrar
+                            Ajustes.vibrar(Memorama.this, 50);
 
                             if (carta1 == 0) {
                                 btnTag.startAnimation(animcarta1);
@@ -640,7 +642,6 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             for (int i = 0; i < total / 2; ) {
                 botonesimg[i] = imagenesnivel27[i];
                 i++;
-
             }
             for (int i = (total / 2); i < total; ) {
                 botonesimg[i] = imagenesnivel27[i - (total / 2)];

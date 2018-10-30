@@ -1,16 +1,22 @@
 package com.toposdeus.memorama;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -34,6 +40,16 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
         viewpager = findViewById(R.id.viewpager);
         TextView txtest = findViewById(R.id.txtestrella);
         sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
+        int califica = sharedPref.getInt("califica", 0);
+        if (califica == 5) {
+            dialogocalifica();
+            califica = 0;
+        } else
+            califica++;
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt("califica", califica);
+        editor.commit();
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
@@ -114,4 +130,33 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
         return super.onKeyDown(keyCode, event);
     }
 
+    private void dialogocalifica() {
+        ColorDrawable dialogColor = new ColorDrawable(Color.GRAY);
+        dialogColor.setAlpha(0);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(Nivel.this);
+        final LayoutInflater inflater = getLayoutInflater();
+        View vi = inflater.inflate(R.layout.dialogocalifica, null);
+        builder.setView(vi);
+        final AlertDialog dialog = builder.create();
+        dialog.setCancelable(true);
+        dialog.getWindow().setBackgroundDrawable(dialogColor);
+        Button botonsi = vi.findViewById(R.id.botonsi);
+        botonsi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentae4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.tarjetonimss.user.imsswebtarjeton"));
+                startActivity(intentae4);
+            }
+        });
+        Button botonno = vi.findViewById(R.id.botonno);
+        botonno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
+        dialog.show();
+
+    }
 }

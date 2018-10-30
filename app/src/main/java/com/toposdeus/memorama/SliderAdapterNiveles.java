@@ -173,7 +173,7 @@ public class SliderAdapterNiveles extends PagerAdapter {
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Ajustes.vibrar(context, 50);
                 sfin = true;
                 if (position == 3) {
                     Intent intent = new Intent(context, Memorama.class);

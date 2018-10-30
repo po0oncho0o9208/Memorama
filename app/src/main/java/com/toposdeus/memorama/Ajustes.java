@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Vibrator;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -21,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +34,6 @@ import java.io.IOException;
 public class Ajustes extends AppCompatActivity implements View.OnClickListener {
 
     CheckBox sonido, vibrar;
-    Context context;
 
     Button btnatras, reestablecer, botoncomparte, botoncalifica;
     SharedPreferences sharedPref;
@@ -56,6 +57,38 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
         botoncomparte.setOnClickListener(this);
         botoncalifica = findViewById(R.id.botoncalifica);
         botoncalifica.setOnClickListener(this);
+        sonido = findViewById(R.id.checkboxsonido);
+        sonido.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+                    Ajustes.Guardarboolean(Ajustes.this, true, "sonido");
+
+                } else {
+                    Ajustes.Guardarboolean(Ajustes.this, false, "sonido");
+
+                }
+            }
+        });
+        sonido.setChecked(Cargarboolean(this, "sonido"));
+        vibrar = findViewById(R.id.checkboxvibrar);
+        vibrar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+                    Ajustes.Guardarboolean(Ajustes.this, true, "vibrar");
+
+                } else {
+                    Ajustes.Guardarboolean(Ajustes.this, false, "vibrar");
+
+                }
+
+            }
+        });
+        vibrar.setChecked(Cargarboolean(this, "vibrar"));
+
         sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
 
         int contador = 0;
@@ -74,7 +107,7 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
+        vibrar(this, 50);
         switch (v.getId()) {
             case R.id.botoncomparte:
                 if (ContextCompat.checkSelfPermission(Ajustes.this,
@@ -89,34 +122,34 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
                                 MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
                     }
                 }
-                    Intent intento = new Intent(Intent.ACTION_SEND);
-                    intento.setType("*/*");
-                    String paramString1 = Integer.toString(R.drawable.atras4);
-                    Bitmap topo2 = BitmapFactory.decodeResource(getResources(), R.drawable.atras4);
-                    String fileName = paramString1 + "" + ".png";
-                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                    topo2.compress(Bitmap.CompressFormat.PNG, 40, bytes);
-                    File ExternalStorageDirectory = Environment.getExternalStorageDirectory();
-                    File file = new File(ExternalStorageDirectory + File.separator + fileName);
-                    FileOutputStream fileOutputStream = null;
-                    try {
-                        file.createNewFile();
-                        fileOutputStream = new FileOutputStream(file);
-                        fileOutputStream.write(bytes.toByteArray());
-                    } catch (IOException e) {
+                Intent intento = new Intent(Intent.ACTION_SEND);
+                intento.setType("*/*");
+                String paramString1 = Integer.toString(R.drawable.atras4);
+                Bitmap topo2 = BitmapFactory.decodeResource(getResources(), R.drawable.atras4);
+                String fileName = paramString1 + "" + ".png";
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                topo2.compress(Bitmap.CompressFormat.PNG, 40, bytes);
+                File ExternalStorageDirectory = Environment.getExternalStorageDirectory();
+                File file = new File(ExternalStorageDirectory + File.separator + fileName);
+                FileOutputStream fileOutputStream = null;
+                try {
+                    file.createNewFile();
+                    fileOutputStream = new FileOutputStream(file);
+                    fileOutputStream.write(bytes.toByteArray());
+                } catch (IOException e) {
 
-                    } finally {
-                        if (fileOutputStream != null) {
-                            Uri bmpUri = Uri.parse(file.getPath());
-                            intento.putExtra(Intent.EXTRA_TEXT, "Descubre que tan buena memoria tienes y ejercitala con esta aplicacion " + Html.fromHtml("<br />") +
-                                    "y recibirás notificaciones de cuando llegue el tarjetón , así como noticias relevantes del IMSS  " + Html.fromHtml("<br />") +
-                                    "https://play.google.com/store/apps/details?id=com.tarjetonimss.user.imsswebtarjeton");
-                            intento.putExtra(
-                                    Intent.EXTRA_STREAM,
-                                    bmpUri);
-                            startActivity(Intent.createChooser(intento,
-                                    "Siguenos en nuestra pagina "));
-                        }
+                } finally {
+                    if (fileOutputStream != null) {
+                        Uri bmpUri = Uri.parse(file.getPath());
+                        intento.putExtra(Intent.EXTRA_TEXT, "Descubre que tan buena memoria tienes y ejercitala con esta aplicacion " + Html.fromHtml("<br />") +
+                                "y recibirás notificaciones de cuando llegue el tarjetón , así como noticias relevantes del IMSS  " + Html.fromHtml("<br />") +
+                                "https://play.google.com/store/apps/details?id=com.tarjetonimss.user.imsswebtarjeton");
+                        intento.putExtra(
+                                Intent.EXTRA_STREAM,
+                                bmpUri);
+                        startActivity(Intent.createChooser(intento,
+                                "Siguenos en nuestra pagina "));
+                    }
 
                 }
                 break;
@@ -183,4 +216,29 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
         return super.onKeyDown(keyCode, event);
     }
 
+
+    public static boolean Cargarboolean(Context context, String nombre) {
+        SharedPreferences sharedPref;
+        boolean activado;
+        sharedPref = context.getSharedPreferences("record", Context.MODE_PRIVATE);
+        activado = sharedPref.getBoolean(nombre, true);
+        return activado;
+
+    }
+
+    public static void Guardarboolean(Context contexto, boolean activado, String nombre) {
+        SharedPreferences sharedPref;
+        sharedPref = contexto.getSharedPreferences(
+                "record", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean(nombre, activado);
+        editor.commit();
+    }
+
+    public static void vibrar(Context contexto, int tim) {
+        if (Ajustes.Cargarboolean(contexto, "vibrar") == true) {
+            Vibrator vib = (Vibrator) contexto.getSystemService(VIBRATOR_SERVICE);
+            vib.vibrate(tim);
+        }
+    }
 }

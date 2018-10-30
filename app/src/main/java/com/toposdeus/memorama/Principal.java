@@ -38,6 +38,7 @@ public class Principal extends AppCompatActivity {
     }
 
     public void play(View view) {
+        Ajustes.vibrar(this, 50);
         Intent intent1 = new Intent(this, Niveles.class);
         startActivity(intent1);
         // Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://rh.imss.gob.mx/tarjetondigital/"));
@@ -45,6 +46,7 @@ public class Principal extends AppCompatActivity {
     }
 
     public void ajustes(View view) {
+        Ajustes.vibrar(this, 50);
         Intent intent12 = new Intent(this, Ajustes.class);
         startActivity(intent12);
         // Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://rh.imss.gob.mx/tarjetondigital/"));
@@ -52,6 +54,7 @@ public class Principal extends AppCompatActivity {
     }
 
     public void trofeos(View view) {
+        Ajustes.vibrar(this, 50);
         Intent intent13 = new Intent(this, Trofeos.class);
         startActivity(intent13);
         // Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://rh.imss.gob.mx/tarjetondigital/"));
@@ -61,6 +64,7 @@ public class Principal extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Ajustes.vibrar(this, 50);
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             LayoutInflater inflater = getLayoutInflater();
@@ -75,6 +79,7 @@ public class Principal extends AppCompatActivity {
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            Ajustes.vibrar(Principal.this, 50);
                             dialog.cancel();
                             Principal.super.onDestroy();
                             System.exit(0);
@@ -86,6 +91,7 @@ public class Principal extends AppCompatActivity {
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            Ajustes.vibrar(Principal.this, 50);
                             dialog.cancel();
 
                         }

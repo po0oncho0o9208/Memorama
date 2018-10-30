@@ -45,10 +45,13 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
         adapter = new SliderAdapterNiveles(this, new int[]{0, 1, 2, 3, 4, 5,}, this);
         viewpager.setAdapter(adapter);
 
+        sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
+
+
+
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
 
         if (sharedPref.getBoolean("instrucciones", true)) {
             dialogo();
@@ -109,6 +112,7 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Ajustes.vibrar(this, 50);
         Intent intent = new Intent(Niveles.this, Principal.class);
         intent.putExtra("dificultad", adapter.dificultad);
         startActivity(intent);
@@ -118,6 +122,7 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Ajustes.vibrar(this, 50);
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             Intent intent = new Intent(Niveles.this, Principal.class);
             intent.putExtra("dificultad", adapter.dificultad);
@@ -146,6 +151,7 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
         lay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Ajustes.vibrar(Niveles.this, 50);
                 if (checkbox.isChecked()) {
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putBoolean("instrucciones", false);
@@ -159,4 +165,6 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
         dialog.show();
 
     }
+
+
 }
