@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,6 +37,7 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
     int pagina;
     SharedPreferences sharedPref;
     private AdView mAdView;
+    MediaPlayer click;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,7 +48,6 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
         viewpager.setAdapter(adapter);
 
         sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
-
 
 
         mAdView = findViewById(R.id.adView);
@@ -112,6 +113,7 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Ajustes.sonidoplay(this, click, R.raw.click);
         Ajustes.vibrar(this, 50);
         Intent intent = new Intent(Niveles.this, Principal.class);
         intent.putExtra("dificultad", adapter.dificultad);
@@ -122,6 +124,7 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Ajustes.sonidoplay(this, click, R.raw.click);
         Ajustes.vibrar(this, 50);
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             Intent intent = new Intent(Niveles.this, Principal.class);
@@ -151,6 +154,7 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
         lay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Ajustes.sonidoplay(Niveles.this, click, R.raw.click);
                 Ajustes.vibrar(Niveles.this, 50);
                 if (checkbox.isChecked()) {
                     SharedPreferences.Editor editor = sharedPref.edit();

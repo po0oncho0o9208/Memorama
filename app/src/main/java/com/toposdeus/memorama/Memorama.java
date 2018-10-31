@@ -127,7 +127,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     DisplayMetrics metrics;
     int anchobtn;
     CountDownTimer crono;
-    MediaPlayer mediaPlayer, click;
+    MediaPlayer mediaPlayer, click, winner = new MediaPlayer();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -250,10 +250,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        if (Ajustes.Cargarboolean(this, "sonido")) {
-            if (mediaPlayer.isPlaying())
-                mediaPlayer.stop();
-        }
+        Ajustes.sonidoplay(this, click, R.raw.click);
         Ajustes.vibrar(this, 50);
 
         switch (v.getId()) {
@@ -360,6 +357,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                     }
 
                                 } else {
+                                    MediaPlayer wrong = new MediaPlayer();
+                                    Ajustes.sonidoplay(Memorama.this, wrong, R.raw.wrong);
                                     botontemp.startAnimation(vibrar);
                                     btnTag.startAnimation(vibrar);
                                     new Handler().postDelayed(new Runnable() {
@@ -695,7 +694,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
 
     private void dialogo(boolean resultado) {
-
+        detenermusica(mediaPlayer);
+        Ajustes.sonidoplay(this, winner, R.raw.winner);
         SharedPreferences sharedPref;
         sharedPref = Memorama.this.getSharedPreferences("record", Context.MODE_PRIVATE);
         ColorDrawable dialogColor = new ColorDrawable(Color.GRAY);
@@ -742,7 +742,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Ajustes.vibrar(Memorama.this, 50);
+                        detenermusica(winner);
                         if (dificultad == 3) {
                             Intent i = new Intent(Memorama.this, Niveles.class);
                             i.putExtra("dificultad", dificultad);
@@ -763,6 +764,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        detenermusica(winner);
                         Intent i = new Intent(Memorama.this, Memorama.class);
                         i.putExtra("dificultad", dificultad);
                         i.putExtra("pagina", pagina());
@@ -782,10 +784,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     @Override
     protected void onPause() {
         super.onPause();
-        if (Ajustes.Cargarboolean(this, "sonido")) {
-            if (mediaPlayer.isPlaying())
-                mediaPlayer.pause();
-        }
+        detenermusica(mediaPlayer);
     }
 
     @Override
@@ -798,20 +797,14 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (Ajustes.Cargarboolean(this, "sonido")) {
-            if (mediaPlayer.isPlaying())
-                mediaPlayer.stop();
-        }
+        detenermusica(mediaPlayer);
     }
 
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            if (Ajustes.Cargarboolean(this, "sonido")) {
-                if (mediaPlayer.isPlaying())
-                    mediaPlayer.stop();
-            }
+            detenermusica(mediaPlayer);
             if (dificultad == 3) {
                 Intent i = new Intent(Memorama.this, Niveles.class);
                 i.putExtra("dificultad", dificultad);
@@ -853,11 +846,11 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         // diferencia lo que hara el metodo dependiendo de la dificultad en la que se este ejecutando el nivel
         switch (dificultad) {
             case 0:
-                if (intentos - pares < 10) {
+                if (intentos - pares < 5) {
                     star2.setBackground(getResources().getDrawable(R.drawable.star));
                     estrella++;
                 }
-                if (intentos - pares < 5) {
+                if (intentos - pares < 2) {
                     star3.setBackground(getResources().getDrawable(R.drawable.star));
                     estrella++;
                     botonretry.setVisibility(View.GONE);
@@ -898,6 +891,13 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         titulo.setBackground(getResources().getDrawable(titulos[estrella - 1]));
 
         return estrella;
+    }
+
+    private void detenermusica(MediaPlayer media) {
+        if (Ajustes.Cargarboolean(this, "sonido")) {
+            if (media.isPlaying())
+                media.stop();
+        }
     }
 
 }

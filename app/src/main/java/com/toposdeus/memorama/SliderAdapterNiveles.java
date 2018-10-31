@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -158,7 +159,7 @@ public class SliderAdapterNiveles extends PagerAdapter {
                     }
                 });
                 TextView falt3 = view.findViewById(R.id.txtfaltantes);
-                if (contadores < 1) {
+                if (contadores < 81) {
                     falt3.setText("Desbloquea con 81 estrellas ");
                     LinearLayout lay = view.findViewById(R.id.layoutspinners);
                     lay.setVisibility(View.INVISIBLE);
@@ -173,6 +174,8 @@ public class SliderAdapterNiveles extends PagerAdapter {
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MediaPlayer click = new MediaPlayer();
+                Ajustes.sonidoplay(context, click, R.raw.click);
                 Ajustes.vibrar(context, 50);
                 sfin = true;
                 if (position == 3) {

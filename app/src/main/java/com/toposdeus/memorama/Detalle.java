@@ -2,10 +2,14 @@ package com.toposdeus.memorama;
 
 import android.Manifest;
 import android.app.WallpaperManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -18,6 +22,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,9 +41,16 @@ public class Detalle extends AppCompatActivity {
     int movil;
     Bitmap topo;
     AdView mAdView3;
+    MediaPlayer mediaplayer;
+    int id;
+    SharedPreferences sharedPref;
 
+    int[] sonidos = {R.raw.click, R.raw.dugget, R.raw.riptide, R.raw.winner, R.raw.click, R.raw.dugget, R.raw.riptide,
+            R.raw.winner, R.raw.click, R.raw.dugget, R.raw.riptide, R.raw.winner, R.raw.click, R.raw.dugget, R.raw.riptide,
+            R.raw.winner, R.raw.click, R.raw.dugget, R.raw.riptide, R.raw.winner, R.raw.click, R.raw.dugget, R.raw.riptide, R.raw.winner,
+            R.raw.click, R.raw.dugget, R.raw.riptide, R.raw.winner, R.raw.click, R.raw.dugget, R.raw.riptide, R.raw.winner,
+            R.raw.click, R.raw.dugget, R.raw.riptide, R.raw.winner, R.raw.click, R.raw.dugget, R.raw.riptide, R.raw.winner};
 
-    static Integer densidadpantalla;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -48,10 +60,36 @@ public class Detalle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle);
+        int contador = 0;
+        Button back = findViewById(R.id.atras);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Ajustes.vibrar(Detalle.this, 50);
+                MediaPlayer click = new MediaPlayer();
+                Ajustes.sonidoplay(Detalle.this, click, R.raw.click);
+                Intent intent = new Intent(Detalle.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
-        imagenview = (ImageView) findViewById(R.id.iamgendetalle);
+        TextView txtest = findViewById(R.id.txtestrella);
+        sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
+
+        for (int n = 0; n < 4; n++) {
+            for (int i = 0; i < 27; i++) {
+                contador += sharedPref.getInt(n + "record" + i, 0);
+            }
+        }
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/birdyame.ttf");
+        txtest.setText(contador + " X ");
+        txtest.setTypeface(font);
+
+        imagenview = findViewById(R.id.iamgendetalle);
 
         Datos obj = (Datos) getIntent().getExtras().getSerializable("objeto");
+        id = getIntent().getExtras().getInt("id");
         imagenview.setImageResource(obj.getImagen());
         movil = obj.getImagen();
 
@@ -68,7 +106,6 @@ public class Detalle extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
 
     public void Compartir1(View view) {
@@ -125,6 +162,9 @@ public class Detalle extends AppCompatActivity {
     }
 
 
+    public void playsound(View view) {
+        Ajustes.sonidoplay(this, mediaplayer, sonidos[id]);
+    }
 }
 
 

@@ -3,6 +3,7 @@ package com.toposdeus.memorama;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -20,6 +21,7 @@ public class Principal extends AppCompatActivity {
     ImageView play, ajustes, trofeos;
     LinearLayout layout;
     ProgressBar progresbar;
+    MediaPlayer click;
 
 
     @Override
@@ -38,6 +40,7 @@ public class Principal extends AppCompatActivity {
     }
 
     public void play(View view) {
+        Ajustes.sonidoplay(this, click, R.raw.click);
         Ajustes.vibrar(this, 50);
         Intent intent1 = new Intent(this, Niveles.class);
         startActivity(intent1);
@@ -46,6 +49,7 @@ public class Principal extends AppCompatActivity {
     }
 
     public void ajustes(View view) {
+        Ajustes.sonidoplay(this, click, R.raw.click);
         Ajustes.vibrar(this, 50);
         Intent intent12 = new Intent(this, Ajustes.class);
         startActivity(intent12);
@@ -54,6 +58,7 @@ public class Principal extends AppCompatActivity {
     }
 
     public void trofeos(View view) {
+        Ajustes.sonidoplay(this, click, R.raw.click);
         Ajustes.vibrar(this, 50);
         Intent intent13 = new Intent(this, MainActivity.class);
         startActivity(intent13);
@@ -64,6 +69,7 @@ public class Principal extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+
         Ajustes.vibrar(this, 50);
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);

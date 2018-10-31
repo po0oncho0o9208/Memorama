@@ -39,7 +39,7 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
     Button btnatras, reestablecer, botoncomparte, botoncalifica;
     SharedPreferences sharedPref;
     TextView txtest;
-    static MediaPlayer mediaPlayer;
+    static MediaPlayer mediaPlayer, click;
 
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
 
@@ -63,13 +63,13 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
         sonido.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                vibrar(Ajustes.this, 50);
                 if (isChecked) {
-
                     Ajustes.Guardarboolean(Ajustes.this, true, "sonido");
+                    sonidoplay(Ajustes.this, click, R.raw.click);
 
                 } else {
                     Ajustes.Guardarboolean(Ajustes.this, false, "sonido");
-
                 }
             }
         });
@@ -78,9 +78,10 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
         vibrar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sonidoplay(Ajustes.this, click, R.raw.click);
                 if (isChecked) {
-
                     Ajustes.Guardarboolean(Ajustes.this, true, "vibrar");
+                    vibrar(Ajustes.this, 50);
 
                 } else {
                     Ajustes.Guardarboolean(Ajustes.this, false, "vibrar");
@@ -109,6 +110,7 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        sonidoplay(this, click, R.raw.click);
         vibrar(this, 50);
         switch (v.getId()) {
             case R.id.botoncomparte:
@@ -174,6 +176,8 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                vibrar(Ajustes.this, 50);
+                                sonidoplay(Ajustes.this, click, R.raw.click);
                                 //sharedPref = getSharedPreferences("record", 0);
                                 //sharedPref.edit().remove("record").commit();
                                 sharedPref.edit().clear().commit();
@@ -186,9 +190,12 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
                 );
                 Button botonno = vi.findViewById(R.id.botonno1);
                 botonno.setOnClickListener(
+
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                vibrar(Ajustes.this, 50);
+                                sonidoplay(Ajustes.this, click, R.raw.click);
                                 dialog.cancel();
 
                             }
@@ -209,6 +216,8 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        vibrar(Ajustes.this, 50);
+        sonidoplay(Ajustes.this, click, R.raw.click);
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             Intent intent = new Intent(Ajustes.this, Principal.class);
             startActivity(intent);
@@ -245,7 +254,23 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
     }
 
 
+    public static void sonidostop(Context context, MediaPlayer mediaPlayer) {
 
+        if (Ajustes.Cargarboolean(context, "sonido"))
+
+        {
+            if (mediaPlayer.isPlaying())
+                mediaPlayer.stop();
+        }
+
+    }
+
+    public static void sonidoplay(Context context, MediaPlayer mediaPlay, int name) {
+        if (Ajustes.Cargarboolean(context, "sonido")) {
+            mediaPlay = MediaPlayer.create(context, name);
+            mediaPlay.start();
+        }
+    }
 
     public static MediaPlayer preferenciasonido(Context contexto, int sound, boolean reproducir) {
         SoundManager soundm;

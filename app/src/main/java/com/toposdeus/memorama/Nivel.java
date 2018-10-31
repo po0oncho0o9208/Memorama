@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,6 +32,7 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
 
     SharedPreferences sharedPref;
     private AdView mAdView;
+    MediaPlayer click;
 
 
     @Override
@@ -41,7 +43,7 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
         TextView txtest = findViewById(R.id.txtestrella);
         sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
         int califica = sharedPref.getInt("califica", 0);
-        if (califica == 5) {
+        if (califica == 30) {
             dialogocalifica();
             califica = 0;
         } else
@@ -50,6 +52,7 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt("califica", califica);
         editor.commit();
+
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
@@ -111,6 +114,8 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Ajustes.vibrar(this, 50);
+        Ajustes.sonidoplay(this, click, R.raw.click);
         Intent intent = new Intent(Nivel.this, Niveles.class);
         intent.putExtra("dificultad", adapter.dificultad);
         startActivity(intent);
@@ -121,6 +126,8 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            Ajustes.vibrar(this, 50);
+            Ajustes.sonidoplay(this, click, R.raw.click);
             Intent intent = new Intent(Nivel.this, Niveles.class);
             intent.putExtra("dificultad", adapter.dificultad);
             startActivity(intent);
@@ -144,6 +151,8 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
         botonsi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Ajustes.vibrar(Nivel.this, 50);
+                Ajustes.sonidoplay(Nivel.this, click, R.raw.click);
                 Intent intentae4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.tarjetonimss.user.imsswebtarjeton"));
                 startActivity(intentae4);
             }
@@ -152,6 +161,8 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
         botonno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Ajustes.vibrar(Nivel.this, 50);
+                Ajustes.sonidoplay(Nivel.this, click, R.raw.click);
                 dialog.cancel();
             }
         });

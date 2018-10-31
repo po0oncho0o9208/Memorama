@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/birdyame.ttf");
-        contador = 50;
+
         txtest.setText(contador + " X ");
 
         txtest.setTypeface(font);
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 "6 SOMBREROS", "6 SOLES", "7 SILLAS", "7 SANDIAS", "8 ESTRELLAS", "8 OJOS", "9 NARANJAS", "9 NUBES", "CAMPEON"};
         for (int i = 0; i < 37; i++) {
             //if (sharedPref.getBoolean("trofeo" + i, false))
-            if ((contador / 5) < i)
+            if ((contador / 5) < i + 1)
                 datos.add(new Datos(i + 1, R.drawable.lock, "???"));
             else
                 datos.add(new Datos(i + 1, imagenes[i], nombres[i]));
@@ -82,14 +82,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-
-                    //if (sharedPref.getBoolean("trofeo" + i, false))
-                    if (((contadorfinal / 5) > position)) {
-                        Toast.makeText(MainActivity.this,""+contadorfinal,Toast.LENGTH_LONG).show();
-                        Datos obj = (Datos) parent.getItemAtPosition(position);
-                        Intent paso = new Intent(getApplicationContext(), Detalle.class);
-                        paso.putExtra("objeto", (Serializable) obj);
-                        startActivity(paso);
+                //if (sharedPref.getBoolean("trofeo" + i, false))
+                if (((contadorfinal / 5) > position)) {
+                    Datos obj = (Datos) parent.getItemAtPosition(position);
+                    Intent paso = new Intent(getApplicationContext(), Detalle.class);
+                    paso.putExtra("objeto", (Serializable) obj);
+                    paso.putExtra("id", position);
+                    startActivity(paso);
 
                 }
 

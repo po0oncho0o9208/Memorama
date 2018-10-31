@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.util.DisplayMetrics;
@@ -132,6 +133,9 @@ public class SliderAdapterNivel extends PagerAdapter {
                     boton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            Ajustes.vibrar(context, 50);
+                            MediaPlayer click = new MediaPlayer();
+                            Ajustes.sonidoplay(context, click, R.raw.click);
                             Intent intent = new Intent(context, Memorama.class);
                             intent.putExtra("dificultad", dificultad);
                             intent.putExtra("id", num);
