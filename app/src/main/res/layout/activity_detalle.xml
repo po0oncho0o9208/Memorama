@@ -8,16 +8,16 @@
     android:orientation="vertical"
     tools:context="com.toposdeus.memorama.Detalle">
 
-    <include layout="@layout/barra"/>
+    <include layout="@layout/barra"
+        android:id="@+id/include" />
 
     <ImageView
-        android:layout_marginTop="50dp"
         android:id="@+id/iamgendetalle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:background="@drawable/fondonivel" />
 
     <Button
@@ -26,9 +26,8 @@
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/sonidoss"
         android:onClick="playsound" />
-
 
 </RelativeLayout>

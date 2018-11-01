@@ -11,11 +11,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdView;
+
 public class Trofeos extends AppCompatActivity implements View.OnClickListener {
 
     TextView txtest;
     SharedPreferences sharedPref;
     Button btnatras;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

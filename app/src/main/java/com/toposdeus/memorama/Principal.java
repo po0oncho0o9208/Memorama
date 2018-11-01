@@ -15,6 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 public class Principal extends AppCompatActivity {
 
 
@@ -22,12 +25,18 @@ public class Principal extends AppCompatActivity {
     LinearLayout layout;
     ProgressBar progresbar;
     MediaPlayer click;
+    private AdView mAdView;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 
         play = findViewById(R.id.btnplay);

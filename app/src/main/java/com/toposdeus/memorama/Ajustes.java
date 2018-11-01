@@ -27,6 +27,9 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,6 +43,7 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
     SharedPreferences sharedPref;
     TextView txtest;
     static MediaPlayer mediaPlayer, click;
+    private AdView mAdView;
 
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
 
@@ -49,6 +53,10 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.opciones);
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         btnatras = findViewById(R.id.atras);
         btnatras.setOnClickListener(this);
@@ -145,9 +153,7 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
                 } finally {
                     if (fileOutputStream != null) {
                         Uri bmpUri = Uri.parse(file.getPath());
-                        intento.putExtra(Intent.EXTRA_TEXT, "Descubre que tan buena memoria tienes y ejercitala con esta aplicacion " + Html.fromHtml("<br />") +
-                                "y recibirás notificaciones de cuando llegue el tarjetón , así como noticias relevantes del IMSS  " + Html.fromHtml("<br />") +
-                                "https://play.google.com/store/apps/details?id=com.tarjetonimss.user.imsswebtarjeton");
+                        intento.putExtra(Intent.EXTRA_TEXT, "Descubre que tan buena memoria tienes y ejercitala con esta aplicacion " );
                         intento.putExtra(
                                 Intent.EXTRA_STREAM,
                                 bmpUri);
@@ -158,7 +164,7 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
                 }
                 break;
             case R.id.botoncalifica:
-                Intent intentae4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.tarjetonimss.user.imsswebtarjeton"));
+                Intent intentae4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.toposdeus.memorama"));
                 startActivity(intentae4);
                 break;
             case R.id.botonreestablecer:

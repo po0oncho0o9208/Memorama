@@ -40,7 +40,8 @@ public class Detalle extends AppCompatActivity {
     ImageView imagenview;
     int movil;
     Bitmap topo;
-    AdView mAdView3;
+    private AdView mAdView;
+
     MediaPlayer mediaplayer;
     int id;
     SharedPreferences sharedPref;
@@ -60,6 +61,9 @@ public class Detalle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle);
+
+
+
         int contador = 0;
         Button back = findViewById(R.id.atras);
         back.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +75,13 @@ public class Detalle extends AppCompatActivity {
                 Intent intent = new Intent(Detalle.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+
+
+
+
+                mAdView = findViewById(R.id.adView);
+                AdRequest adRequest = new AdRequest.Builder().build();
+                mAdView.loadAd(adRequest);
             }
         });
 
