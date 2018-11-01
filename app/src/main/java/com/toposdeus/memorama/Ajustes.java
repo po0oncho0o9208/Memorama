@@ -27,6 +27,9 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,11 +38,11 @@ import java.io.IOException;
 public class Ajustes extends AppCompatActivity implements View.OnClickListener {
 
     CheckBox sonido, vibrar;
-
     Button btnatras, reestablecer, botoncomparte, botoncalifica;
     SharedPreferences sharedPref;
     TextView txtest;
     static MediaPlayer mediaPlayer, click;
+    private AdView mAdView;
 
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
 
@@ -49,6 +52,10 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.opciones);
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         btnatras = findViewById(R.id.atras);
         btnatras.setOnClickListener(this);
@@ -60,6 +67,9 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
         botoncalifica = findViewById(R.id.botoncalifica);
         botoncalifica.setOnClickListener(this);
         sonido = findViewById(R.id.checkboxsonido);
+        vibrar = findViewById(R.id.checkboxvibrar);
+        sonido.setChecked(Cargarboolean(this, "sonido"));
+        vibrar.setChecked(Cargarboolean(this, "vibrar"));
         sonido.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -73,8 +83,8 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
                 }
             }
         });
-        sonido.setChecked(Cargarboolean(this, "sonido"));
-        vibrar = findViewById(R.id.checkboxvibrar);
+
+
         vibrar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -90,8 +100,6 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
 
             }
         });
-        vibrar.setChecked(Cargarboolean(this, "vibrar"));
-
         sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
 
         int contador = 0;
@@ -145,9 +153,8 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
                 } finally {
                     if (fileOutputStream != null) {
                         Uri bmpUri = Uri.parse(file.getPath());
-                        intento.putExtra(Intent.EXTRA_TEXT, "Descubre que tan buena memoria tienes y ejercitala con esta aplicacion " + Html.fromHtml("<br />") +
-                                "y recibirás notificaciones de cuando llegue el tarjetón , así como noticias relevantes del IMSS  " + Html.fromHtml("<br />") +
-                                "https://play.google.com/store/apps/details?id=com.tarjetonimss.user.imsswebtarjeton");
+                        intento.putExtra(Intent.EXTRA_TEXT, "Descubre que tan buena memoria tienes y ejercitala con esta aplicacion "
+                                + Html.fromHtml("<br />") + "https://play.google.com/store/apps/details?id=com.toposdeus.memorama");
                         intento.putExtra(
                                 Intent.EXTRA_STREAM,
                                 bmpUri);
@@ -158,7 +165,7 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
                 }
                 break;
             case R.id.botoncalifica:
-                Intent intentae4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.tarjetonimss.user.imsswebtarjeton"));
+                Intent intentae4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.toposdeus.memorama"));
                 startActivity(intentae4);
                 break;
             case R.id.botonreestablecer:
@@ -173,6 +180,7 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
                 Button botonsi = vi.findViewById(R.id.botonsi1);
 
                 botonsi.setOnClickListener(
+
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -247,6 +255,7 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
     }
 
     public static void vibrar(Context contexto, int tim) {
+
         if (Ajustes.Cargarboolean(contexto, "vibrar") == true) {
             Vibrator vib = (Vibrator) contexto.getSystemService(VIBRATOR_SERVICE);
             vib.vibrate(tim);

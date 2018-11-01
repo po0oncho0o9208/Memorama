@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     GridView grilla;
     InterstitialAd mInterstitialAd;
+    MediaPlayer click;
     TextView txtest, txtgriditem;
     SharedPreferences sharedPref;
     Button btnatras;
@@ -84,6 +86,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 //if (sharedPref.getBoolean("trofeo" + i, false))
                 if (((contadorfinal / 5) > position)) {
+                    Ajustes.sonidoplay(MainActivity.this, click, R.raw.click);
+                    Ajustes.vibrar(MainActivity.this, 50);
                     Datos obj = (Datos) parent.getItemAtPosition(position);
                     Intent paso = new Intent(getApplicationContext(), Detalle.class);
                     paso.putExtra("objeto", (Serializable) obj);
@@ -103,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            Ajustes.sonidoplay(this, click, R.raw.click);
+            Ajustes.vibrar(this, 50);
             Intent intent = new Intent(MainActivity.this, Principal.class);
             startActivity(intent);
             finish();
@@ -113,7 +119,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
+        Ajustes.sonidoplay(this, click, R.raw.click);
+        Ajustes.vibrar(this, 50);
         Intent intent = new Intent(MainActivity.this, Principal.class);
         startActivity(intent);
         finish();

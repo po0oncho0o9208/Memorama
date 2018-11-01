@@ -41,6 +41,7 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_nivel);
         viewpager = findViewById(R.id.viewpager);
         TextView txtest = findViewById(R.id.txtestrella);
+
         sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
         int califica = sharedPref.getInt("califica", 0);
         if (califica == 30) {
@@ -153,7 +154,7 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
             public void onClick(View v) {
                 Ajustes.vibrar(Nivel.this, 50);
                 Ajustes.sonidoplay(Nivel.this, click, R.raw.click);
-                Intent intentae4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.tarjetonimss.user.imsswebtarjeton"));
+                Intent intentae4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.toposdeus.memorama"));
                 startActivity(intentae4);
             }
         });

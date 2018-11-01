@@ -29,6 +29,10 @@ import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
     int[][][] matriz =
 
@@ -128,6 +132,8 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     int anchobtn;
     CountDownTimer crono;
     MediaPlayer mediaPlayer, click, winner = new MediaPlayer();
+    private AdView mAdView;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -136,6 +142,14 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.activity_memorama);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         txtpunt = findViewById(R.id.txtpunt);
         txttitulo = findViewById(R.id.txttitulome);
@@ -694,6 +708,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
 
     private void dialogo(boolean resultado) {
+        mostrarinterstitial();
         detenermusica(mediaPlayer);
         Ajustes.sonidoplay(this, winner, R.raw.winner);
         SharedPreferences sharedPref;
@@ -744,6 +759,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                     public void onClick(View v) {
                         Ajustes.vibrar(Memorama.this, 50);
                         detenermusica(winner);
+
                         if (dificultad == 3) {
                             Intent i = new Intent(Memorama.this, Niveles.class);
                             i.putExtra("dificultad", dificultad);
@@ -899,5 +915,24 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                 media.stop();
         }
     }
+
+    private void mostrarinterstitial() {
+        SharedPreferences sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
+        int inter = sharedPref.getInt("interstitial", 0);
+        if (inter == 1) {
+            //Toast.makeText(this,"ad",Toast.LENGTH_LONG).show();
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            } else Toast.makeText(this, "ad", Toast.LENGTH_LONG).show();
+
+            inter = 0;
+        } else
+            inter++;
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt("interstitial", inter);
+        editor.commit();
+
+    }
+
 
 }
