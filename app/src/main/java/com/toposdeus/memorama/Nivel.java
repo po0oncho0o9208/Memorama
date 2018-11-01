@@ -153,7 +153,7 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
             public void onClick(View v) {
                 Ajustes.vibrar(Nivel.this, 50);
                 Ajustes.sonidoplay(Nivel.this, click, R.raw.click);
-                Intent intentae4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.toposdeus.memorama"));
+                Intent intentae4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.tarjetonimss.user.imsswebtarjeton"));
                 startActivity(intentae4);
             }
         });

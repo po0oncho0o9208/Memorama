@@ -32,13 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-1984616735532779/6185480348");
-        AdRequest adRequest1 = new AdRequest.Builder().build();
-        mInterstitialAd.loadAd(adRequest1);
-
         grilla = findViewById(R.id.grilla);
         txtest = findViewById(R.id.txtestrella);
         txtgriditem = findViewById(R.id.txttitulo);
@@ -89,27 +82,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                if (mInterstitialAd.isLoaded()) {
-                    mInterstitialAd.show();
-                } else {
-                    //if (sharedPref.getBoolean("trofeo" + i, false))
-                    if (((contadorfinal / 5) > position)) {
-
-
-                        Datos obj = (Datos) parent.getItemAtPosition(position);
-                        Intent paso = new Intent(getApplicationContext(), Detalle.class);
-                        paso.putExtra("objeto", (Serializable) obj);
-                        paso.putExtra("id", position);
-                        startActivity(paso);
-
-                    }
+                //if (sharedPref.getBoolean("trofeo" + i, false))
+                if (((contadorfinal / 5) > position)) {
+                    Datos obj = (Datos) parent.getItemAtPosition(position);
+                    Intent paso = new Intent(getApplicationContext(), Detalle.class);
+                    paso.putExtra("objeto", (Serializable) obj);
+                    paso.putExtra("id", position);
+                    startActivity(paso);
 
                 }
+
             }
 
         });
 
-        }
+
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
