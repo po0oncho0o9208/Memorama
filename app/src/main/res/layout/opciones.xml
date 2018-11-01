@@ -83,6 +83,18 @@
             android:text="comparte si te gusto"
             android:textColor="@android:color/white"
             android:textSize="6pt" />
+        <Button
+            android:id="@+id/botoncreditos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/marcoredondo"
+            android:text="Creditos"
+            android:textColor="@android:color/white"
+            android:textSize="6pt" />
 
 
     </LinearLayout>

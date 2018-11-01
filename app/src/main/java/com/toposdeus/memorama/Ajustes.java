@@ -1,12 +1,15 @@
 package com.toposdeus.memorama;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -218,6 +221,26 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
                 Intent intent = new Intent(Ajustes.this, Principal.class);
                 startActivity(intent);
                 finish();
+                break;
+            case R.id.botoncreditos:
+                ColorDrawable dialogColor = new ColorDrawable(Color.GRAY);
+                dialogColor.setAlpha(0);
+                final AlertDialog.Builder builderd = new AlertDialog.Builder(Ajustes.this);
+                final LayoutInflater inflaterd = getLayoutInflater();
+                View vid = inflaterd.inflate(R.layout.dialogocalifica, null);
+                builderd.setView(vid);
+                final AlertDialog dialogd = builderd.create();
+                dialogd.setCancelable(true);
+                dialogd.getWindow().setBackgroundDrawable(dialogColor);
+                Button botonsid = vid.findViewById(R.id.botonsi);
+                botonsid.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogd.cancel();
+                    }
+                });
+
+                dialogd.show();
                 break;
         }
     }
