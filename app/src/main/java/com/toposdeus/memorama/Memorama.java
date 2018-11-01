@@ -131,7 +131,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     DisplayMetrics metrics;
     int anchobtn;
     CountDownTimer crono;
-    MediaPlayer mediaPlayer, click, winner = new MediaPlayer();
+    MediaPlayer mediaPlayer, click, winner = new MediaPlayer(), wrong = new MediaPlayer();
     private AdView mAdView;
     private InterstitialAd mInterstitialAd;
 
@@ -329,14 +329,11 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                         @Override
                         public void onClick(View v) {
                             //vibrar
-                            if (Ajustes.Cargarboolean(Memorama.this, "sonido")) {
 
-                                click = MediaPlayer.create(Memorama.this, R.raw.click);
-                                click.start();
-                            }
                             Ajustes.vibrar(Memorama.this, 50);
 
                             if (carta1 == 0) {
+                                Ajustes.sonidoplay(Memorama.this, click, R.raw.click);
                                 btnTag.startAnimation(animcarta1);
                                 btnTag.setBackground(resize(getResources().getDrawable(botonesimg[finalJ + (finalI * mancho)]), anchobtn / 2));
                                 // btnTag.setText("" + (finalJ + (finalI * mancho) + 1));
@@ -371,7 +368,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                     }
 
                                 } else {
-                                    MediaPlayer wrong = new MediaPlayer();
+
                                     Ajustes.sonidoplay(Memorama.this, wrong, R.raw.wrong);
                                     botontemp.startAnimation(vibrar);
                                     btnTag.startAnimation(vibrar);
@@ -923,7 +920,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
             //Toast.makeText(this,"ad",Toast.LENGTH_LONG).show();
             if (mInterstitialAd.isLoaded()) {
                 mInterstitialAd.show();
-            } else Toast.makeText(this, "ad", Toast.LENGTH_LONG).show();
+            }
 
             inter = 0;
         } else
