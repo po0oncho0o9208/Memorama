@@ -26,8 +26,8 @@
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/sonido"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/sonidoss"
         android:onClick="playsound" />
 
 

@@ -45,11 +45,11 @@ public class Detalle extends AppCompatActivity {
     int id;
     SharedPreferences sharedPref;
 
-    int[] sonidos = {R.raw.click, R.raw.dugget, R.raw.riptide, R.raw.winner, R.raw.click, R.raw.dugget, R.raw.riptide,
-            R.raw.winner, R.raw.click, R.raw.dugget, R.raw.riptide, R.raw.winner, R.raw.click, R.raw.dugget, R.raw.riptide,
-            R.raw.winner, R.raw.click, R.raw.dugget, R.raw.riptide, R.raw.winner, R.raw.click, R.raw.dugget, R.raw.riptide, R.raw.winner,
-            R.raw.click, R.raw.dugget, R.raw.riptide, R.raw.winner, R.raw.click, R.raw.dugget, R.raw.riptide, R.raw.winner,
-            R.raw.click, R.raw.dugget, R.raw.riptide, R.raw.winner, R.raw.click, R.raw.dugget, R.raw.riptide, R.raw.winner};
+    int[] sonidos = {R.raw.uno, R.raw.dos, R.raw.tres, R.raw.cuatro, R.raw.cinco, R.raw.seis, R.raw.siete,
+            R.raw.oco, R.raw.nueve1, R.raw.one, R.raw.two, R.raw.tree, R.raw.four, R.raw.five, R.raw.six,
+            R.raw.seven, R.raw.eigt, R.raw.nine, R.raw.unauva, R.raw.unoso, R.raw.dosdulces, R.raw.dostazas, R.raw.trestambores, R.raw.trestacos,
+            R.raw.cuatroconejos, R.raw.cuatrofocos, R.raw.cincocorbatas, R.raw.cincofantasmas, R.raw.seissombreros, R.raw.seissoles, R.raw.sietesillas, R.raw.sietesandias,
+            R.raw.ocoestrellas, R.raw.ocoojos, R.raw.nuevenarajas, R.raw.nuevenubes, R.raw.felicidades2, R.raw.dugget, R.raw.riptide, R.raw.winner};
 
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
 
