@@ -40,7 +40,6 @@ public class Detalle extends AppCompatActivity {
     ImageView imagenview;
     int movil;
     Bitmap topo;
-    AdView mAdView3;
     MediaPlayer mediaplayer;
     int id;
     SharedPreferences sharedPref;
