@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 public class Niveles extends AppCompatActivity implements View.OnClickListener {
     private ViewPager viewpager;
@@ -48,7 +49,7 @@ public class Niveles extends AppCompatActivity implements View.OnClickListener {
         viewpager.setAdapter(adapter);
 
         sharedPref = getSharedPreferences("record", Context.MODE_PRIVATE);
-
+        MobileAds.initialize(this, "ca-app-pub-1984616735532779~3068362417");
 
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();

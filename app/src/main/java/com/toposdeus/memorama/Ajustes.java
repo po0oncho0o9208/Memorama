@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -41,7 +42,7 @@ import java.io.IOException;
 public class Ajustes extends AppCompatActivity implements View.OnClickListener {
 
     CheckBox sonido, vibrar;
-    Button btnatras, reestablecer, botoncomparte, botoncalifica;
+    Button btnatras, reestablecer, botoncomparte, botoncalifica, botoncreditos;
     SharedPreferences sharedPref;
     TextView txtest;
     static MediaPlayer mediaPlayer, click;
@@ -55,7 +56,7 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.opciones);
-
+        MobileAds.initialize(this, "ca-app-pub-1984616735532779~3068362417");
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
@@ -65,6 +66,8 @@ public class Ajustes extends AppCompatActivity implements View.OnClickListener {
         reestablecer = findViewById(R.id.botonreestablecer);
         reestablecer.setOnClickListener(this);
         txtest = findViewById(R.id.txtestrella);
+        botoncreditos = findViewById(R.id.botoncreditos);
+        botoncreditos.setOnClickListener(this);
         botoncomparte = findViewById(R.id.botoncomparte);
         botoncomparte.setOnClickListener(this);
         botoncalifica = findViewById(R.id.botoncalifica);

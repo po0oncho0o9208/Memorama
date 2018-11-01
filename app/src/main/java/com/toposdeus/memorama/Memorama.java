@@ -32,6 +32,7 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
     int[][][] matriz =
@@ -143,6 +144,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        MobileAds.initialize(this, "ca-app-pub-1984616735532779~3068362417");
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);

@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 public class Nivel extends AppCompatActivity implements View.OnClickListener {
     private ViewPager viewpager;
@@ -54,6 +55,7 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
         editor.putInt("califica", califica);
         editor.commit();
 
+        MobileAds.initialize(this, "ca-app-pub-1984616735532779~3068362417");
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
