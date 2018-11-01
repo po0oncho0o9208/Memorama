@@ -44,7 +44,7 @@ public class Detalle extends AppCompatActivity {
     MediaPlayer mediaplayer;
     int id;
     SharedPreferences sharedPref;
-
+    private AdView mAdView;
     int[] sonidos = {R.raw.uno, R.raw.dos, R.raw.tres, R.raw.cuatro, R.raw.cinco, R.raw.seis, R.raw.siete,
             R.raw.oco, R.raw.nueve1, R.raw.one, R.raw.two, R.raw.tree, R.raw.four, R.raw.five, R.raw.six,
             R.raw.seven, R.raw.eigt, R.raw.nine, R.raw.unauva, R.raw.unoso, R.raw.dosdulces, R.raw.dostazas, R.raw.trestambores, R.raw.trestacos,
@@ -60,6 +60,9 @@ public class Detalle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle);
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         int contador = 0;
         Button back = findViewById(R.id.atras);
         back.setOnClickListener(new View.OnClickListener() {

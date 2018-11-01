@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class Principal extends AppCompatActivity {
+public class Principal extends AppCompatActivity implements View.OnClickListener {
 
 
     ImageView play, ajustes, trofeos;
@@ -28,42 +28,16 @@ public class Principal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-
-
         play = findViewById(R.id.btnplay);
+        play.setOnClickListener(this);
         ajustes = findViewById(R.id.btnajustes);
+        ajustes.setOnClickListener(this);
         trofeos = findViewById(R.id.btntrofeos);
+        trofeos.setOnClickListener(this);
         layout = findViewById(R.id.layoutprincipal);
         progresbar = findViewById(R.id.pgbr);
 
 
-    }
-
-    public void play(View view) {
-        Ajustes.sonidoplay(this, click, R.raw.click);
-        Ajustes.vibrar(this, 50);
-        Intent intent1 = new Intent(this, Niveles.class);
-        startActivity(intent1);
-        // Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://rh.imss.gob.mx/tarjetondigital/"));
-        // startActivity(intent1);
-    }
-
-    public void ajustes(View view) {
-        Ajustes.sonidoplay(this, click, R.raw.click);
-        Ajustes.vibrar(this, 50);
-        Intent intent12 = new Intent(this, Ajustes.class);
-        startActivity(intent12);
-        // Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://rh.imss.gob.mx/tarjetondigital/"));
-        // startActivity(intent1);
-    }
-
-    public void trofeos(View view) {
-        Ajustes.sonidoplay(this, click, R.raw.click);
-        Ajustes.vibrar(this, 50);
-        Intent intent13 = new Intent(this, MainActivity.class);
-        startActivity(intent13);
-        // Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://rh.imss.gob.mx/tarjetondigital/"));
-        // startActivity(intent1);
     }
 
 
@@ -132,4 +106,24 @@ public class Principal extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        Intent intent = null;
+        Ajustes.sonidoplay(Principal.this, click, R.raw.click);
+        Ajustes.vibrar(this, 50);
+        switch (v.getId()) {
+            case R.id.btnajustes:
+                intent = new Intent(this, Ajustes.class);
+                break;
+            case R.id.btnplay:
+                intent = new Intent(this, Niveles.class);
+                break;
+            case R.id.btntrofeos:
+                intent = new Intent(this, MainActivity.class);
+                break;
+        }
+        startActivity(intent);
+
+
+    }
 }
