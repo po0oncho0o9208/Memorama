@@ -148,7 +148,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
         mAdView.loadAd(adRequest);
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId("ca-app-pub-1984616735532779/6185480348");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         txtpunt = findViewById(R.id.txtpunt);

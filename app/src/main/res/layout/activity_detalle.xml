@@ -40,6 +40,6 @@
         android:layout_gravity="end"
         android:gravity="end"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+        ads:adUnitId="ca-app-pub-1984616735532779/4928238995" />
 
 </RelativeLayout>
