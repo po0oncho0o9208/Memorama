@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "361281114559",
+    "firebase_url": "https://memoria-numerica.firebaseio.com",
+    "project_id": "memoria-numerica",
+    "storage_bucket": "memoria-numerica.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361281114559:android:549d2c42e8afd364",
+        "android_client_info": {
+          "package_name": "com.toposdeus.memorama"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361281114559-17k4fp5dnubnnp7ci675nem1v2m1bd93.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBss5en3Blm9z79N3gvI4BQ_M2euB6gIA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
