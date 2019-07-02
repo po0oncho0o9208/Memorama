@@ -53,7 +53,7 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
 
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt("califica", califica);
-        editor.commit();
+        editor.apply();
 
         MobileAds.initialize(this, "ca-app-pub-1984616735532779~3068362417");
         mAdView = findViewById(R.id.adView);
@@ -95,6 +95,7 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
                         view.setTranslationX(horzMargin - vertMargin / 2);
                     } else {
                         view.setTranslationX(-horzMargin + vertMargin / 2);
+
                     }
 
                     // Scale the page down (between MIN_SCALE and 1)
@@ -125,6 +126,7 @@ public class Nivel extends AppCompatActivity implements View.OnClickListener {
         finish();
 
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

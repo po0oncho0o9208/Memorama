@@ -27,12 +27,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageView;
 
 public class Memorama extends AppCompatActivity implements View.OnClickListener {
     int[][][] matriz =
@@ -112,6 +114,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
 
 
     int restadorintentos;
+    GifImageView fuegos;
     int mlargo, mancho;
     boolean tiempo = false;
     LinearLayout layout;
@@ -139,6 +142,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fuegos = findViewById(R.id.fuegos);
 
         setContentView(R.layout.activity_memorama);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -352,6 +356,9 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                 carta2 = botonesimg[finalJ + (finalI * mancho)];
                                 intentos++;
                                 if (carta1 == carta2) {
+                                    fuegos = findViewById(R.id.fuegos);
+                                    fuegos.setVisibility(View.VISIBLE);
+
                                     contestados[btnTag.getId()] = true;
                                     contestados[botontemp.getId()] = true;
                                     for (int i = 0; i < botones.length; i++) {
@@ -366,6 +373,7 @@ public class Memorama extends AppCompatActivity implements View.OnClickListener 
                                     carta2 = 0;
                                     //verificamos si se descubrieron todos los pares
                                     if (ganador == botones.length / 2) {
+
                                         dialogo(true);
                                     }
 
